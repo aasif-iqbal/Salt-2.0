@@ -335,7 +335,7 @@
 
 public function getSingleCustomerInfo($user_uuid)
 {
-    $query = "SELECT * FROM tbl_registration WHERE user_uuid='$user_uuid'";
+    $query = "SELECT user_id,user_uuid,user_name,email,phone_no,receivers_phone_no, addr_house_no,addr_locality,addr_city,addr_pin_code,addr_state,addr_country,addr_type FROM tbl_registration WHERE user_uuid='$user_uuid'";
 
     $q = $this->db->query($query);        
 
@@ -693,7 +693,7 @@ public function decrementItemFromCart($item_local_id=NULL, $productUUID, $userUU
 
 public function fetch_cart_items_by_user($user_uuid)
 {
-    $query = "Select * FROM tbl_cart WHERE user_uuid='{$user_uuid}'";
+    $query = "SELECT cart_id,user_uuid,product_uuid,variation_uuid,localstorage_id,product_name,product_image,product_size_id,product_size_name,product_color_id,product_color_name,product_mrp,product_selling_price,product_discount,total_quantity_inStock,item_count,created_at,updated_at,status FROM tbl_cart WHERE user_uuid='{$user_uuid}'";
 
     $q = $this->db->query($query);        
 

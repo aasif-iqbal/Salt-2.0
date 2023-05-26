@@ -173,13 +173,9 @@
                             </td>
                         </tr>
                             <?php //endforeach;} ?>
-                        <?php endforeach; ?>
-                        
-                         
+                        <?php endforeach; ?>             
                         </tbody>
                     </table>
-
-
                 </div>
             </div>
         </div>

@@ -108,7 +108,7 @@
         <div class='col-md-4'>
                 <div class="card" style="">
                     <div class="card-body">
-                        <h5 class="card-title text-dark">Total</h5>              
+                        <h5 class="card-title text-dark">Order Summery</h5>              
                         <hr>          
                         <?php 
                         $userLoginData = $this->session->userdata('userLoginData'); 
@@ -152,7 +152,7 @@
                         </p>
                         
                         <!-- if user login, Then redirect to payment pg -->
-                            <!-- <a href="</?= base_url('shipping');?>" class="btn btn-dark">Continue To Checkout</a> -->
+                            <a href="<?= base_url('shipping');?>" class="btn btn-dark">Continue To Checkout</a>
                             <a href="<?= base_url('/');?>" class="btn btn-dark float-right">Continue To Payment</a>
                         <?php } else { ?>                                                
                         <!-- if user Not login, Then redirect to login pg -->
@@ -160,10 +160,7 @@
                         <?php  } ?>
                     </div><!-- end card body -->
                 </div><!--end card-->
-            </div><!--end-col-md-4-->
-            
-
-               
+            </div><!--end-col-md-4-->                  
 
         </div><!-- end row-->
 

@@ -6,34 +6,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FifthObject</title>
 </head>
-<body>
-    <!-- <h4>Shipping details</h4> -->
-
+<body>    
     <?php 
     // $userLoginData = $this->session->userdata('userLoginData');
     // var_dump($customerInfo[0]);
     ?>
     <?php  
     // echo("<pre>");
-    // print_r(($customerCartItems)); 
+    // print_r(($customerCartItems));
+    //error
+    // https://o515678.ingest.sentry.io/api/4503925471707136/envelope/?sentry_key=faa87b9121f2449cb849f27e4d737f35&sentry_version=7 429
     ?>
 
-    <div class="container">
-        <div class="row mt-4">
-            <div class="col-8">                
-                <div class="card mb-4" style="">
-                    <div class="card-body">    
-                        <input type='hidden' value='<?= $customerInfo[0]->user_uuid;?>' id='user_uuid' />                       
-                        <p class='h4' id='username' value='<?= $customerInfo[0]->user_name ?>'>Hi, <?= $customerInfo[0]->user_name ?></p>                     
-                        <h6 class="card-subtitle mb-2 text-muted">Address</h6>
-                        <p class="card-text">
-                        <?= $customerInfo[0]->addr_house_no;?> ,
-                        <?= $customerInfo[0]->addr_locality;?> ,
-                        <?= $customerInfo[0]->addr_city;?> ,
-                        <?= $customerInfo[0]->addr_pin_code;?>,
-                        <?= $customerInfo[0]->addr_state;?>,
-                        <?= $customerInfo[0]->addr_country;?>                        
-                            <br>
+<div class="container">
+    <div class="h1 mt-3 mb-3 text-dark" style='text-align: center;'>
+            Shopping - Bag
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-8 col-sm-12">                
+            <div class="card mb-4" style="">
+                <div class="card-body"> 
+                    <!-- HIDDEN INPUTS STARTS-->
+                    <input type='hidden' value='<?= $customerInfo[0]->user_uuid;?>' id='user_uuid' />                                           
+                    <!-- END HIDDEN INPUTS  -->
+                    <p class='h4' id='username' value='<?= $customerInfo[0]->user_name ?>'>Hi, <?= $customerInfo[0]->user_name ?></p>  
+                    <p>Your Order Will be Delivered Here,</p>                   
+                    <div class="h5 card-subtitle mb-2 text-muted">Address</div>
+                    <p class="card-text">
+                    <?= $customerInfo[0]->addr_house_no;?> ,
+                    <?= $customerInfo[0]->addr_locality;?> ,
+                    <?= $customerInfo[0]->addr_city;?> ,
+                    <?= $customerInfo[0]->addr_pin_code;?>,
+                    <?= $customerInfo[0]->addr_state;?>,
+                    <?= $customerInfo[0]->addr_country;?>                        
+                    <br>
                         Address type: <?= ($customerInfo[0]->addr_type=='1')?'Home':'Work';?>
                             <br>
                             <p class="">Phone on: +91-<?= $customerInfo[0]->receivers_phone_no;?><br>
@@ -42,32 +48,44 @@
                         <a href="<?= base_url('edit-addr') ?>" class="card-link link-dark float-right">Edit</a>                        
                     </div>
                 </div>
+                
                 <div class="card mb-3">
-                <div class="card-body">
-                    <p>Your Product will delivered on 5-7 days.</p>
+                    <div class="card-body">
+                        <p>Your Product will delivered on 5-7 days.</p>
+                    </div>
                 </div>
-            </div>
+
+            <!-- PRODUCT CARD -->
                 <div class="row">
                     <?php 
                     $total = 0;
                     $total_quantity_inCart = 0;
                     $product_arr = [];
+                    // echo("<pre/>");
+                    // var_dump($customerCartItems);
+
                     if(isset($customerCartItems)){
+                        
                     foreach($customerCartItems as $cartItem):
                         $product_arr = $cartItem->product_name;
                         // print_r($product_arr);
                     ?>                    
-                        <div class="col-6">                             
-                            <div class="card mb-3" style="max-width: 540px;">
+                        <div class="col-md-6">                             
+                            <div class="card h-100">
                                 <div class="row g-0">
                                     <div class="col-md-4">
-                                    <img src="<?= base_url('uploads/'.$cartItem->product_image); ?>" class="rounded-start" alt="" height='200' width='150'>
+                                    <img src="<?= base_url('uploads/'.$cartItem->product_image); ?>" class="img-fluid">
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body">
-                                            <h5 class="card-title" id='product_name'><?= $cartItem->product_name; ?></h5>
-                                            <p class="card-text"><?= ($cartItem->product_selling_price * $cartItem->item_count); ?></p>
-                                            <p class="card-text" id='product_quantity'><small class="text-muted">item quantity: <?= $cartItem->item_count; ?></small></p>
+                                            <h5 class="card-title" id='product_name'>
+                                                <?= $cartItem->product_name; ?></h5>
+                                            <p class="card-text">
+                                                Price:<?= ($cartItem->product_selling_price * $cartItem->item_count); ?></p>
+                                            <p class="card-text" id='product_quantity'>
+                                                <small class="text-muted">Item quantity: <?= $cartItem->item_count; ?>|
+                                                Color:<?= $cartItem->product_color_name; ?> | Size:<?= $cartItem->product_size_name; ?>
+                                            </small></p>
                                         </div>
                                     </div>
                                 </div>
@@ -84,11 +102,12 @@
             <div class="col-4" style="margin-top:30%;">
                 <div class="card" style="">
                         <div class="card-body">
-                            <h5 class="card-title">Total</h5>
+                            <h5 class="card-title">Order Summery</h5>
                             <!-- <p class="card-text">Rs. 899</p> -->
-                            <p class="card-text">-----------</p>
-                            <p class="card-text" id='total_amount'>Total:Rs. <?= $total; ?></p>
-                            
+                            <hr>
+                            <p class="card-text" id='' 
+                            value="<?= ($total); ?>">Total:Rs. <?= $total; ?></p>
+                            <input type="hidden" name="" id='total_amount' value='<?= ($total); ?>'>
                             <button class='btn btn-dark mt-1' id="rzp-button1" value="pay" onclick="pay_now_online()">Online Payment</button>
                             <!-- captcha code for cod -->
 
@@ -109,38 +128,46 @@
     <!-- sample upi and card name -->
     <!-- https://razorpay.com/docs/payments/payment-gateway/web-integration/hosted/test-integration -->
     <script>
-        var show_captcha = document.getElementById('show_captcha');
+    var show_captcha = document.getElementById('show_captcha');
 
-        function changeCaptcha(length) {
-    let result = '';
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    const charactersLength = characters.length;
-    let counter = 0;
-    while (counter < length) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-      counter += 1;
-    }
-    
+    function changeCaptcha(length) {
+        let result = '';
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        const charactersLength = characters.length;
+        let counter = 0;
+        while (counter < length) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        counter += 1;
+        }    
     show_captcha.innerHTML = result;
     // return result;
-}
+    }
 
- 
     </script>
+    <!-- 
+        JSon sample
+    projectInfo_Json = [{"user_uuid":"988f64b4-bc4a-11ed-bb06-98460a99789a","product_uuid":"2a76760a-fa1d-11ed-990c-98460a99789a","product_name":"Red T shirt White line","product_image":"edit-646dee4959f84.jpeg","item_count":"1","product_size_name":"M","product_color_name":"Purple","product_selling_price":"2275"},{"user_uuid":"988f64b4-bc4a-11ed-bb06-98460a99789a","product_uuid":"b012fa34-ee30-11ed-9ffa-98460a99789a","product_name":"Regular Fit Rib-knit resort shirt","product_image":"w1.jpeg","item_count":"1","product_size_name":"L","product_color_name":"Blue","product_selling_price":"2849"}]
+    -->
         <script>
-            var project_info = `<?= json_encode($customerCartItems_Json) ?>`;
-            projectInfo_Json = JSON.parse(project_info);
-            // console.log(typeof(projectInfo_Json));
-            projectInfo_Json = (JSON.stringify(projectInfo_Json));
+            var projectInfoJSON = `<?= json_encode($customerCartItems_Json) ?>`;
+            var customerCartItemsJSON = `<?= json_encode($customerCartItems); ?>`;
+            // projectInfo_Json = JSON.parse(project_info);
+            // // console.log(typeof(projectInfo_Json));
+            // projectInfo_Json = (JSON.stringify(projectInfo_Json));            
             
-            // var customerCartItems = `</?= $customerCartItems; ?>`;
-            // console.log(customerCartItems);
+
+            // console.log('==============');
+            console.log('customerCartItems', customerCartItemsJSON);
 
             var product_name = document.getElementById('product_name');
             let product_quantity = document.getElementById('product_quantity');
             let total_amount = document.getElementById('total_amount');
             let user_uuid = document.getElementById('user_uuid');
+            total_amount = Number(total_amount.value) * 100;
+            
+            // console.log('total_amount', (total_amount));
 
+            //total_amount = number(total_amount) * 100
             // For new api-key
             //https://dashboard.razorpay.com/app/website-app-settings/api-keys
             // function pay_now_online(){
@@ -150,8 +177,8 @@
             function pay_now_online(){
                 //updating pending payment when payment is completed..
                 var options = {
-                     "key": "rzp_test_p6TTjiqWqUW7c7", 
-                    "amount": 2*100,  // 100ps ie 1Rs
+                    "key": "rzp_test_p6TTjiqWqUW7c7", 
+                    "amount": total_amount,  // 100ps ie 1Rs
                     "currency": "INR",
                     "name": "Fifth Object",
                     "description": "Company description",
@@ -195,35 +222,33 @@
 //     e.preventDefault();
 //   }
 
-            }
+    }
 
-            function pay_now_cod(){
-                var product_name = document.getElementById('product_name');
-                let product_quantity = document.getElementById('product_quantity');
-                let total_amount = document.getElementById('total_amount');
-                let user_uuid = document.getElementById('user_uuid');
-                 
-                // console.log(username.value);
-                // console.log(user_uuid.value);
-                // window.location.href = "</?= base_url('thanks');?>";
-               $.ajax({
-                    url:'<?= base_url('eStore/EStore_Controller/cashOnDelivery_ajax'); ?>',
-                    method:'POST',
-                    data:{
-                        'productInfo_json':projectInfo_Json,
-                        'user_uuid':user_uuid.value
-                    },
-                    success:function(data){
-                        console.log('productInfo_json:',data);
-                        //window.location.href = "<?= base_url('thanks');?>";
+//=======================  * PAYMENT MODE - CASH ON DELIVERY *  ==========================
+    function pay_now_cod(){         
+        let user_uuid = document.getElementById('user_uuid');
 
+        let customer_order_item_list = {
+            customer_user_uuid : user_uuid.value,
+            customer_cart_items_json : customerCartItemsJSON,
+            product_info_json : projectInfoJSON
+        };    
+        // console.log('customer_order_item_list----',customer_order_item_list);
+        $.ajax({
+            url:'<?= base_url('eStore/EStore_Controller/cashOnDelivery_ajax'); ?>',
+            method: 'POST',
+            data: customer_order_item_list,
+                success:function(data){
+                        console.log('data-:', data);
+                        //Redirect to thanks - page
+                        //window.location.href = "</?= base_url('thanks');?>";
                     },
-                    error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                error: function(XMLHttpRequest, textStatus, errorThrown) { 
                         console.log(XMLHttpRequest);
                         console.log(errorThrown);
                 }
-                })
-            }
-        </script>
+            });            
+        }
+</script>
 </body>
 </html>

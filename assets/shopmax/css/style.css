@@ -264,6 +264,8 @@ a {
           transform: translateY(-50%);
           font-family: 'icomoon'; }
       .site-navbar .site-navigation .site-menu .has-children .dropdown {
+        display:flex;
+        flex-direction: column;
         visibility: hidden;
         opacity: 0;
         top: 100%;

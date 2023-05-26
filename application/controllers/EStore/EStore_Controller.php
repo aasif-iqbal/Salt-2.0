@@ -460,15 +460,15 @@ public function add_to_cart_ajax()
 /*------------------------ checkout-page(Shipping_details) -------------------- */
 public function shippingDetails(){
 	
+	//nav cat- like Men, Women ...
 	$data['nav_categories'] = $this->EStore_model->fetch_categories_for_parent();
+
 	$userLoginData = $this->session->userdata('userLoginData'); 
-	// print_r($userLoginData);
-	// if(isset($userLoginData)){
-		
-	// }
 
-	$user_uuid = $userLoginData['user_uuid'] ? $userLoginData['user_uuid']:'NULL';
 
+	$user_uuid = $userLoginData['user_uuid'] ? $userLoginData['user_uuid']: 'NULL--Login First';
+
+	// customerInfo- name,phone,address for orders_table
 	$data['customerInfo'] = $this->EStore_model->getSingleCustomerInfo($user_uuid);
 	
 	$data['customerCartItems'] = $this->EStore_model->fetch_cart_items_by_user($user_uuid);
@@ -530,18 +530,71 @@ private function generateRandomNumber(){
 	return mt_rand(100000,999999);
 }
 
+// ============== CASH ON DELIVERY AJAX CALL ========================
 public function cashOnDelivery_ajax()
 {
-	$data['productInfo_json'] = $this->input->post('productInfo_json');	
+	$data['user_uuid'] = $this->input->post('customer_user_uuid');
+	$data['productInfoJson'] = $this->input->post('productInfo_json');	
+	$data['customerCartItemsJson'] = $this->input->post('customer_cart_items_json');
+
+	// $cart_items_selectedByUser = json_decode($data['productInfo_json'], true);
 	
-	$cart_items_selectedByUser = json_decode($data['productInfo_json'], true);
+	$customerCartItemsJson = json_decode($data['customerCartItemsJson'], true);
 	
+//	echo json_decode($customerCartItemsJson);
+
+	foreach($customerCartItemsJson as $orderItems){
+		$order_data['user_uuid'] = $orderItems['user_uuid'];
+		$order_data['product_uuid'] = $orderItems['product_uuid'];
+		$order_data['variation_uuid'] = $orderItems['variation_uuid'] ? $orderItems['variation_uuid'] : NULL;
+		$order_data['product_name']      	 = $orderItems['product_name'];
+		$order_data['product_image'] 		 = $orderItems['product_image'];
+		$order_data['product_size_id'] 		 = $orderItems['product_size_id'];
+		$order_data['product_size_name']     = $orderItems['product_size_name'];
+		$order_data['product_color_id'] 	 = $orderItems['product_color_id'];
+		$order_data['product_color_name']    = $orderItems['product_color_name'];
+		$order_data['product_mrp'] 			 = $orderItems['product_mrp'];
+		$order_data['product_selling_price'] = $orderItems['product_selling_price'];
+		$order_data['product_discount'] = $orderItems['product_discount'];
+		$order_data['article_no'] = isset($orderItems['article_no'])?$orderItems['article_no']:NULL;
+		$order_data['product_quantity'] = $orderItems['item_count'];
+		
+		$order_data['user_name'] = $orderItems['user_name'];
+		$order_data['user_email'] = $orderItems['user_email'];
+		$order_data['phone_no'] = $orderItems['phone_no'];
+		$order_data['receivers_phone_no'] = $orderItems['receivers_phone_no'];
+		$order_data['addr_house_no'] = $orderItems['addr_house_no'];
+		$order_data['addr_locality'] = $orderItems['addr_locality'];
+		$order_data['addr_city'] = $orderItems['addr_city'];
+		$order_data['addr_pin_code'] = $orderItems['addr_pin_code'];
+		$order_data['addr_state'] = $orderItems['addr_state'];
+		$order_data['addr_country'] = $orderItems['addr_country'];
+		$order_data['addr_type'] = $orderItems['addr_type'];
+		$order_data['total_product_quantity'] = $orderItems['total_product_quantity'];
+
+		$order_data['total_amount'] = $orderItems['total_amount'];
+		$order_data['transaction_id'] = $orderItems['transaction_id'];
+		$order_data['transaction_status'] = $orderItems['transaction_status'];
+		$order_data['conformation_code'] = $orderItems['conformation_code'];
+		$order_data['payment_method'] = $orderItems['payment_method'];
+		$order_data['productInfo_json'] = $orderItems['productInfo_json'];
+		$order_data['transaction_datetime'] = $orderItems['transaction_datetime'];
+		$order_data['createdAt'] = $orderItems['createdAt'];
+		$order_data['transaction_datetime'] = $orderItems['transaction_datetime'];		
+		$order_data['transaction_id'] = $orderItems['transaction_id'];
+
+		$order_data['order_return_status'] = $orderItems['order_return_status'];
+		
+		$value = $order_data;	
+	}
+	
+	/*
 	foreach ($cart_items_selectedByUser as $item) {
 		$data['user_uuid'] = $this->input->post('user_uuid');
 		$data['transaction_datetime'] = date('Y-m-d H:i:s');
 		$data['transaction_status'] = '1';
 		$data['conformation_code'] = $this->generateRandomNumber();
-		//Inserting into table orders
+		//Inserting into table orders - tbl_orders
 		$status =  $this->EStore_model->saveCashOnDelivery($data);
 	}
 	
@@ -568,6 +621,11 @@ public function cashOnDelivery_ajax()
 			$shipping_data['conformation_code'] = $data['conformation_code'];
 			
 			$status2 = $this->EStore_model->saveShippingInfoByUser($shipping_data);		
+		
+		After, Order details is send to table - tbl_orders 
+		We have to delete cart items, which is after saving it to tbl_order.		
+		
+		// $cart_items_delete_status = $this->EStore_model->deleteOrderedCartItems($user_uuid,$product_uuid,$variation_uuid);		
 
 		// Mapping all shipping-product with user_uuid
 		$json_string = $order_info[0]->productInfo_json;
@@ -584,13 +642,16 @@ public function cashOnDelivery_ajax()
 			$mapping_data['delivery_confirm_code'] = $shipping_data['conformation_code'];
 			
 			$this->EStore_model->saveMappingData($mapping_data);
+			
 		}
+		
 		// die();
-	}else{
+	 }else{
 		echo json_encode("Not set");	
 	}
+	*/
 	//if $status && $status2 is true
-	echo json_encode($status);
+	echo json_encode($value);
 }
 
 public function onlinePayment_ajax()
