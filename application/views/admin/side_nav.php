@@ -120,15 +120,14 @@
                         <!-- <a class="collapse-item" href="">Product Stocks</a> -->
                     </div>
                 </div>
-            </li>
-
+            </li>            
             <!-- Shipping -->
-            <!-- <li class="nav-item">
-                <a class="nav-link" href="</?= base_url('show-shipping'); ?>">
+            <li class="nav-item">
+                <a class="nav-link" href="<?= base_url('show-shipping'); ?>">
                 <i class="fas fa-regular fa-truck"></i>
-                    <span>Shipping</span>
+                    <span>Shipping Order</span>
                 </a>
-            </li> -->
+            </li>
 
           
 

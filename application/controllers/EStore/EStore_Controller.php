@@ -428,7 +428,7 @@ public function add_to_cart_ajax()
 		case - if user is Not-Login then we have to use localStorage_id and product_uuid		
 		*/
 
-		// $item_local_id 	  = $this->input->post('item_local_id');
+		// $item_local_id = $this->input->post('item_local_id');
 		$productUUID 	  = $this->input->post('productUUID');
 		$userUUID 	  	  = $this->input->post('userUUID');
 		$variationUUID 	  = $this->input->post('variationUUID');
@@ -497,13 +497,9 @@ public function editCustomerAddress(){
 
 public function submitEditedAddress(){
 
-		$userLoginData = $this->session->userdata('userLoginData'); 
-	 
-	
+		$userLoginData = $this->session->userdata('userLoginData'); 	 	
 		// $data['user_name'] = $this->input->post('user_name');		 
-		// $data['phone_no'] = $this->input->post('phone_no');
-		 
-		
+		// $data['phone_no'] = $this->input->post('phone_no');		 		
 		$data['receivers_phone_no'] = $this->input->post('receivers_phone_no');
 		$data['addr_house_no'] 		= $this->input->post('addr_house_no');
 		$data['addr_locality'] 		= $this->input->post('addr_locality');
@@ -534,14 +530,24 @@ private function generateRandomNumber(){
 public function cashOnDelivery_ajax()
 {
 	$data['user_uuid'] = $this->input->post('customer_user_uuid');
-	$data['productInfoJson'] = $this->input->post('productInfo_json');	
+	$data['productInfoJson'] = $this->input->post('product_info_json');	
 	$data['customerCartItemsJson'] = $this->input->post('customer_cart_items_json');
-
+	$data['total_quantity_inCart'] = $this->input->post('total_quantity_inCart');	
+	$data['total_amount_to_pay'] = $this->input->post('total_amount_to_pay');
+	
 	// $cart_items_selectedByUser = json_decode($data['productInfo_json'], true);
 	
 	$customerCartItemsJson = json_decode($data['customerCartItemsJson'], true);
+	$productInfoJson = json_decode($data['productInfoJson'], true);
 	
-//	echo json_decode($customerCartItemsJson);
+// var_dump($productInfoJson);die();
+	//  get all info of customer from tbl-registration	
+	// buyer_details- name,phone,address for orders_table
+	$customer_details = $this->EStore_model->getSingleCustomerInfo($data['user_uuid']);
+	
+	date_default_timezone_set('Asia/Kolkata'); // Set the timezone to India/New Delhi
+	$currentDateTime = date('Y-m-d H:i:sa');
+	
 
 	foreach($customerCartItemsJson as $orderItems){
 		$order_data['user_uuid'] = $orderItems['user_uuid'];
@@ -555,37 +561,51 @@ public function cashOnDelivery_ajax()
 		$order_data['product_color_name']    = $orderItems['product_color_name'];
 		$order_data['product_mrp'] 			 = $orderItems['product_mrp'];
 		$order_data['product_selling_price'] = $orderItems['product_selling_price'];
-		$order_data['product_discount'] = $orderItems['product_discount'];
-		$order_data['article_no'] = isset($orderItems['article_no'])?$orderItems['article_no']:NULL;
+		$order_data['product_discount'] = $orderItems['product_discount'];		 
 		$order_data['product_quantity'] = $orderItems['item_count'];
-		
-		$order_data['user_name'] = $orderItems['user_name'];
-		$order_data['user_email'] = $orderItems['user_email'];
-		$order_data['phone_no'] = $orderItems['phone_no'];
-		$order_data['receivers_phone_no'] = $orderItems['receivers_phone_no'];
-		$order_data['addr_house_no'] = $orderItems['addr_house_no'];
-		$order_data['addr_locality'] = $orderItems['addr_locality'];
-		$order_data['addr_city'] = $orderItems['addr_city'];
-		$order_data['addr_pin_code'] = $orderItems['addr_pin_code'];
-		$order_data['addr_state'] = $orderItems['addr_state'];
-		$order_data['addr_country'] = $orderItems['addr_country'];
-		$order_data['addr_type'] = $orderItems['addr_type'];
-		$order_data['total_product_quantity'] = $orderItems['total_product_quantity'];
 
-		$order_data['total_amount'] = $orderItems['total_amount'];
-		$order_data['transaction_id'] = $orderItems['transaction_id'];
-		$order_data['transaction_status'] = $orderItems['transaction_status'];
-		$order_data['conformation_code'] = $orderItems['conformation_code'];
-		$order_data['payment_method'] = $orderItems['payment_method'];
-		$order_data['productInfo_json'] = $orderItems['productInfo_json'];
-		$order_data['transaction_datetime'] = $orderItems['transaction_datetime'];
-		$order_data['createdAt'] = $orderItems['createdAt'];
-		$order_data['transaction_datetime'] = $orderItems['transaction_datetime'];		
-		$order_data['transaction_id'] = $orderItems['transaction_id'];
+		//----------- Customer details who buys product - start ------------------
+		$order_data['user_name'] =  $customer_details[0]->user_name;
+		$order_data['user_email'] = $customer_details[0]->email;
+		$order_data['phone_no'] =   $customer_details[0]->phone_no;
+		$order_data['receivers_phone_no'] = $customer_details[0]->receivers_phone_no;
+		$order_data['addr_house_no'] = $customer_details[0]->addr_house_no;
+		$order_data['addr_locality'] = $customer_details[0]->addr_locality;
+		$order_data['addr_city'] = $customer_details[0]->addr_city;
+		$order_data['addr_pin_code'] = $customer_details[0]->addr_pin_code ? $customer_details[0]->addr_pin_code : NULL;
+		$order_data['addr_state'] = $customer_details[0]->addr_state;
+		$order_data['addr_country'] = $customer_details[0]->addr_country;
+		$order_data['addr_type'] = $customer_details[0]->addr_type;
+		//----------- Customer details who buys product - end -------------------
 
-		$order_data['order_return_status'] = $orderItems['order_return_status'];
+		// Comming from POST-method
+		$order_data['total_product_quantity'] = $data['total_quantity_inCart'];
+		$order_data['total_amount']   = $data['total_amount_to_pay'];
+		$order_data['productInfo_json'] = json_encode($productInfoJson);
+
+		//-------------- Customer Payment Information COD - Mode ----------------
+		$order_data['transaction_id'] = 'COD_offline'; //payment_id
+		$order_data['transaction_status'] = 1; // 1 => COD
+		$order_data['conformation_code'] = NULL;
+		$order_data['payment_method'] = 'COD';		
+		$order_data['transaction_datetime'] = $currentDateTime;
+		$order_data['createdAt'] = $currentDateTime;
+		$order_data['transaction_datetime'] = $currentDateTime;
+		$order_data['status'] = 1;
+		//-------------- Customer Payment Information COD - Mode -end --------------
 		
-		$value = $order_data;	
+		// if $order_data['order_return_status'] = 0,1,2,3
+		// 0 => Return without shipping COD
+		// 1 => Return without shipping Online Pay
+		// 2 => Return & Refund After shipping COD
+		// 3 => Return & Refund After shipping Online
+		// 4 => NO RETURN
+
+		// $order_data['updatedAt'] will update when product is return
+		$order_data['order_return_status'] = 4;
+		 		 
+		//Save it to order tbl
+		// $order_status = $this->EStore_model->saveOrderDetailsForCOD($order_data);		
 	}
 	
 	/*
@@ -641,8 +661,7 @@ public function cashOnDelivery_ajax()
 			$mapping_data['shipping_status'] = $shipping_data['shipping_status'];
 			$mapping_data['delivery_confirm_code'] = $shipping_data['conformation_code'];
 			
-			$this->EStore_model->saveMappingData($mapping_data);
-			
+			$this->EStore_model->saveMappingData($mapping_data);			
 		}
 		
 		// die();
@@ -651,7 +670,7 @@ public function cashOnDelivery_ajax()
 	}
 	*/
 	//if $status && $status2 is true
-	echo json_encode($value);
+	echo json_encode($order_status);
 }
 
 public function onlinePayment_ajax()

@@ -86,7 +86,7 @@
                 $total += $subtotal;
 
     
-                //  set session to maintain cart value
+    // set session to maintain cart value OR WE CAN DIRECT ACCESS $total_quantity_inCart
                 $total_quantity_inCart += $item->item_count;
                 
                 $cart_value = $this->session->set_userdata('cart_value', $total_quantity_inCart);

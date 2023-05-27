@@ -48,16 +48,16 @@
       <div class="container">
         <div class="row">
           <div class="title-section mb-5 col-12">
-            <h2 class="text-uppercase">Popular Products</h2>
+            <h2 class="text-uppercase">New Arrivals</h2>
           </div>
         </div>
         <div class="row">
           <div class="col-lg-4 col-md-6 item-entry mb-4">
             <a href="#" class="product-item md-height bg-gray d-block">
-              <img src="<?= base_url('assets/shopmax/images/prod_2.png'); ?>" alt="Image" class="img-fluid">
+              <img src="<?= base_url('assets/img/t2.png'); ?>" alt="Image" class="img-fluid">
             </a>
-            <h2 class="item-title"><a href="#">Gray Shoe</a></h2>
-            <strong class="item-price">Rs. 2000.00</strong>
+            <h2 class="item-title"><a href="#">LINEN CHECK REGULAR SHIRT</a></h2>
+            <strong class="item-price"><del>Rs. 2999</del> Rs. 2699</strong>
           </div>
           <div class="col-lg-4 col-md-6 item-entry mb-4">
             <a href="#" class="product-item md-height bg-gray d-block">
@@ -121,7 +121,7 @@
       <div class="container">
         <div class="row">
           <div class="title-section text-center mb-5 col-12">
-            <h2 class="text-uppercase">Most Rated</h2>
+            <h2 class="text-uppercase">Trending outfits by fifthobject</h2>
           </div>
         </div>
         <div class="row">

@@ -14,7 +14,7 @@
          data-aos="fade">         
       <div class="container">
         <div class="row">
-        <img class="img-fluid" src="<?= base_url('assets/shopmax/images/about_1.jpg'); ?>" alt="">
+        <img class="img-fluid" src="<?= base_url('assets/shopmax/images/8244752.jpg'); ?>" alt="">
         </div>
       </div>
     </div>

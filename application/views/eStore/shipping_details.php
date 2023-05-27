@@ -40,7 +40,7 @@
                     <?= $customerInfo[0]->addr_state;?>,
                     <?= $customerInfo[0]->addr_country;?>                        
                     <br>
-                        Address type: <?= ($customerInfo[0]->addr_type=='1')?'Home':'Work';?>
+                    Address type: <?= ($customerInfo[0]->addr_type=='1')?'Home':'Work';?>
                             <br>
                             <p class="">Phone on: +91-<?= $customerInfo[0]->receivers_phone_no;?><br>
                             <small class="text-muted">Phone no of a person who revieves parcel</small></p>
@@ -58,7 +58,7 @@
             <!-- PRODUCT CARD -->
                 <div class="row">
                     <?php 
-                    $total = 0;
+                    $total_amount_to_pay = 0;
                     $total_quantity_inCart = 0;
                     $product_arr = [];
                     // echo("<pre/>");
@@ -94,7 +94,8 @@
                         <? 
                         //total price in cart/bag
                         $subtotal = (($cartItem->item_count)*($cartItem->product_selling_price));
-                        $total += $subtotal;
+                        $total_amount_to_pay += $subtotal;
+                        $total_quantity_inCart += $cartItem->item_count;
                     endforeach; }?>                                                  
                 </div>
             </div>
@@ -106,16 +107,17 @@
                             <!-- <p class="card-text">Rs. 899</p> -->
                             <hr>
                             <p class="card-text" id='' 
-                            value="<?= ($total); ?>">Total:Rs. <?= $total; ?></p>
-                            <input type="hidden" name="" id='total_amount' value='<?= ($total); ?>'>
-                            <button class='btn btn-dark mt-1' id="rzp-button1" value="pay" onclick="pay_now_online()">Online Payment</button>
+                            value="<?= ($total_amount_to_pay); ?>">Total:Rs. <?= $total_amount_to_pay; ?></p>
+                            <input type="hidden" name="" id='total_amount' value='<?= ($total_amount_to_pay); ?>'>
+                            
+                            <button class='btn btn-dark mt-1' id="rzp-button1" value="pay" onclick="pay_now_online()" disabled>Online Payment</button>
                             <!-- captcha code for cod -->
 
                             <!-- <div id='show_captcha'><div>
                             <button onclick='changeCaptcha(7)'>change</button><br>
                             <input type='text' id='captcha_value' value='' name=''><br>
                             <button onclick='checkCaptcha()'>Submit</button>
- -->
+                            -->
 
                             <!-- end captcha code for cod -->
                             <button class='btn btn-dark mt-1 float-right' id='cod' onclick="pay_now_cod()">Cash on delivery</button>
@@ -150,12 +152,15 @@
     -->
         <script>
             var projectInfoJSON = `<?= json_encode($customerCartItems_Json) ?>`;
+            // customerCartItems is from admin_model
             var customerCartItemsJSON = `<?= json_encode($customerCartItems); ?>`;
+            var totalQuantityInCart = `<?= json_encode($total_quantity_inCart); ?>`;
+            var totalAmountToPay = `<?= json_encode($total_amount_to_pay); ?>`;
             // projectInfo_Json = JSON.parse(project_info);
             // // console.log(typeof(projectInfo_Json));
             // projectInfo_Json = (JSON.stringify(projectInfo_Json));            
             
-
+            console.log('total_quantity_inCart',totalQuantityInCart);
             // console.log('==============');
             console.log('customerCartItems', customerCartItemsJSON);
 
@@ -230,6 +235,8 @@
 
         let customer_order_item_list = {
             customer_user_uuid : user_uuid.value,
+            total_quantity_inCart : totalQuantityInCart,
+            total_amount_to_pay : totalAmountToPay,
             customer_cart_items_json : customerCartItemsJSON,
             product_info_json : projectInfoJSON
         };    

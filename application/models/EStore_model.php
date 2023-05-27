@@ -727,14 +727,14 @@ public function fetch_cart_items_by_user_json($user_uuid)
         }  
 }
 
-public function saveCashOnDelivery($data)
+public function saveOrderDetailsForCOD($order_data)
 {
 
         $this->db->set('order_uuid','UUID()', FALSE);
 
-        if($data){            
+        if($order_data){            
 
-            $this->db->insert('tbl_orders', $data);                            
+            $this->db->insert('tbl_orders', $order_data);                            
             return TRUE;
         }else{
             
