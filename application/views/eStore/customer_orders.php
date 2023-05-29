@@ -4,16 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>fifthobject</title>
 </head>
 <body>
     
     <?php 
     // echo("<pre/>");
-    if (!is_null($customer_orders_list) && isset($customer_orders_list[0])) {
+    if (!is_null($customer_orders_list) && isset($customer_orders_list)) {
       // Access the array element at the specified index
-      $value = $customer_orders_list[0];
-      print_r($value);
+      $value = $customer_orders_list;
+      // echo("<pre/>");
+      // print_r($value);
       // Rest of your code...
   } else {
       // Handle the case when the array is null or the index is invalid
@@ -31,24 +32,27 @@
 
     <div class="container">
     <h4>Your Orders</h4>
-    <?php 
-    if(isset($customer_orders_list)){
-        foreach($customer_orders_list as $list):    
+    <?php     
+        $total_orders = count($customer_orders_list);
+        for($i=0; $i<$total_orders; $i++){
     ?>
     <div class="card" style="">
   <div class="row g-0">
     <div class="col-md-3">
-      <img src="<?= base_url('uploads/').$list['product_main_image'];?>" class=" rounded-start" height='200' width='150'>
+      <img src="<?= base_url('uploads/').$customer_orders_list[$i]['product_image'];?>" class=" rounded-start" height='200' width='150'>
     </div>
     <div class="col-md-4">
       <div class="card-body">
-        <h5 class="card-title"><?= $list['product_name']; ?></h5>
-        <p class="card-text">SIZE :<?= $list['product_size_name']; ?></p>
-        <p class="card-text">COLOR :<?= $list['product_color_name']; ?></p>
-        <p class="card-text">Payment Mode :<? if($list['payment_mode'] == '1'){echo("COD");}else{echo("Online");} ?></p>
-        <a class="btn btn-outline-danger btn-small" id="cancel_order" href="<?= base_url('order-cancellation/'.$list['order_uuid']); ?>" role="button">Cancel Order</a>
+        <h5 class="card-title"><?= $customer_orders_list[$i]['product_name']; ?></h5>
+        <p class="card-text">SIZE :<?= $customer_orders_list[$i]['product_size_name']; ?></p>
+        <p class="card-text">COLOR :<?= $customer_orders_list[$i]['product_color_name']; ?></p>
+        <p class="card-text">Payment Mode :
+          <?= $customer_orders_list[$i]['payment_method']; ?>
+      </p>
+        <a class="btn btn-outline-danger btn-small" id="cancel_order" 
+        href="<?= base_url('order-cancellation/'.$customer_orders_list[$i]['order_uuid']); ?>" role="button">Cancel Order</a>
         <p>Show only when order is delivered</p>
-        <a class="btn btn-outline-danger btn-small" id="cancel_order" href="<?= base_url('order-return-refund/'.$list['order_uuid']); ?>" role="button">Return/Refund Order</a>
+        <a class="btn btn-outline-danger btn-small" id="cancel_order" href="<?= base_url('order-return-refund/'.$customer_orders_list[$i]['order_uuid']); ?>" role="button">Return/Refund Order</a>
         <p>After 15 days</p>
         <a class="btn btn-outline-danger btn-small" id="cancel_order" href="<?= base_url('/'); ?>" role="button">Buy Again</a>
         
@@ -56,16 +60,20 @@
     </div>
     <div class="col-md-5">
       <div class="card-body">
-        <h5 class="card-title">conformation code: #<?= $list['conformation_code']; ?></h5>
-        <p class="card-text">Shipping Id : #<?= $list['shipping_uuid']; ?></p>
-        <p class="card-text">Order Id : #<?= $list['order_uuid']; ?></p>
-        <p class="card-text">Order date :<?= $list['ordered_datetime']; ?></p>        
+        <h5 class="card-title">
+          <!-- conformation code: #</?= $customer_orders_list['conformation_code']; ?> -->
+        </h5>
+        <p class="card-text">
+          <!-- Shipping Id : #</?= $licustomer_orders_listst['shipping_uuid']; ?> -->
+        </p>
+        <p class="card-text">Order Id : #<?= $customer_orders_list[$i]['order_uuid']; ?></p>
+    <p class="card-text">Order date :<?= $customer_orders_list[$i]['createdAt']; ?></p>        
       </div>
     </div>
   </div>
   <p class="card-text"><small class="text-muted">Cancel this order under 15days</small></p>
 </div>
-<?php endforeach;} ?>
+<?php } ?>
     </div>
     <script>
 // Get current date and time

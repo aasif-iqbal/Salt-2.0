@@ -774,28 +774,22 @@ public function fetchOrderInfoByUser($user_uuid)
 
 public function fetch_order_list_for_Customer($user_uuid)
 {
-    $query = "SELECT mp.product_name,
-                     mp.article_no,
-                     mp.product_main_image,
-                    --  mp.product_size_name,
-                    --  mp.product_color_name,
-                    --  mp.product_quantity,
-                     mp.product_mrp,
-                     mp.product_selling_price,
-                     mp.discount_percentage,
-                     so.order_uuid,
-                     so.shipping_uuid,
-                     so.payment_mode,
-                     so.payment_status,
-                     so.conformation_code,
-                     so.ordered_datetime
-                FROM tbl_main_product As mp 
-                INNER JOIN tbl_shipping_orders AS so
-                ON mp.product_uuid = so.product_uuid
-                WHERE so.user_uuid = '$user_uuid'";
-
-    // $query = "Select * FROM tbl_shipping_orders 
-    //             WHERE user_uuid = '{$user_uuid}'";
+    $query = "SELECT order_id,
+                     order_uuid,
+                     product_uuid,
+                     createdAt, 
+                     product_name,
+                     product_image,
+                     product_size_name,
+                     product_color_name,
+                     product_selling_price,
+                     product_quantity,
+                     payment_method,
+                     order_shipping_status,
+                     order_return_status,
+                     order_received_datetime
+                FROM tbl_orders
+                WHERE user_uuid = '$user_uuid'";
 
     $q = $this->db->query($query);        
 

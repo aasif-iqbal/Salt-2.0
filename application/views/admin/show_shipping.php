@@ -91,7 +91,7 @@
         <td><?= $order_details[$i]['order_return_status']; ?></td>
         <td>
           <a class='btn btn-outline-danger btn-sm' data-toggle="tooltip" data-placement="top" title="Print Order Info."
-          href="<?= base_url('print-order/'.$order_details[$i]['order_uuid']); ?>"><i class="fa fa-print" aria-hidden="true"></i></a>  
+          href="<?= base_url('print-order/'.$order_details[$i]['order_uuid']); ?>"><i class="fa fa-print" aria-hidden="true"></i>Print</a>  
            
         </td>
       </tr>

@@ -33,7 +33,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">                            
                             <div class="h5 mb-0 pl-2 font-weight-bold text-gray-800">
-                            <a href="<?= base_url('orders');?>" class="text-danger stretched-link">Your Order
+                            <a href="<?= base_url('my-orders');?>" class="text-danger stretched-link">Your Order
                             </a></div>
                         </div>
                         <div class="col-auto pr-3">
