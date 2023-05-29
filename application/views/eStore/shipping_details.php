@@ -96,7 +96,7 @@
                         $subtotal = (($cartItem->item_count)*($cartItem->product_selling_price));
                         $total_amount_to_pay += $subtotal;
                         $total_quantity_inCart += $cartItem->item_count;
-                    endforeach; }?>                                                  
+                    endforeach; } ?>                                                  
                 </div>
             </div>
             

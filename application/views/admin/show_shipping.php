@@ -18,8 +18,21 @@
   //  print_r(($order_details)); 
     ?>
     <div class="container-fluid">
+    <div class='float-right mb-3'>
+
+        <!-- Check this libs in header file - "assets/data-table/js/export.js" -->        
+        <button type="button" class="btn btn-sm btn-outline-primary dataExport float-right" data-type="txt">Download text</button>         
+         <button type="button" class="btn btn-sm btn-outline-primary dataExport float-right mx-2" data-type="csv">Download csv</button>
+         <button type="button" class="btn btn-sm btn-outline-primary dataExport float-right" data-type="excel">Download xls</button>
+         <!-- For pdf dom converter [PRINT] -->            
+         <!-- Check application/libraries/dompdf ->pdf.php(for autoload) -->
+         <!-- @Admin_controller/fetchSingleProductOrderDetails -->
+
+
+      </div>
     <div class="table-responsive">
-    <table class="table  table-bordered table-striped"  id="example" style="width:100%">
+      
+    <table class="table  table-bordered table-striped"  id="dataTable" style="width:100%">
   <thead>
     <tr>
       <th scope="col">S.no</th>      
@@ -119,7 +132,7 @@
 </div>
 <script>
   $(document).ready(function () {
-    $('#example').DataTable();    
+    $('#dataTable').DataTable();    
   });
 
   $(function () {

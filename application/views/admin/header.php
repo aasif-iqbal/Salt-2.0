@@ -50,4 +50,10 @@
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap4.min.js"></script>
 
+    <!-- // data-table to convert csv,excel -->
+    <script src=<?= base_url("assets/data-table/tableExport/tableExport.js"); ?>></script>
+    <script src=<?= base_url("assets/data-table/tableExport/jquery.base64.js"); ?>></script>
+    <script src=<?= base_url("assets/data-table/js/export.js"); ?>></script>   
+       <!-- // end--data-table to convert csv,excel -->
+
 </head>

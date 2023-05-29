@@ -1404,6 +1404,8 @@ class Admin_Controller extends CI_Controller {
         border-collapse: collapse;';>Product Name</th>";
         $pdfTemp .= "<th style='border:1px solid black;
         border-collapse: collapse;';>MRP</th>";
+		$pdfTemp .= "<th style='border:1px solid black;
+        border-collapse: collapse;';>Address</th>";
         $pdfTemp .= "<th style='border:1px solid black;
         border-collapse: collapse;';>Invoice</th>";
         $pdfTemp .= "</tr>";
@@ -1422,6 +1424,11 @@ class Admin_Controller extends CI_Controller {
         $pdfTemp .= "<td style='border:1px solid black;
         border-collapse: collapse;'>";
         $pdfTemp  .= isset($data[0]['product_size_name']) ? $data[0]['product_size_name']:'';
+        $pdfTemp  .= "</td>";
+
+		$pdfTemp .= "<td style='border:1px solid black;
+        border-collapse: collapse;'>";
+        $pdfTemp  .= $data[0]['addr_house_no'].','.$data[0]['addr_house_no'].','.$data[0]['addr_house_no'].','.$data[0]['addr_house_no'];
         $pdfTemp  .= "</td>";
         
         $pdfTemp .= "<td style='border:1px solid black;
