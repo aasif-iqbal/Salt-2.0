@@ -86,6 +86,8 @@ $route['shipping'] = 'EStore/EStore_Controller/shippingDetails';
 $route['edit-addr'] = 'EStore/EStore_Controller/editCustomerAddress';
 $route['submit-edited-addr'] = 'EStore/EStore_Controller/submitEditedAddress';
 
+
+
 $route['product/(:any)'] = 'EStore/EStore_Controller/showProductDetails/$1';
 
 //Customer Orders view page
@@ -216,6 +218,9 @@ $route['edit-custom-size/(:any)'] = 'Admin/Admin_Controller/edit_custom_size/$1'
 $route['submit-edited-custom-size'] = 'Admin/Admin_Controller/submit_edited_custom_size';
 //Delete
 $route['delete-custom-size/(:any)'] = 'Admin/Admin_Controller/delete_custom_size/$1';
+
+//Print PDF of order-made-by-customer
+$route['print-order/(:any)'] = 'Admin/Admin_Controller/fetchSingleProductOrderDetails/$1';
 
 /* 
     AJAX - Routes (indirect call)

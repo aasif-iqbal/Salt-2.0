@@ -450,6 +450,116 @@
         }
     }
 
+    public function showOrderMadeByCustomers()
+    {
+        $query = "SELECT order_id,
+                        order_uuid,
+                        user_uuid,
+                        product_uuid,
+                        variation_uuid,
+                        product_name,
+                        product_image,
+                        product_size_id,
+                        product_size_name,
+                        product_color_id,
+                        product_color_name,
+                        product_mrp,
+                        product_selling_price,
+                        product_discount,
+                        product_quantity,
+                        user_name,
+                        user_email,
+                        phone_no,
+                        receivers_phone_no,
+                        addr_house_no,
+                        addr_locality,
+                        addr_city,
+                        addr_pin_code,
+                        addr_state,
+                        addr_country,
+                        addr_type,
+                        total_product_quantity,
+                        total_amount,
+                        transaction_id,
+                        transaction_status,
+                        conformation_code,
+                        payment_method,
+                        productInfo_json,
+                        transaction_datetime,
+                        createdAt,
+                        updatedAt,                        
+                        order_received_datetime,
+                        order_shipping_status,
+                        order_return_status                         
+                FROM tbl_orders 
+                WHERE status='1'";
+
+        $q = $this->db->query($query);        
+
+        if ($q->num_rows() > 0) {
+            return $q->result_array();       
+        }   
+        else {
+            return NULL;
+        }   
+    }
+    
+    // Below Function return Single Product Details for PRINT-template
+    public function getSingleProductOrderDetails($order_uuid)
+    {
+        $query = "SELECT order_id,
+                        order_uuid,
+                        user_uuid,
+                        product_uuid,
+                        variation_uuid,
+                        product_name,
+                        product_image,
+                        product_size_id,
+                        product_size_name,
+                        product_color_id,
+                        product_color_name,
+                        product_mrp,
+                        product_selling_price,
+                        product_discount,
+                        product_quantity,
+                        user_name,
+                        user_email,
+                        phone_no,
+                        receivers_phone_no,
+                        addr_house_no,
+                        addr_locality,
+                        addr_city,
+                        addr_pin_code,
+                        addr_state,
+                        addr_country,
+                        addr_type,
+                        total_product_quantity,
+                        total_amount,
+                        transaction_id,
+                        transaction_status,
+                        conformation_code,
+                        payment_method,
+                        productInfo_json,
+                        transaction_datetime,
+                        createdAt,
+                        updatedAt,                        
+                        order_received_datetime,
+                        order_shipping_status,
+                        order_return_status                         
+                FROM tbl_orders 
+                WHERE status='1' AND order_uuid='$order_uuid'";
+
+        $q = $this->db->query($query);        
+
+        if ($q->num_rows() > 0) {
+            return $q->result_array();       
+        }   
+        else {
+            return NULL;
+        }
+    }
+    
+    // don't know where to use
     public function showShippingInfo()
     {
         $query = "SELECT * FROM tbl_shipping_orders WHERE status='1'";
@@ -464,6 +574,7 @@
         }
     }
 
+    // don't know where to use
     public function checkForUpdateShipping($conformation_code)
     {
         if($conformation_code){    

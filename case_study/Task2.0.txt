@@ -19,4 +19,5 @@ foreach ($cartItems as $item) {
     echo "Cart ID: $cartId, User UUID: $userUuid\n";
 }
 
+=================
 

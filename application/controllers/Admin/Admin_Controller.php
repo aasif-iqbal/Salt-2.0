@@ -1013,8 +1013,8 @@ class Admin_Controller extends CI_Controller {
 
 	public function show_shipping()
 	{
-		$data['shipping_info'] = $this->Admin_model->showShippingInfo();
-
+		// $data['shipping_info'] = $this->Admin_model->showShippingInfo();
+		$data['order_details'] = $this->Admin_model->showOrderMadeByCustomers();
 		$this->load->view('admin/header');	
 		$this->load->view('admin/side_nav');	
 		$this->load->view('admin/top_nav');
@@ -1022,7 +1022,7 @@ class Admin_Controller extends CI_Controller {
 		// main-contain
 		$this->load->view('admin/show_shipping', $data);
 
-		$this->load->view('admin/footer');	
+		// $this->load->view('admin/footer');	
 	}
 
 	public function show_shipping_status()
@@ -1381,7 +1381,93 @@ class Admin_Controller extends CI_Controller {
 		}	
 	}
 
-/*
+	// pdfFormatTemplate for SHIPPING ORDER 
+	// @ $data As $single_product_order_details
+    public function pdfFormatTemplate($data){
+        // print_r($data[0]);die();
+        $pdfTemp = "<!DOCTYPE html>";
+        $pdfTemp .= "<html>";
+        $pdfTemp .= "<head>";
+        $pdfTemp .= "<h2 style='text-align: center;'>";
+        $pdfTemp .= "Product - Invoice";
+        $pdfTemp .= "</h2>";
+        $pdfTemp .= "</head>";
+        $pdfTemp .= "<body>";
+        $pdfTemp .= "<table style='border: 1px solid black;
+        border-collapse: collapse;width:100%'>";
+        $pdfTemp .= "<tbody>";
+        if (is_array($data[0]) || is_object($data[0])){ 
+        $pdfTemp .= "<tr>";
+        $pdfTemp .= "<th style='border:1px solid black;
+        border-collapse: collapse;';>Id</th>";
+        $pdfTemp .= "<th style='border:1px solid black;
+        border-collapse: collapse;';>Product Name</th>";
+        $pdfTemp .= "<th style='border:1px solid black;
+        border-collapse: collapse;';>MRP</th>";
+        $pdfTemp .= "<th style='border:1px solid black;
+        border-collapse: collapse;';>Invoice</th>";
+        $pdfTemp .= "</tr>";
+        
+        $pdfTemp .= "<tr>";
+        $pdfTemp .= "<td style='border:1px solid black;
+        border-collapse: collapse;'>";
+        $pdfTemp  .= isset($data[0]['order_uuid']) ? $data[0]['order_uuid']:'';
+        $pdfTemp  .= "</td>";
+
+        $pdfTemp .= "<td style='border:1px solid black;
+        border-collapse: collapse;'>";
+        $pdfTemp  .= isset($data[0]['product_name']) ? $data[0]['product_name']:'';
+        $pdfTemp  .= "</td>";
+                
+        $pdfTemp .= "<td style='border:1px solid black;
+        border-collapse: collapse;'>";
+        $pdfTemp  .= isset($data[0]['product_size_name']) ? $data[0]['product_size_name']:'';
+        $pdfTemp  .= "</td>";
+        
+        $pdfTemp .= "<td style='border:1px solid black;
+        border-collapse: collapse;'>";
+        $pdfTemp  .= isset($data[0]['product_color_name'])?$data[0]['product_color_name']:'';
+        $pdfTemp  .= "</td>";
+        $pdfTemp .= "</tr>";
+        }
+        $pdfTemp .= "</tbody>";
+        $pdfTemp .= "<table>";
+        $pdfTemp .= "</body>";
+        $pdfTemp .= "</html>";
+
+        return $pdfTemp;
+    }
+
+	public function fetchSingleProductOrderDetails($order_uuid){
+        
+		// var_dump($order_uuid);
+		// die();
+        //  $single_product_data = $this->InvoiceModel->getSingleProduct($id); 
+    	$single_product_order_details = $this->Admin_model->getSingleProductOrderDetails($order_uuid); 
+		
+		$pdfFmt = $this->pdfFormatTemplate($single_product_order_details);
+        // var_dump($pdfFmt);
+		// die(); 
+        //  print_r($pdfFmt);
+        //  die();
+         $this->load->library('pdf');
+ 
+         $dompdf = new PDF();
+         $dompdf->load_html($pdfFmt);
+         $dompdf->render();
+         $dompdf->stream("".$order_uuid.".pdf",array("Attachment"=>0));
+     }
+
+
+
+
+
+
+
+
+
+
+	/*
 	public function uploadVideos(){
         try{
             $imgId="img";
@@ -1436,7 +1522,6 @@ class Admin_Controller extends CI_Controller {
         }
     }
 */
-
 
 
 
