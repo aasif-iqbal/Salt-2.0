@@ -20,4 +20,14 @@ foreach ($cartItems as $item) {
 }
 
 =================
+WE CAN CREATE INVOICE BUTTON ON MY-ORDER SECTION OF CUSTOM TO Download AND PRINT INVOICE OF PRODUCT.
 
+
+codeigniter-3-send-email-without-smtp
+
+https://stackoverflow.com/questions/34469344/codeigniter-3-send-email-without-smtp
+
+Download and replace with this:https://github.com/ivantcholakov/codeigniter-phpmailer
+===========================================================================================
+How to Create an eCommerce Website using Free Wordpress Theme? Botiga Online Store Tutorial 2023
+https://www.youtube.com/watch?v=rgH_td252ho

@@ -55,10 +55,14 @@ class EStore_Controller extends CI_Controller {
 			$data['user_name'] = $userLoginData['user_name'];
 		}
 
-		$this->load->view('eStore/libs');
-		$this->load->view('eStore/nav',$data);
-		$this->load->view('eStore/my_account.php', $data);
-		$this->load->view('eStore/footer');		
+		if(!is_null($userLoginData)){
+			$this->load->view('eStore/libs');
+			$this->load->view('eStore/nav',$data);
+			$this->load->view('eStore/my_account.php', $data);
+			$this->load->view('eStore/footer');		
+		}else{
+			$this->load->view('eStore/restricted_page.php');
+		}
 	}
 
 	public function showProductsMainCategories($parent_id ='')

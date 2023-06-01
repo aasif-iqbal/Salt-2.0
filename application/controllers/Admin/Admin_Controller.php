@@ -1465,7 +1465,46 @@ class Admin_Controller extends CI_Controller {
          $dompdf->stream("".$order_uuid.".pdf",array("Attachment"=>0));
      }
 
+	public function editOrderStatus($order_uuid)
+	{
+		$data['selectedOrderStatus'] = $this->Admin_model->fetchSelectedOrderStatus($order_uuid);
 
+		$this->load->view('admin/header');	
+		$this->load->view('admin/side_nav');	
+		$this->load->view('admin/top_nav');
+		// main-contain	
+		$this->load->view('admin/edit_order_status', $data);
+
+		// $this->load->view('admin/footer');
+	}
+
+	public function updateOrderStatus()
+	{
+		$data['order_uuid']   = $this->input->post('order_uuid');
+		$data['order_shipping_status'] = $this->input->post('order_shipping_status');
+		
+		$updatedStatus = $this->Admin_model->saveUpdatedOrderStatus($data);
+
+		if($updatedStatus){
+			redirect(base_url('show-shipping'));    
+			return TRUE;
+		}else{
+			return FALSE;
+		}
+	}
+
+	public function editReturnStatus($order_uuid)
+	{
+		$data['selectedOrderReturnStatus'] = $this->Admin_model->fetchSelectedOrderReturnStatus($order_uuid);
+
+		$this->load->view('admin/header');	
+		// $this->load->view('admin/side_nav');	
+		// $this->load->view('admin/top_nav');
+		// main-contain	
+		// $this->load->view('admin/edit_orderReturn_status', $data);
+		$this->load->view('admin/card_list_sample');
+		// $this->load->view('admin/footer');
+	}
 
 
 

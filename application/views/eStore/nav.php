@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700"> 
     <link rel="stylesheet" href="<?= base_url('assets/shopmax/fonts/icomoon/style.css'); ?>">
 
+    <!-- icon -->
+    <link rel="icon" type="image/x-icon" href="<?= base_url('favicon.ico'); ?>">
+    <!-- icon -->
+
+
     <!-- <link rel="stylesheet" href="</?= base_url('assets/shopmax/css/bootstrap.min.css'); ?>"> -->
     <link href="<?= base_url('assets/B-v5.1.3/css/bootstrap.min.css'); ?>" rel="stylesheet">
     <link rel="stylesheet" href="<?= base_url('assets/shopmax/css/magnific-popup.css'); ?>">
@@ -142,11 +147,19 @@
                 ?>
                 <a href="<?= base_url('login');?>"><button class="signinbtn">SIGN IN</button></a>
                 <?php } ?>
+                <!-- My Account -->
                         <?php 
                         if(isset($userLoginData) || $userLoginData != NULL){
                         ?>      
                 <a href="<?= base_url('my-account')?>"><small>My Account</small></a>
+                <?php } ?>
+                <!-- My Order -->
+                <?php 
+                      if(isset($userLoginData) || $userLoginData != NULL){
+                        ?>      
+                <a href="<?= base_url('my-orders')?>"><small>My Orders</small></a>
                 <?php }?>
+
                 <!-- logout -->
                 <?php if(isset($userLoginData) || $userLoginData != NULL){
                   ?>
@@ -174,6 +187,9 @@
     <!-- body -->
 <!-- footer will start-->
 <script>
+  /*
+  On Page load
+  */ 
   document.addEventListener("DOMContentLoaded", function() {
     
     let login_user_uuid = document.getElementById('login_user_uuid');

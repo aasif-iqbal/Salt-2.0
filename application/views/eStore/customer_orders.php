@@ -33,13 +33,14 @@
     <div class="container">
     <h4>Your Orders</h4>
     <?php     
+    if(isset($customer_orders_list)){
         $total_orders = count($customer_orders_list);
         for($i=0; $i<$total_orders; $i++){
     ?>
     <div class="card" style="">
   <div class="row g-0">
     <div class="col-md-3">
-      <img src="<?= base_url('uploads/').$customer_orders_list[$i]['product_image'];?>" class=" rounded-start" height='200' width='150'>
+      <img src="<?= base_url('uploads/').$customer_orders_list[$i]['product_image'];?>" class=" rounded-start" height='250' width='250'>
     </div>
     <div class="col-md-4">
       <div class="card-body">
@@ -73,19 +74,43 @@
   </div>
   <p class="card-text"><small class="text-muted">Cancel this order under 15days</small></p>
 </div>
-<?php } ?>
+<?php }
+} ?>
     </div>
     <script>
+      /*
+      bug- it will work only when window is refresh or page reload.if user will remain active or page is open, is does not able to disabled cancel button
+      */ 
+//self-invoke function to check current date then after 5days it will disabled-cancel order.
+(function () {
+  
 // Get current date and time
 const now = new Date();
 
 // Calculate date and time 1 days from now
 // const fiveDaysFromNow = new Date(now.getTime() + (1 * 24 * 60 * 60 * 1000));
 const fiveDaysFromNow = new Date(now.getTime() + (1 * 1/12 * 60 * 60 * 1000)); //5min diff
+console.log(now);
+console.log(typeof(fiveDaysFromNow));
 // Disable button if current date and time is equal to or greater than 1 days from now
-if (now >= fiveDaysFromNow) {
+if (now >= new Date('Tue May 30 2023 11:06:04')) {
+    console.log('true')
     document.getElementById("cancel_order").style.visibility = 'hidden';
+}else{
+  alert('show cancel btn');
 }
+
+// ================================ Method 2 ========================================
+/*
+1. Fetch order_date from database- (tbl_orders)
+2. Get current_date using js.
+3. compare and disabled button if time expires
+*/
+
+
+})();
+
+
 </script>
 </body>
 </html>

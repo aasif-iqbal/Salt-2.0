@@ -221,7 +221,12 @@ $route['delete-custom-size/(:any)'] = 'Admin/Admin_Controller/delete_custom_size
 
 //Print PDF of order-made-by-customer
 $route['print-order/(:any)'] = 'Admin/Admin_Controller/fetchSingleProductOrderDetails/$1';
+//update-order-status
+$route['edit-order-status/(:any)'] = 'Admin/Admin_Controller/editOrderStatus/$1';
+$route['submit-order-status'] = 'Admin/Admin_Controller/updateOrderStatus';
 
+//RETURN ORDER BY CUSTOMER
+$route['edit-return-status/(:any)'] = 'Admin/Admin_Controller/editReturnStatus/$1';
 /* 
     AJAX - Routes (indirect call)
     

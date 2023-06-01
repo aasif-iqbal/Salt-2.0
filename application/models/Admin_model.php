@@ -1311,6 +1311,59 @@
         }        	
     }
 
+    public function fetchSelectedOrderStatus($order_uuid)
+    {
+        if($order_uuid){
+        
+            $query = "SELECT order_uuid,order_shipping_status FROM tbl_orders WHERE order_uuid='$order_uuid'";
+            
+            $q = $this->db->query($query);        
+
+            if($q->num_rows() > 0){
+                return $q->result_array();       
+            }   
+            else {
+                return NULL;
+            }                      
+        }        	
+    }
+
+    public function saveUpdatedOrderStatus($data)
+    {
+        $order_uuid = $data['order_uuid'];            
+
+        $update_order_status = array(
+            'order_shipping_status' => $data['order_shipping_status'],            
+        );
+
+        if($update_order_status){            
+                //Update 
+                $this->db->where('order_uuid', $order_uuid);        
+                $this->db->update('tbl_orders', $update_order_status);             
+            return TRUE;   
+        }else{
+            $this->db->_error_message();
+            return FALSE;
+        }   
+    }
+
+    public function fetchSelectedOrderReturnStatus($order_uuid)
+    {
+        if($order_uuid){
+        
+            $query = "SELECT order_uuid,order_return_status FROM tbl_orders WHERE order_uuid='$order_uuid'";
+            
+            $q = $this->db->query($query);        
+
+            if($q->num_rows() > 0){
+                return $q->result_array();       
+            }   
+            else {
+                return NULL;
+            }                      
+        }
+    }
+
     /*
     public function update_color_variation_img1($data)
     {
