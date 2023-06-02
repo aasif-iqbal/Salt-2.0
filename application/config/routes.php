@@ -93,7 +93,7 @@ $route['product/(:any)'] = 'EStore/EStore_Controller/showProductDetails/$1';
 //Customer Orders view page
 $route['my-orders'] = 'EStore/EStore_Controller/customer_orders';
 
-//Customer order cancellation without shipping
+//Customer order cancellation without (before) shipping
 $route['order-cancellation/(:any)'] = 'EStore/EStore_Controller/customerOrderCancellation/$1';
 
 //submit cancelled order

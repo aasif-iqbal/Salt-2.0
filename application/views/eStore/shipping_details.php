@@ -5,6 +5,57 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FifthObject</title>
+    <style>
+#card_id {
+  max-width: 30em;
+  flex-direction: row;
+  /* background-color: #696969; */
+  border: 0;
+  box-shadow: 0 7px 7px rgba(0, 0, 0, 0.18);
+  margin: 3em auto;
+}
+#card_id.dark {
+  color: #fff;
+}
+#card_id#card_id.bg-light-subtle .card-title {
+  color: dimgrey;
+}
+
+#card_id img {
+  max-width: 45%;
+  /* margin: auto; */
+  padding: 0.2em;
+  border-radius: 0.7em;
+}
+#card-body-id {
+  display: flex;
+  justify-content: space-between;
+}
+#text-section-id {
+  max-width: 60%;
+}
+.cta-section {
+  max-width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.cta-section #btn-placeholder {
+  padding: 0.3em 0.5em;
+  /* color: #696969; */
+}
+#card_id.bg-light-subtle .cta-section #btn-placeholder {
+  /* background-color: #898989; */
+  /* border-color: #898989; */
+}
+@media screen and (max-width: 475px) {
+#card_id {
+    font-size: 0.9em;
+  }
+}
+
+    </style>
 </head>
 <body>    
     <?php 
@@ -57,6 +108,42 @@
 
             <!-- PRODUCT CARD -->
                 <div class="row">
+
+                <div class="col-md-6">                             
+                <div class="card dark" id="card_id">
+    <img src="https://codingyaar.com/wp-content/uploads/chair-image.jpg" class="card-img-top" alt="...">
+    <div class="card-body" id="card-body-id">
+      <div class="text-section" id="text-section-id">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">Some quick example text to build on the card's
+          content.</p>
+      </div>
+      <div class="cta-section">
+        <div>$129.00</div>
+        <a href="#" class="btn btn-light" id="btn-placeholder">Buy Now</a>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <div class="col-md-6">                             
+  <div class="card bg-light-subtle mt-4" id="card_id">
+    <img src="https://codingyaar.com/wp-content/uploads/chair-image.jpg" class="card-img-top" alt="...">
+    <div class="card-body" id="card-body-id">
+      <div class="text-section" id="text-section-id">
+        <h5 class="card-title fw-bold">LINEN CHECK REGULAR SHIRT REGULAR SHIRT</h5>
+        <p class="card-text">Color: Red</p>
+        <p class="card-text">Size: M</p>
+      </div>
+      <div class="cta-section">
+        <div>Rs.2599</div>
+        <p href="#" class="" id="btn-placeholder">Qty:1</p>
+      </div>
+    </div>
+  </div>
+    </div>
+
+
                     <?php 
                     $total_amount_to_pay = 0;
                     $total_quantity_inCart = 0;

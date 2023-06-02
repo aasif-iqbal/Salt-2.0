@@ -57,6 +57,7 @@ body {
 
 </style>
 <div class="container">
+
   <div class="card dark">
     <img src="https://codingyaar.com/wp-content/uploads/chair-image.jpg" class="card-img-top" alt="...">
     <div class="card-body">
@@ -71,6 +72,7 @@ body {
       </div>
     </div>
   </div>
+
   <div class="card bg-light-subtle mt-4">
     <img src="https://codingyaar.com/wp-content/uploads/chair-image.jpg" class="card-img-top" alt="...">
     <div class="card-body">
@@ -84,6 +86,7 @@ body {
       </div>
     </div>
   </div>
+  
   <div class="card bg-danger-subtle mt-4">
     <img src="https://codingyaar.com/wp-content/uploads/chair-image.jpg" class="card-img-top" alt="...">
     <div class="card-body">

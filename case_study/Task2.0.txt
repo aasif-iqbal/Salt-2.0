@@ -20,7 +20,7 @@ foreach ($cartItems as $item) {
 }
 
 =================
-WE CAN CREATE INVOICE BUTTON ON MY-ORDER SECTION OF CUSTOM TO Download AND PRINT INVOICE OF PRODUCT.
+WE CAN CREATE INVOICE BUTTON ON MY-ORDER SECTION OF CUSTOMER(USER) TO Download AND PRINT INVOICE OF PRODUCT.
 
 
 codeigniter-3-send-email-without-smtp
@@ -31,3 +31,29 @@ Download and replace with this:https://github.com/ivantcholakov/codeigniter-phpm
 ===========================================================================================
 How to Create an eCommerce Website using Free Wordpress Theme? Botiga Online Store Tutorial 2023
 https://www.youtube.com/watch?v=rgH_td252ho
+
+==================================================================
+Capcha
+https://codepen.io/hirensojitra/pen/OJBpVvB
+
+
+
+============= ORDER cancellation ====================
+status code in database
+<!-- 
+0 => (Due to order cancel before shipped) Return without shipping - COD 
+1 => Return without shipping - Online Pay (Customer had paid for order,we need to refund)
+2 => Return & Refund After shipping - COD 
+3 => Return & Refund After shipping - Online 
+4 => NO RETURN
+-->
+
+
+case 1: 
+Order is cancel before payment is made. 
+reason may be change of mind or order by mistake.
+------ IF PAYMENT MODE IS -- COD ------ DO NOTHING
+---------- IF PAYMENT MODE IS -- ONLINE ---- DO SAME AS ORDER-RETURN-REFUND 
+
+case 2:
+Order is cancel after receiving order(Package) and payment.

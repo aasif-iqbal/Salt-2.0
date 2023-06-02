@@ -13,35 +13,25 @@
     <div class="h3">update Order Return status</div>
     <hr>
     <div class="h5">Status Code</div>
-<!-- 
-0 => (Due to order cancel before shipped) Return without shipping - COD 
-1 => Return without shipping - Online Pay 
-2 => Return & Refund After shipping - COD 
-3 => Return & Refund After shipping - Online 
-4 => NO RETURN
--->
+<p>
+0 => Order Cancel before shipped - No Refund -  COD 
+<br>
+1 => Order Cancel before shipping - Online Pay Done (Customer had paid for order,we need to refund)
+<br>
+2 => Order Cancel After shipping - collect Order at doorsteps & Refund - COD (AS customer for mode of return payment like, In Bank acct, UPI )
 
-<div class="row">
-  <div class="col-4">
-    <div class="list-group" id="list-tab" role="tablist">
-      <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Home</a>
-      <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Profile</a>
-      <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Messages</a>
-      <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Settings</a>
-    </div>
-  </div>
-  <div class="col-8">
-    <div class="tab-content" id="nav-tabContent">
-      <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
-        Pending
-        The initial status when an order is placed and awaiting further processing.
-      </div>
-      <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">...</div>
-      <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">...</div>
-      <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div>
-    </div>
-  </div>
-</div>
+<br>
+3 => Return & Refund After shipping - Online 
+Collect order at doorsteps and refund.
+a.ask for mode of return 
+----- if same mode- in same mode use payment_id/transaction_id and copy it ->goto razorpay dashboard as raise refund.
+------ if Bank accound, as for bank details(acct no, IFSC code ....)
+------ if UPI, transfer through upi (Fastest)
+<br>
+4 => NO RETURN
+</p>
+
+ 
 
     <!-- Form started -->
     <hr>
@@ -62,7 +52,7 @@
     </div>
     
     <form action="<?= base_url('submit-order-status'); ?>" method="POST">
-    <input type="hidden" name="order_uuid" value="<?= $selectedOrderStatus[0]['order_uuid']?>">
+    <!-- <input type="hidden" name="order_uuid" value="</?= $selectedOrderStatus[0]['order_uuid']?>"> -->
     <div class="form-group">
     <label for="exampleFormControlSelect1">select current order status</label>
     <select class="form-control" id="" name='order_shipping_status'>

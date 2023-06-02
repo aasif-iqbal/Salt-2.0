@@ -133,8 +133,9 @@ a {
   font-size: 20px;
   padding-left: 10px;
   padding-right: 10px;
-  border: 2px solid #25262a;
-  color: #000 !important; }
+  /* border: 2px solid #25262a; */
+  /* color: #000 !important; */
+ }
   .site-logo a:hover {
     text-decoration: none; }
 
@@ -375,14 +376,15 @@ a {
       .site-mobile-menu .site-mobile-menu-header .site-mobile-menu-logo a {
         display: inline-block;
         text-transform: uppercase;
-        color: #25262a;
+        /* color: #25262a; */
         letter-spacing: .2em;
         font-size: 20px;
         padding-left: 10px;
         padding-right: 10px;
-        border: 2px solid #25262a; }
-        .site-mobile-menu .site-mobile-menu-header .site-mobile-menu-logo a:hover {
-          text-decoration: none; }
+        /* border: 2px solid #25262a;  */
+      }
+  .site-mobile-menu .site-mobile-menu-header .site-mobile-menu-logo a:hover {
+    text-decoration: none; }
   .site-mobile-menu .site-mobile-menu-body {
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;

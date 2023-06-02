@@ -7,9 +7,9 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700"> 
     <link rel="stylesheet" href="<?= base_url('assets/shopmax/fonts/icomoon/style.css'); ?>">
-
+    
     <!-- icon -->
-    <link rel="icon" type="image/x-icon" href="<?= base_url('favicon.ico'); ?>">
+    <link rel="icon" type="image/x-icon" href="<?= base_url('favicon2.ico'); ?>">
     <!-- icon -->
 
 
@@ -70,6 +70,12 @@
       
       /* .dropdown:hover .dropbtn {background-color: #3e8e41;} */
       .dropdown:hover .signinbtn {background-color: #0f1a0f;}
+      
+      #logo{
+        /* object-fit:cover; */
+        width: 170px;
+        height: 60px;
+      }
       </style>
   </head>
   <body>
@@ -90,9 +96,11 @@
       <div class="container">
         <div class="d-flex align-items-center justify-content-between">
           <div class="logo">
-            <div class="site-logo">
-              <a href="<?= base_url('/');?>" class="js-logo-clone">FifthObject</a>
-            </div>
+            <!-- <div class="site-logo"> -->
+              <a href="<?= base_url('/');?>" class="js-logo-clone">
+              <img src="<?= base_url('assets/logo/logo.ico');?>" id="logo" alt="">
+              </a>
+            <!-- </div> -->
           </div>
           <div class="main-nav d-none d-lg-block">
             <nav class="site-navigation text-right text-md-center" role="navigation">

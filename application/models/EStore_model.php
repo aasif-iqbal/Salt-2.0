@@ -305,15 +305,12 @@
                     mp.product_uuid,
                     mp.product_name,
                     mp.article_no,
-                    pv.variation_uuid,
-                    -- (mp.product_color_name) AS main_color,
-                    -- (mp.product_size_name) As main_size,
-                    -- (mp.product_quantity) AS main_stocks,
+                    pv.variation_uuid,                   
                     (mp.product_mrp) AS main_mrp,
                     (mp.product_selling_price) AS main_sp,
                     (mp.discount_percentage) AS main_discount,
                     (pv.product_color_name)AS color_v,                    
-                    (pv.product_size_name) As size_v,
+                    (pv.product_size) As size_v,
                     (pv.product_quantity) AS stocks_v,
                     (pv.product_mrp) AS mrp_v,
                     (pv.product_selling_price) AS sp_v,
@@ -805,32 +802,25 @@ public function fetch_order_list_for_Customer($user_uuid)
 */ 
 public function fetch_order_cancellation_product_info($user_uuid, $order_uuid)
 {
-        $query = "SELECT mp.product_name,
-                            mp.product_uuid,
-                            mp.article_no,
-                            mp.product_main_image,
-                            -- mp.product_size_name,
-                            -- mp.product_color_name,
-                            -- mp.product_quantity,
-                            mp.product_mrp,
-                            mp.product_selling_price,
-                            mp.discount_percentage,
-                            pv.variation_uuid,
-                            so.user_uuid,
-                            so.order_uuid,
-                            so.shipping_uuid,
-                            so.payment_id,
-                            so.total_quantity,
-                            so.payment_mode,
-                            so.payment_status,
-                            so.product_json,
-                            so.conformation_code,
-                            so.ordered_datetime,
-                            so.order_recived_datetime
-    FROM tbl_main_product As mp 
-    INNER JOIN tbl_product_variation AS pv ON mp.product_uuid = pv.product_uuid
-    INNER JOIN tbl_shipping_orders AS so ON mp.product_uuid = so.product_uuid    
-    WHERE so.user_uuid = '$user_uuid' AND so.order_uuid='$order_uuid'";
+        $query = "SELECT product_name,
+                         product_uuid,                         
+                         product_image,                             
+                         product_mrp,
+                         product_selling_price,
+                         product_discount,
+                         variation_uuid,
+                         user_uuid,
+                         order_uuid,                         
+                         transaction_id,
+                         total_product_quantity,
+                         payment_method,
+                         transaction_status,
+                         productInfo_json,
+                         conformation_code,
+                         createdAt,
+                         order_received_datetime
+    FROM tbl_orders        
+    WHERE user_uuid = '$user_uuid' AND order_uuid='$order_uuid'";     
 
     // $query = "Select * FROM tbl_shipping_orders 
     //             WHERE user_uuid = '{$user_uuid}'";
