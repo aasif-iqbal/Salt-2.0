@@ -98,7 +98,7 @@
           <div class="logo">
             <!-- <div class="site-logo"> -->
               <a href="<?= base_url('/');?>" class="js-logo-clone">
-              <img src="<?= base_url('assets/logo/logo.ico');?>" id="logo" alt="">
+              <img src="<?= base_url('assets/logo/logo_red.ico');?>" id="logo" alt="">
               </a>
             <!-- </div> -->
           </div>
@@ -131,7 +131,7 @@
                 <li><a href="<?= base_url('contact-us');?>">Contact</a></li>
                 <li><a href="<?= base_url('about-us');?>">About Us</a></li>
               </ul>
-            </nav>
+            </nav>  
           </div>
           
           <div class="icons">

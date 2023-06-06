@@ -54,6 +54,16 @@ Order is cancel before payment is made.
 reason may be change of mind or order by mistake.
 ------ IF PAYMENT MODE IS -- COD ------ DO NOTHING
 ---------- IF PAYMENT MODE IS -- ONLINE ---- DO SAME AS ORDER-RETURN-REFUND 
+ALSO add/substract Product in tbl_product_variation
+
 
 case 2:
 Order is cancel after receiving order(Package) and payment.
+
+
+
+
+
+========================= How to maintain order history ==========================
+
+- Order history will shown on customer - my order page - your Previous order - in collapse tab or card

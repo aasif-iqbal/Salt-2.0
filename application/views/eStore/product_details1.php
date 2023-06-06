@@ -277,6 +277,7 @@
       <!-- <button onclick="add_to_cart_to_database__();">ADD to ls</button> -->
       <a href="<?= base_url('login'); ?>" class="btn btn-outline-dark btn-block btn-lg"><span class="icon-shopping-bag"></span>Add</a>
       <?php } ?>
+      <small>&#x1F607;&nbsp;Make sure, you are login before adding product</small>
       </div>       
 
 <!-- Product OUT of Stock -->
@@ -902,7 +903,7 @@ function changeProductColor(color_id){
       
       var product_quantity = 0;
       
-      var add_to_cart = document.getElementById('add_to_cart');
+      // var add_to_cart = document.getElementById('add_to_cart');
       
       var my_size = document.getElementById('my_size');
        
@@ -912,283 +913,281 @@ function changeProductColor(color_id){
  same product_uuid | same color | diff size  - Add New Card 
 */
 
+// below code is for localstorage - to store cart item without login mode
+/*
 var updated_array = [];
-
-      add_to_cart.addEventListener('click', function(e){    
-        e.preventDefault(); //
-          
-        if(item_count < 10){
-          alert('maximum');
-          return false;
-        }
-          // console.log('clicks');    
-          // alert(my_size.value);
-          // alert(color_global);
-          
-          if(my_size.value == 0){
-            alert('Select Size')
-            my_size.style.border = '2px solid red';
-            my_size.focus();  
-            return false;          
-          }
-
-          // Retrieving the value from session storage colorIdWithoutSize
-          var colorIdWithoutSize__ = sessionStorage.getItem('colorIdWithoutSize');
-          // alert(colorIdWithoutSize__); 
-
-          // Retrieving the value from session storage
-          var colorIdWithSize = sessionStorage.getItem('colorIdWithSize');
-          // clear it when user visit my_cart page.
-
-          var color_name = sessionStorage.getItem('color_name');
-          // alert(colorIdWithSize); 
-
-          if(colorIdWithSize == null){
-              alert('Choose color');
-              return false;
-          }
-          
-          // product_color_name = 
-
-              var user_uuid = document.getElementById('user_uuid').value;
-              var product_uuid = document.getElementById('product_uuid').value;
-              var product_name = document.getElementById('product_name').value;
-              // product_size + product_size_name
-              var product_size = my_size.value;
-              //              
-              let product_color = colorIdWithSize;
-
-              var product_image = document.getElementById('product_image').value;
-              // var product_mrp = document.getElementById('product_mrp').value;
-              
-              var product_selling_price = document.getElementById('product_selling_price').value;
-              // var discount_percentage = document.getElementById('discount_percentage').value;
-              var discount_percentage = '10';
-          // window.localstorage.clear();  
-          // console.log(product_size);
-
-
-        if(user_uuid =='None' || user_uuid == 'undefined'){
-          // alert('user_not_login')
-          product_quantity += 1;
-
-          let product_size_result = '';
-          let product_size_unit = '';
-
-          product_size_result = product_size.split('_');
-          product_size_unit = product_size_result[1];
-          
-          
-
-          // 1. Fetch existing array 
-          // 2. Check for product_uuid ,if exist then check for size and color , if all match then update product_quantity by One , if NOT then add new card with diff value.
-          
-          var cart_items = JSON.parse(localStorage.getItem('cart_item_list'));
-          console.log('cart_items',cart_items);
-          console.log('954::', (Object.keys(cart_items)));
-          
-          //Case 1: First time, when cart is empty
-          if(cart_items.length === 0){
-          //save data to localstorage
-          console.log('Case 1: First time, when cart is empty')
-          var cart_item_obj = {
-              id:'id_' + (new Date()).getTime(), 
-              product_uuid:product_uuid,           
-              product_image:product_image,
-              product_name:product_name,
-              product_selling_price:product_selling_price,
-              product_size:product_size_unit, 
-              product_color:product_color,
-              product_color_name:color_name,
-              product_quantity:product_quantity
-          };
-
-          existing_arr.push(cart_item_obj);     //[{obj1},{obj2}]        
-
-          localStorage.setItem("cart_item_list", JSON.stringify(existing_arr));          
-          }
-
-        // Case 2: When Cart is not empty.
-          if(cart_items.length > 0){
-            console.log('Case 2: When Cart is not empty')
-            let  total_items = Object.keys(cart_items).length;                     
-          
-                for(let i=0; i < total_items; i++)
-                {
-                  //Case 3: When Product is already in cart
-                  
-                  if(cart_items[i].product_uuid === product_uuid){
-                    
-                    for(let j= i+1; j < total_items; j++){
-                    
-                      console.log('Case 3: When Product is already in cart');
-                    // Case 4: When we find same product(size and color is same).
-                    
-                    console.log('product_size_unit:',(product_size_unit));
-                    console.log('cart_items[i].product_size:',(cart_items[i].product_size));
-
-                    console.log('product_color:',(product_color));
-                    console.log('cart_items[i].product_color:',cart_items[i].product_color);
+add_to_cart.addEventListener('click', function(e){    
+  e.preventDefault(); //
+      
+  if(item_count < 10){
+    alert('maximum');
+    return false;
+  }
+    // console.log('clicks');    
+    // alert(my_size.value);
+    // alert(color_global);
     
-                    if(cart_items[i].product_size == cart_items[j].product_size){alert('got it');}
-                    if(cart_items[i].product_color == cart_items[j].product_color){alert('got it');}
+    if(my_size.value == 0){
+      alert('Select Size')
+      my_size.style.border = '2px solid red';
+      my_size.focus();  
+      return false;          
+    }
 
-                    if(cart_items[i].product_size === product_size_unit 
-                    && cart_items[i].product_color === product_color){
+    // Retrieving the value from session storage colorIdWithoutSize
+    var colorIdWithoutSize__ = sessionStorage.getItem('colorIdWithoutSize');
+    // alert(colorIdWithoutSize__); 
 
-                      if(cart_items[i].product_color == product_color){
-                      console.log('Case 4: When we find same product-size and color is same'); 
-                      // console.log(cart_items[i].product_quantity);                      
-                      // cart_items[i].product_quantity += 1;                      
-                      // console.log(cart_items[i].product_quantity);   
+    // Retrieving the value from session storage
+    var colorIdWithSize = sessionStorage.getItem('colorIdWithSize');
+    // clear it when user visit my_cart page.
 
-                      //Push - Cart-item-Object to existing Array
-                      // updated_array.concat(cart_items);     //[{obj1},{obj2}]        
-                      //DO-NOTHING
-                      console.log(cart_items);
-                      
-                      // Step 3: Store the updated array back into localStorage
-                      // localStorage.setItem('cart_item_list', JSON.stringify(updated_array));
-                     // window.location.reload();
-                      return 0;
-                    }
-            } else {
-            //Case 5: if product_uuid is same but size and color is diff.             
-            console.log('Case 5: if product_uuid is same but size and color is diff.')
-              var cart_item_obj = {
-                  id:'id_' + (new Date()).getTime(), 
-                  product_uuid:product_uuid,           
-                  product_image:product_image,
-                  product_name:product_name,
-                  product_selling_price:product_selling_price,
-                  product_size:product_size_unit, 
-                  product_color:product_color,
-                  product_color_name:color_name,
-                  product_quantity:product_quantity
-              };
-              //Push - Cart-item-Object to existing Array
-              existing_arr.push(cart_item_obj);     //[{obj1},{obj2}]        
-              //Save - Existing array to localstorage.
-              localStorage.setItem("cart_item_list", JSON.stringify(existing_arr));          
-              return 0;
-            }
-          // return 0;
-      } //end-of-for -j
-     } else {
-      // Case 6: If Product_uuid Does not match with items present in cart,Add New Item
-          console.log('Case 6: If Product_uuid Does not match with items present in cart,Add New Item');
-          var cart_item_obj = {
-              id:'id_' + (new Date()).getTime(), 
-              product_uuid:product_uuid,           
-              product_image:product_image,
-              product_name:product_name,
-              product_selling_price:product_selling_price,
-              product_size:product_size_unit, 
-              product_color:product_color,
-              product_color_name:color_name,
-              product_quantity:product_quantity
-          };
+    var color_name = sessionStorage.getItem('color_name');
+    // alert(colorIdWithSize); 
 
-          existing_arr.push(cart_item_obj);     //[{obj1},{obj2}]        
+    if(colorIdWithSize == null){
+        alert('Choose color');
+        return false;
+    }
+      
+    // product_color_name = 
 
-          localStorage.setItem("cart_item_list", JSON.stringify(existing_arr));          
-          return 0;
-        }
-      }//for-loop end 
-    }//end-if cart is not empty
-                            
-          document.getElementById('result__localstr').innerHTML = JSON.parse(localStorage.getItem('cart_item_list'));                   
+    var user_uuid = document.getElementById('user_uuid').value;
+    var product_uuid = document.getElementById('product_uuid').value;
+    var product_name = document.getElementById('product_name').value;
+    // product_size + product_size_name
+    var product_size = my_size.value;
+    //              
+    let product_color = colorIdWithSize;
+
+    var product_image = document.getElementById('product_image').value;
+    // var product_mrp = document.getElementById('product_mrp').value;
+    
+    var product_selling_price = document.getElementById('product_selling_price').value;
+    // var discount_percentage = document.getElementById('discount_percentage').value;
+    var discount_percentage = '10';
+    // window.localstorage.clear();  
+    // console.log(product_size);
+
+
+    if(user_uuid =='None' || user_uuid == 'undefined'){
+      // alert('user_not_login')
+      product_quantity += 1;
+
+      let product_size_result = '';
+      let product_size_unit = '';
+
+      product_size_result = product_size.split('_');
+      product_size_unit = product_size_result[1];
+      // 1. Fetch existing array 
+      // 2. Check for product_uuid ,if exist then check for size and color , if all match then update product_quantity by One , if NOT then add new card with diff value.
+      
+      var cart_items = JSON.parse(localStorage.getItem('cart_item_list'));
+      console.log('cart_items',cart_items);
+      console.log('954::', (Object.keys(cart_items)));
+      
+      //Case 1: First time, when cart is empty
+      if(cart_items.length === 0){
+        //save data to localstorage
+        console.log('Case 1: First time, when cart is empty')
+        var cart_item_obj = {
+            id:'id_' + (new Date()).getTime(), 
+            product_uuid:product_uuid,           
+            product_image:product_image,
+            product_name:product_name,
+            product_selling_price:product_selling_price,
+            product_size:product_size_unit, 
+            product_color:product_color,
+            product_color_name:color_name,
+            product_quantity:product_quantity
+        };
+
+        existing_arr.push(cart_item_obj);     //[{obj1},{obj2}]        
+
+        localStorage.setItem("cart_item_list", JSON.stringify(existing_arr));          
+      }
+
+      // Case 2: When Cart is not empty.
+      if(cart_items.length > 0){
+        console.log('Case 2: When Cart is not empty')
+        let  total_items = Object.keys(cart_items).length;                     
+        
+        for(let i=0; i < total_items; i++)
+        {
+          //Case 3: When Product is already in cart
           
-          var item_count = JSON.parse(localStorage.getItem('item_count'));
-          // window.location.reload();
+          if(cart_items[i].product_uuid === product_uuid){
+            
+            for(let j= i+1; j < total_items; j++){
+                  
+              console.log('Case 3: When Product is already in cart');
+              // Case 4: When we find same product(size and color is same).
+                  
+              console.log('product_size_unit:',(product_size_unit));
+              console.log('cart_items[i].product_size:',(cart_items[i].product_size));
 
-          // ---------------     COUNTER    -----------------------------
-          // if (localStorage.clickcount) {
-          //     localStorage.clickcount = Number(localStorage.clickcount)+1;
-          //   } else {
-          //     localStorage.clickcount = 1;
-          //   }
-          //   document.getElementById("result").innerHTML = "" + localStorage.clickcount + "-items in Bag";
-          
-          // console.log("bag"+localStorage.clickcount);
-          // --------------- COUNTER END -----------------------------
-          //After clicking add to cart button, all data save to localstroage and refresh
- 
+              console.log('product_color:',(product_color));
+              console.log('cart_items[i].product_color:',cart_items[i].product_color);
 
-        }else{
-//=================================  When USER LOGIN  ====================================
-// alert('user is login')
-            if (localStorage.clickcount) {
-              localStorage.clickcount = Number(localStorage.clickcount)+1;
-            } else {
-              localStorage.clickcount = 1;
-            }
-            document.getElementById("result").innerHTML = "" + localStorage.clickcount + "-items in Bag";
-          
-          console.log("bag"+localStorage.clickcount);
-          //save data to database using Ajax
-          // alert('login user,,welcome');
-          console.log('data:',user_uuid, product_uuid,product_name,product_size,product_color,product_image,product_mrp,product_selling_price,discount_percentage);
+              if(cart_items[i].product_size == cart_items[j].product_size){alert('got it');}
+              if(cart_items[i].product_color == cart_items[j].product_color){alert('got it');}
+
+              if(cart_items[i].product_size === product_size_unit 
+              && cart_items[i].product_color === product_color){
+
+                if(cart_items[i].product_color == product_color){
+                  console.log('Case 4: When we find same product-size and color is same'); 
+                  // console.log(cart_items[i].product_quantity);                      
+                  // cart_items[i].product_quantity += 1;                      
+                  // console.log(cart_items[i].product_quantity);   
+
+                  //Push - Cart-item-Object to existing Array
+                  // updated_array.concat(cart_items);     //[{obj1},{obj2}]        
+                  //DO-NOTHING
+                  console.log(cart_items);
                     
-          $.ajax({
-                url:"<?php echo base_url('EStore/EStore_Controller/add_to_cart_ajax');?>",
-                type:"POST",
-                data:{
-                      item_count:localStorage.clickcount,
-                      product_uuid:product_uuid,
-                      user_uuid:user_uuid,
-                      product_name:product_name,
-                      // product_size:product_size,
-                      // product_color:product_color,
-                      product_quantity:product_quantity,
-                      product_image:product_image,
-                      product_mrp:product_mrp,
-                      product_selling_price:product_selling_price,
-                      discount_percentage:discount_percentage
-                    },                
-                success:function(RespondedData) {  
-                    console.log(RespondedData);      
-                    location.reload();                              
-                },
-                error: function(XMLHttpRequest, textStatus, errorThrown) { 
-                    console.log(XMLHttpRequest);
-                    console.log(errorThrown);
+                    // Step 3: Store the updated array back into localStorage
+                    // localStorage.setItem('cart_item_list', JSON.stringify(updated_array));
+                    // window.location.reload();
+                    return 0;
+                  }
+                } else {
+                  //Case 5: if product_uuid is same but size and color is diff.             
+                  console.log('Case 5: if product_uuid is same but size and color is diff.')
+                  var cart_item_obj = {
+                    id:'id_' + (new Date()).getTime(), 
+                    product_uuid:product_uuid,           
+                    product_image:product_image,
+                    product_name:product_name,
+                    product_selling_price:product_selling_price,
+                    product_size:product_size_unit, 
+                    product_color:product_color,
+                    product_color_name:color_name,
+                    product_quantity:product_quantity
+                  };
+                  //Push - Cart-item-Object to existing Array
+                  existing_arr.push(cart_item_obj);     //[{obj1},{obj2}]        
+                  //Save - Existing array to localstorage.
+                  localStorage.setItem("cart_item_list", JSON.stringify(existing_arr));          
+                  return 0;
                 }
-            });       
+              // return 0;
+            } //end-of-for -j
+          } else {
+            // Case 6: If Product_uuid Does not match with items present in cart,Add New Item
+            console.log('Case 6: If Product_uuid Does not match with items present in cart,Add New Item');
+            var cart_item_obj = {
+                id:'id_' + (new Date()).getTime(), 
+                product_uuid:product_uuid,           
+                product_image:product_image,
+                product_name:product_name,
+                product_selling_price:product_selling_price,
+                product_size:product_size_unit, 
+                product_color:product_color,
+                product_color_name:color_name,
+                product_quantity:product_quantity
+            };
+
+            existing_arr.push(cart_item_obj);     //[{obj1},{obj2}]        
+
+            localStorage.setItem("cart_item_list", JSON.stringify(existing_arr));          
+            return 0;
+          }
+        }//for-loop end 
+      }//end-if cart is not empty
+                            
+      document.getElementById('result__localstr').innerHTML = JSON.parse(localStorage.getItem('cart_item_list'));                   
+    
+      var item_count = JSON.parse(localStorage.getItem('item_count'));
+      // window.location.reload();
+
+      // ---------------     COUNTER    -----------------------------
+      // if (localStorage.clickcount) {
+      //     localStorage.clickcount = Number(localStorage.clickcount)+1;
+      //   } else {
+      //     localStorage.clickcount = 1;
+      //   }
+      //   document.getElementById("result").innerHTML = "" + localStorage.clickcount + "-items in Bag";
+      
+      // console.log("bag"+localStorage.clickcount);
+      // --------------- COUNTER END -----------------------------
+      //After clicking add to cart button, all data save to localstroage and refresh
 
 
-      //     $.ajax({
-      //       url:'<//?= base_url('EStore/EStore_Controller/add_to_cart_ajax');  ?>',
-      //       type: 'POST',
-      //       data:{
+    } else { 
+      //=================================  When USER LOGIN  ====================================
+      // alert('user is login')
+      if (localStorage.clickcount) {
+        localStorage.clickcount = Number(localStorage.clickcount)+1;
+      } else {
+        localStorage.clickcount = 1;
+      }
+      document.getElementById("result").innerHTML = "" + localStorage.clickcount + "-items in Bag";
+          
+      console.log("bag"+localStorage.clickcount);
+      //save data to database using Ajax
+      // alert('login user,,welcome');
+      console.log('data:',user_uuid, product_uuid,product_name,product_size,product_color,product_image,product_mrp,product_selling_price,discount_percentage);
+                    
+      $.ajax({
+        url:"</?php echo base_url('EStore/EStore_Controller/add_to_cart_ajax');?>",
+        type:"POST",
+        data:{
+              item_count:localStorage.clickcount,
+              product_uuid:product_uuid,
+              user_uuid:user_uuid,
+              product_name:product_name,
+              // product_size:product_size,
+              // product_color:product_color,
+              product_quantity:product_quantity,
+              product_image:product_image,
+              product_mrp:product_mrp,
+              product_selling_price:product_selling_price,
+              discount_percentage:discount_percentage
+            },                
+        success:function(RespondedData) {  
+            console.log(RespondedData);      
+            location.reload();                              
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+            console.log(XMLHttpRequest);
+            console.log(errorThrown);
+        }
+      });       
+
+// NOT IN USE
+        //     $.ajax({
+        //       url:'<//?= base_url('EStore/EStore_Controller/add_to_cart_ajax');  ?>',
+        //       type: 'POST',
+        //       data:{
+                
+        //         // item_count:localStorage.clickcount,
+        //         product_uuid:product_uuid,
+        //         user_uuid:user_uuid,
+        //         product_size:product_size,
+        //         product_color:product_color,
+        //         product_quantity:product_quantity,
+        //         product_image:product_image,
+        //         product_mrp:product_mrp,
+        //         product_selling_price:product_selling_price,
+        //         discount_percentage:discount_percentage
+        //       },
+        //       // success:function(data, textStatus, jqXHR){
+        //       success:function(data){
               
-      //         // item_count:localStorage.clickcount,
-      //         product_uuid:product_uuid,
-      //         user_uuid:user_uuid,
-      //         product_size:product_size,
-      //         product_color:product_color,
-      //         product_quantity:product_quantity,
-      //         product_image:product_image,
-      //         product_mrp:product_mrp,
-      //         product_selling_price:product_selling_price,
-      //         discount_percentage:discount_percentage
-      //       },
-      //       // success:function(data, textStatus, jqXHR){
-      //       success:function(data){
-              
-      //         var jsonData = JSON.parse(data);
-              
-      //         console.log(jsonData); 
-      //         // </?php redirect('cart'); ?>
-      //         //location.reload();   
-      //       },
-      //       error:function(XMLHttpRequest, textStatus, errorThrown){
-      //         alert(errorThrown);
-      //         console.log(XMLHttpRequest); 
-      //         console.log(textStatus); 
-      //         console.log(errorThrown); 
-      //       }
-      // });
+        //         var jsonData = JSON.parse(data);
+                
+        //         console.log(jsonData); 
+        //         // </?php redirect('cart'); ?>
+        //         //location.reload();   
+        //       },
+        //       error:function(XMLHttpRequest, textStatus, errorThrown){
+        //         alert(errorThrown);
+        //         console.log(XMLHttpRequest); 
+        //         console.log(textStatus); 
+        //         console.log(errorThrown); 
+        //       }
+        // });
   }
         // var product_color = document.getElementById("product_color");
         // var value = product_color.value;
@@ -1197,15 +1196,26 @@ var updated_array = [];
         // alert(value);
         // alert(text);
 
-      });
+});// add to cart event listener end 
+*/
+   
+// $(function() {
+  // A $( document ).ready() block.
+$( document ).ready(function() {
+  
 
-     
-$(function() {
+
+// var rateProduct = document.getElementById('rateProduct'); //rateProduct
+// rateProduct.addEventListener('click', function(){
+//   console.log("button clicked");
+// })
+
 // rating form hide/show
-$( "#rateProduct" ).click(function() {
+$( "#rateProduct" ).click(function() {   
 	$("#ratingDetails").hide();
 	$("#ratingSection").show();
 });
+
 $( "#cancelReview" ).click(function() {
 	$("#ratingSection").hide();
 	$("#ratingDetails").show();
@@ -1241,7 +1251,9 @@ $('#ratingForm').on('submit', function(event){
 	});
 
 });
+
 });
+
 // https://adnan-tech.com/shopping-cart-php-cookies#:~:text=php%20%24conn%20%3D%20mysqli_connect(%22,products%20WHERE%20productCode%20%3D%20'%22%20.
 // https://www.javatpoint.com/javascript-localstorage
 

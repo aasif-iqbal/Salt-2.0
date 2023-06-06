@@ -34,12 +34,12 @@
       #loader{ 
       /* width: 00px;
       height: 00px;  */
-      position: absolute;
+      /* position: absolute;
       top:25%;
       bottom: 0;
       left: 40%;
       right: 0;
-      margin: auto;
+      margin: auto; */
      }  
      /* #showList{
       display:flex!important;
@@ -296,8 +296,28 @@
                     <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 g-3" id="showList"></div>
                    
                     <!-- Image loader -->
-                      <div id='loader' style='display: none;'>
-                        <img src='<?php echo base_url('assets/img/loading-gif.gif'); ?>' width='20%' height='25%'>
+                      <div id='loader' style='display: block;'>
+                        <!-- <img src='</?php echo base_url('assets/img/loading-gif.gif'); ?>' width='20%' height='25%'> -->
+                        <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 g-3">
+
+                         <?php for ($i=0; $i < 12 ; $i++) { ?>
+                                                   
+                          <div class="col my-2">
+                            <div class="card h-100" aria-hidden="true">
+                              <img src="<?= base_url('assets/img/img_placeholder.png');?>" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title placeholder-glow">
+                                <span class="placeholder col-10 "></span>
+                              </h5>
+                              <p class="card-text placeholder-glow">
+                                <span class="placeholder col-4"></span>
+                                <span class="placeholder col-4"></span>      
+                              </p>    
+                            </div>
+                          </div>
+                          </div>
+                        <?php } ?>
+                        </div>
                       </div>
 
                       <!-- loader -->

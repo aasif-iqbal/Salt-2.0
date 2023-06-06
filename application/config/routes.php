@@ -86,8 +86,6 @@ $route['shipping'] = 'EStore/EStore_Controller/shippingDetails';
 $route['edit-addr'] = 'EStore/EStore_Controller/editCustomerAddress';
 $route['submit-edited-addr'] = 'EStore/EStore_Controller/submitEditedAddress';
 
-
-
 $route['product/(:any)'] = 'EStore/EStore_Controller/showProductDetails/$1';
 
 //Customer Orders view page

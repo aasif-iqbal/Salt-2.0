@@ -7,9 +7,15 @@
         <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
     </div>
-
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <strong>Hi Admin!</strong> This application will expire on <strong><span id="demo"></span></strong>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
     <!-- Content Row -->
     <!-- Pending Requests Card Example -->
+    <div class="row">
     <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-danger shadow h-100 py-2">
                 <div class="card-body">
@@ -28,7 +34,25 @@
                 </div>
             </div>
         </div>
-    
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-danger shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                            FifthObject</div>
+                                <div class="h6 mb-0 font-weight-bold text-success text-gray-500">
+                            <a href="https://dashboard.razorpay.com/app/dashboard" class="text-danger stretched-link">Razorpay
+                            </a></div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fa fa-desktop fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
 <hr>
     <div class="row">
 
@@ -182,4 +206,36 @@
 
 </div>
 <!-- End of Main Content -->
+
+<script>
+// Set the date we're counting down to
+var countDownDate = new Date("Jun 4, 2023 15:37:25").getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get today's date and time
+  var now = new Date().getTime();
+    
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
+    
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+  // Output the result in an element with id="demo"
+  document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+  + minutes + "m " + seconds + "s ";
+    
+  // If the count down is over, write some text 
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("demo").innerHTML = "EXPIRED";
+  }
+}, 1000);
+</script>
+
 

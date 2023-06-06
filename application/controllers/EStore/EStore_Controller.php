@@ -41,7 +41,8 @@ class EStore_Controller extends CI_Controller {
 			
 			$this->load->view('eStore/libs');
 			$this->load->view('eStore/nav',$data);
-			$this->load->view('eStore/about_us.php', $data);
+			$this->load->view('eStore/card_placeholder.php', $data);
+			// $this->load->view('eStore/about_us.php', $data);
 			$this->load->view('eStore/footer');		
 	}
 

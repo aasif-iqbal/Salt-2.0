@@ -125,7 +125,21 @@
             <li class="nav-item">
                 <a class="nav-link" href="<?= base_url('show-shipping'); ?>">
                 <i class="fas fa-regular fa-truck"></i>
-                    <span>Shipping Order</span>
+                    <span>Order Shipping</span>
+                </a>
+            </li>
+            <!-- Order Cancel -->
+            <li class="nav-item">
+                <a class="nav-link" href="<?= base_url('show-shipping'); ?>">
+                <i class="fas fa-regular fa-truck"></i>
+                    <span>Order Cancelled</span>
+                </a>
+            </li>
+            <!-- Order Cancel -->
+            <li class="nav-item">
+                <a class="nav-link" href="<?= base_url('show-shipping'); ?>">
+                <i class="fas fa-regular fa-truck"></i>
+                    <span>Order Return/Refund</span>
                 </a>
             </li>
 

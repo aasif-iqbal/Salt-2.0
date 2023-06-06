@@ -17,6 +17,9 @@
 0 => Order Cancel before shipped - No Refund -  COD 
 <br>
 1 => Order Cancel before shipping - Online Pay Done (Customer had paid for order,we need to refund)
+<p>Ask for Instant refund.
+    <a href="https://razorpay.com/instant-refunds/">instant-refunds</a>
+</p>
 <br>
 2 => Order Cancel After shipping - collect Order at doorsteps & Refund - COD (AS customer for mode of return payment like, In Bank acct, UPI )
 
@@ -38,7 +41,7 @@ a.ask for mode of return
     <div>
     <!-- 1=Pending 2=Processing 3=Shipped/Dispatched 4=delivered 5=Cancelled 6=On Hold 7=Refunded -->
     <?php 
-    $status = ['1' => 'Pending','2' => 'Processing' ];
+    $status = ['0' => 'Pending','1' => 'Processing' ];
     $statusKeys = array_keys($status);
     $statusValues = array_values($status);
     

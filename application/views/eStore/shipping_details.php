@@ -109,7 +109,7 @@
             <!-- PRODUCT CARD -->
                 <div class="row">
 
-                <div class="col-md-6">                             
+                <!-- <div class="col-md-6">                             
                 <div class="card dark" id="card_id">
     <img src="https://codingyaar.com/wp-content/uploads/chair-image.jpg" class="card-img-top" alt="...">
     <div class="card-body" id="card-body-id">
@@ -124,9 +124,9 @@
       </div>
     </div>
   </div>
-  </div>
+  </div> -->
 
-  <div class="col-md-6">                             
+  <!-- <div class="col-md-6">                             
   <div class="card bg-light-subtle mt-4" id="card_id">
     <img src="https://codingyaar.com/wp-content/uploads/chair-image.jpg" class="card-img-top" alt="...">
     <div class="card-body" id="card-body-id">
@@ -141,7 +141,7 @@
       </div>
     </div>
   </div>
-    </div>
+    </div> -->
 
 
                     <?php 
@@ -197,7 +197,7 @@
                             value="<?= ($total_amount_to_pay); ?>">Total:Rs. <?= $total_amount_to_pay; ?></p>
                             <input type="hidden" name="" id='total_amount' value='<?= ($total_amount_to_pay); ?>'>
                             
-                            <button class='btn btn-dark mt-1' id="rzp-button1" value="pay" onclick="pay_now_online()" disabled>Online Payment</button>
+                            <button class='btn btn-dark mt-1' id="rzp-button1" value="pay" onclick="pay_now_online()">Online Payment</button>
                             <!-- captcha code for cod -->
 
                             <!-- <div id='show_captcha'><div>
@@ -284,7 +284,7 @@
                             url:'<?= base_url('eStore/EStore_Controller/onlinePayment_ajax'); ?>',
                             data:{
                                 payment_id:response.razorpay_payment_id,productInfo_json:projectInfo_Json,
-                                total_amount:2,
+                                total_amount:total_amount.value,
                                 user_uuid:user_uuid.value
                             },            
                             success:function(data){

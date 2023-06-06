@@ -26,7 +26,7 @@ var_dump($order_cancel[0]);
     <div class="col-md-3">
       <img src="<?= base_url('uploads/').$order_cancel[0]['product_image'];?>" class=" rounded-start" height='200' width='150'>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4 col-lg-4 col-sm-12">
       <div class="card-body">
         <h5 class="card-title"><?= $order_cancel[0]['product_name']; ?></h5>
         <!-- <p class="card-text">SIZE :</?= $order_cancel[0]['product_size_name']; ?></p> -->
@@ -67,7 +67,7 @@ var_dump($order_cancel[0]);
 <input type="hidden" name="order_datetime" value="</?= $order_cancel[0]['ordered_datetime'];?>">
 <input type="hidden" name="product_json" value='</?= ($order_cancel[0]['product_json']);?>'> -->
 
-    <div class='my-4' style="margin-left:20%;margin-right:30%;">    
+<div class='col-md-4 col-lg-4 col-sm-12 my-4' style="">    
   
         <p>Why are you returning this?</p>
         <ul class="list-group list-group-flush">
@@ -106,6 +106,7 @@ var_dump($order_cancel[0]);
             </div></li>
         </ul>  
     </div>
+    
     <hr>
     <h6>Payment status</h6>
     <div class='my-4' style="margin-left:20%;margin-right:30%;">        

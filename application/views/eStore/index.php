@@ -24,19 +24,19 @@
         <div class="row align-items-stretch">
           <div class="col-lg-8">
             <div class="product-item sm-height full-height bg-gray" data-aos="zoom-in-right">
-              <a href="#" class="product-category">Men Linin</a>
-              <img src="<?= base_url('assets/fifthObject/img_10.png'); ?>" alt="Image" class="img-fluid">
+              <a href="#" class="product-category">Men Linen</a>
+              <img src="<?= base_url('assets/fifthObject/img_24.png'); ?>" alt="Image" class="img-fluid">
             </div>
           </div>
           <div class="col-lg-4">
             <div class="product-item sm-height bg-gray mb-4" data-aos="zoom-in-left">
               <a href="#" class="product-category">Men Casual</a>
-              <img src="<?= base_url('assets/fifthObject/img_15.png'); ?>" alt="Image" class="img-fluid">
+              <img src="<?= base_url('assets/fifthObject/img_22.png'); ?>" alt="Image" class="img-fluid">
             </div>
 
             <div class="product-item sm-height bg-gray" data-aos="zoom-in-right">
               <a href="#" class="product-category">Men Formal</a>
-              <img src="<?= base_url('assets/fifthObject/img_17.png'); ?>" alt="Image" class="img-fluid">
+              <img src="<?= base_url('assets/fifthObject/img_21.png'); ?>" alt="Image" class="img-fluid">
             </div>
           </div>
 
@@ -86,9 +86,8 @@
           </div>
           <div class="col-lg-4 col-md-6 item-entry mb-4">
             <a href="#" class="product-item md-height bg-gray d-block">
-              <img src="<?= base_url('assets/fifthObject/img_18.png'); ?>" alt="Image" class="img-fluid">
+              <img src="<?= base_url('assets/fifthObject/img_20.png'); ?>" alt="Image" class="img-fluid">
             </a>
-            
             <h2 class="item-title"><a href="#">Leather Green Bag</a></h2>
             <strong class="item-price"><del>Rs. 4600.00</del> Rs. 2800.00</strong>
             <!-- <div class="star-rating">
@@ -109,7 +108,7 @@
           </div>
           <div class="col-lg-4 col-md-6 item-entry mb-4">
             <a href="#" class="product-item md-height bg-gray d-block">
-              <img src="<?= base_url('assets/fifthObject/img_12.png'); ?>" alt="Image" class="img-fluid">
+              <img src="<?= base_url('assets/fifthObject/img_23.png'); ?>" alt="Image" class="img-fluid">
             </a>
             <h2 class="item-title"><a href="#">Yellow Jacket</a></h2>
             <strong class="item-price">Rs. 5800.00</strong>
@@ -132,7 +131,7 @@
               <div class="item">
                 <div class="item-entry">
                   <a href="#" class="product-item md-height bg-gray d-block">
-                    <img src="<?= base_url('assets/fifthObject/img_15.png'); ?>" alt="Image" class="img-fluid">
+                    <img src="<?= base_url('assets/fifthObject/img_27.png'); ?>" alt="Image" class="img-fluid">
                   </a>
                   <h2 class="item-title"><a href="#">Smooth Cloth</a></h2>
                   <strong class="item-price"><del>Rs. 4600.00</del> Rs. 2800.00</strong>
@@ -148,7 +147,7 @@
               <div class="item">
                 <div class="item-entry">
                   <a href="#" class="product-item md-height bg-gray d-block">
-                    <img src="<?= base_url('assets/fifthObject/img_15.png'); ?>" alt="Image" class="img-fluid">
+                    <img src="<?= base_url('assets/fifthObject/img_26.png'); ?>" alt="Image" class="img-fluid">
                   </a>
                   <h2 class="item-title"><a href="#">Blue Shoe High Heels</a></h2>
                   <strong class="item-price"><del>Rs. 4600.00</del> Rs. 2800.00</strong>
@@ -165,7 +164,7 @@
               <div class="item">
                 <div class="item-entry">
                   <a href="#" class="product-item md-height bg-gray d-block">
-                    <img src="<?= base_url('assets/fifthObject/img_15.png'); ?>" alt="Image" class="img-fluid">
+                    <img src="<?= base_url('assets/fifthObject/img_22.png'); ?>" alt="Image" class="img-fluid">
                   </a>
                   <h2 class="item-title"><a href="#">Denim Jacket</a></h2>
                   <strong class="item-price"><del>Rs. 4600.00</del> Rs. 2800.00</strong>
@@ -183,7 +182,7 @@
               <div class="item">
                 <div class="item-entry">
                   <a href="#" class="product-item md-height bg-gray d-block">
-                    <img src="<?= base_url('assets/fifthObject/img_15.png'); ?>" alt="Image" class="img-fluid">
+                    <img src="<?= base_url('assets/fifthObject/img_21.png'); ?>" alt="Image" class="img-fluid">
                   </a>
                   <h2 class="item-title"><a href="#">Leather Green Bag</a></h2>
                   <strong class="item-price"><del>Rs. 4600.00</del> Rs. 2800.00</strong>
