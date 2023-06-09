@@ -73,11 +73,72 @@
     vertical-align: baseline;
     border-radius: 0rem;
 }
+/* Animation placeholder */
+
+.card-only{
+  /* width: 18rem; */
+  height:auto;
+  aspect-ratio: 4 / 6;
+  border-radius: 0.1rem;
+  background: #fff;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+  padding: 0.5rem;
+  box-sizing: border-box;
+}
+.image-placeholder-only {
+  aspect-ratio: 16/25;
+  margin-bottom: 0rem;
+  width:100%;
+  height:100%;
+}
+.placeholder {
+background: #eee;
+border-radius: 1rem;
+position: relative;
+overflow: hidden;
+}
+.placeholder:after {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+bottom: 0;
+width: 100px;
+background: linear-gradient(90deg, #eee, #f4f4f4, #eee);
+animation: gradient 1s infinite ease-in-out;
+}
+.image-placeholder-only {
+aspect-ratio: 16 / 9;
+margin-bottom: 0rem;
+}
+
+.title-placeholder {
+aspect-ratio: 16 / 1.5;
+margin-bottom: 2rem;
+}
+.text-placeholder {
+aspect-ratio: 16 / 1;
+margin-top: 1rem;
+margin-bottom: 0;
+}
+
+@keyframes gradient {
+form {
+left: 0%;
+}
+
+to {
+left: 100%;
+}
+}
+
+/* End Animation placeholder */
+
     </style>
 <body>
 <?php 
   $userLoginData = $this->session->userdata('userLoginData'); 
- // print_r($userLoginData);
+//  print_r($product_imgs);
 ?>
 
 <div class="container-fluid">          
@@ -94,19 +155,31 @@
             <div class="col-md-8">
                 <div class="row">
                     <div id='image_color_id'>        
-                        <?php if(isset($product_imgs)){ ?>                            
-                            <div class="row">
-                            <?php for ($i=0; $i < count($product_imgs) ; $i++) { ?>
-                                <div class="col-md-6 col-sm-12 mt-4">
-                                    <div class="card">
-                                        <a data-fancybox="gallery" onclick='addZIndexToNav()' data-src="<?= base_url('upload_img/'.$product_imgs[$i]['main_product_image']); ?>">
-                                        <img class="img-fluid" src="<?= base_url('upload_img/'.$product_imgs[$i]['main_product_image']); ?>">
-                                        </a>
-                                    </div>
+                      <div id="product_detail_image_id">product_detail_image_id</div>
+                        <div id="no_data_found"></div>
+                          <div class='row' id='loader'>
+                            <!-- loading placeholder  -->
+                            <?php for($i=0; $i < 6; $i++){ ?>
+                            <div class="col-md-6 col-sm-12 mt-4">
+                                <!-- <div class="card">
+                                    <a data-fancybox="gallery" data-src="</?= base_url('upload_img/img_placeholder.png'); ?>">
+                                    <img class="img-fluid" src="</?= base_url('upload_img/img_placeholder.png'); ?>">
+                                    </a>
+                                </div> -->
+                                <!-- Animation placeholder -->
+                                <div class="card">
+                               
+                                <div class="card-only">
+                                  <div class="image-placeholder-only placeholder">
+                                  </div>       
                                 </div>
-                            <?php } ?> 
-                            </div>
-                        <?php }else{ echo("<h3>No Image Uploaded yet</h3>");} ?>
+
+                                </div>
+
+                              </div>  
+                            <?php } ?>                     
+                          </div><!--row end-->  
+
                     </div><!--image_color_id-->
                     <!-- on page load color variation -->
                     <div id='show_image_color_id'></div>
@@ -196,61 +269,7 @@
 </div>
 <!-- dynamic color according to product size -->
 <div class='mt-2' id="showSelectedColor"></div>
-<!-- offcanvas for size-guide -->
-
-
-<!-- 
-<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
-    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
-    <div>
-    <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
-    </div>
-    
-  </div>
-</div> -->
-
-<!-- Reviews and rating -->
-<!-- <div class="">
-  <h4><span class="text-dark" style="font-size: 14px;">REVIEWS&nbsp;&nbsp;(12)</span>
-  <span style="font-size: 14px;" class="text-dark">
-      <span class="icon-star2 text-dark"></span>
-      4.0 
-    </span>            
-  </h4>
-</div> -->
-        
+         
 <!-- static -->
     <div class="mt-3">
     <!-- if href='' is empty then it will reload the page as its default nature,
@@ -305,22 +324,8 @@
     </h2>
     <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
       <div class="accordion-body">
-      <!-- product_long_Description -->
-       
-      <?= $product_main[0]->product_long_description; ?>
-
-      <!-- <p>FABRIC: Blended cotton, highly durable</p>
-
-      <p>FIT: Slim fit, trimmer in the hips & seat, then narrows from the thigh down.</p>
-
-      <p>STRETCH: 360 stretch & never looses shape</p>
-
-      <p>RISE & LENGTH: Mid-rise, standard length</p>
-
-      <p>CONSTRUCTION: Classic flat-front, elastic waist with belt loops - 2 belt loops at the back for belt support</p>
-
-      <p>POCKETS: 2 on either side, 2 at the back</p> -->
-      
+      <!-- product_long_Description -->       
+      <?= $product_main[0]->product_long_description; ?>          
       </div>
     </div>
   </div>
@@ -649,10 +654,75 @@ $oneStarRatingPercent = !empty($oneStarRatingPercent) ? $oneStarRatingPercent . 
 			</div><!--row-->
 		</div>
 	</div><!--"ratingDetails"-->
+<script>
+   // JavaScript code
+window.onload = function() {
+  let currentUrl = window.location.href;
+    newCurrentUrl = currentUrl.substr(0,currentUrl.lastIndexOf('/'));
+    newCurrent_Url = newCurrentUrl.substr(0,newCurrentUrl.lastIndexOf('/'));
 
+// Code to be executed when the window has finished loading      
+var product_uuid = document.getElementById('product_uuid').value;
+      // alert(product_uuid);
+let product_imgs = `<?php echo json_encode($product_imgs); ?>`;
 
+  $.ajax({
+    url: "<?= base_url('EStore/EStore_Controller/showDetailProductImages_ajax'); ?>",
+            type: 'POST',
+            timeout: 1000000,
+            data: {
+                product_uuid:product_uuid,                            
+            },
+            beforeSend: function(){
+              // Show image container
+              $("#loader").show();                   
+              $("#product_detail_image_id").hide();               
+            },
+            complete:function(data){
+              // Hide image container
+              $("#loader").hide();
+              $("#product_detail_image_id").show();                  
+            },
+            success: function(data, textStatus, jqXHR) {                
+                var jsonData = JSON.parse(data);  
+                console.log("JsonData::", jsonData);                  
 
-    <script>
+                if(jsonData != null || jsonData != undefined){
+                  var data_len = jsonData.length;   
+                  console.log('data_len',data_len)                     
+                }
+
+                      // console.log(jsonData.pagination_link);
+                var htmlTemp = "";
+                if(data_len != null){
+                  htmlTemp += `<div class='row'>`;     
+                  for (var i = 0; i < data_len;; i++){ 
+                    // console.log(jsonData[i]['main_image_uuid']);
+                    htmlTemp += `<div class="col-md-6 col-sm-12 mt-4">`;
+                    htmlTemp += `<div class='card'>`;
+                    htmlTemp += `<a data-fancybox="gallery" onclick='${addZIndexToNav()}' data-src="${newCurrent_Url+'/upload_img/'+jsonData[i]['main_product_image']}">`;
+                    htmlTemp += `<img class='img-fluid' src='${newCurrent_Url+'/upload_img/'+jsonData[i]['main_product_image']}'>`; 
+                    htmlTemp += `</a>`; 
+                    htmlTemp += `</div>`; 
+                    htmlTemp += `</div>`;
+                  }                    
+                  htmlTemp += `</div>`;    
+                  document.getElementById('product_detail_image_id').innerHTML =  htmlTemp;
+                  
+                  }else{                                        
+                    //$('#pglink').hide();
+                   // $('#pageNum').hide();
+                    document.getElementById('no_data_found').innerHTML = "<div id='NotFound'>No Data Found</div>";                    
+                  }
+
+                },//success-ends
+                error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                    console.log(XMLHttpRequest);
+                    console.log(errorThrown);
+                }
+            })
+// console.log('sda',JSON.parse(product_imgs));  
+};
 
 // JavaScript code
 // const myDiv = document.getElementsByClassName("color_change");

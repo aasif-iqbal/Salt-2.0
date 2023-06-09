@@ -208,6 +208,7 @@ class EStore_Controller extends CI_Controller {
 		// echo($product_uuid);
 		
 		$data['product_imgs'] = $this->EStore_model->fetchProductImages($product_uuid);
+
 		$data['product_main'] = $this->EStore_model->fetchSingleProduct($product_uuid);
 				
 		//avilable_size_var (Price will same)
@@ -244,6 +245,15 @@ class EStore_Controller extends CI_Controller {
 		$this->load->view('eStore/nav', $data);
 		$this->load->view('eStore/product_details1', $data);
 		$this->load->view('eStore/footer');
+	}
+
+	public function showDetailProductImages_ajax()
+	{
+		$product_uuid = $this->input->post('product_uuid');
+
+		$data = $this->EStore_model->fetchProductImages($product_uuid);
+
+		echo json_encode($data);
 	}
 
 	public function show_product_color_ajax(){
