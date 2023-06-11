@@ -9,21 +9,24 @@
 <body>
     <div class="site-wrap">
     <div class="site-blocks-cover inner-page" 
-        style="background-repeat: no-repeat; background-size: cover;background-position:center" 
+        style="background-repeat: no-repeat; 
+        background-size: cover;
+        background-position:center" 
          data-aos="fade">         
-      <!-- <div class="container-fluid"> -->
-        <!-- <div class="row"> -->
+      <div class="container-fluid">
+        <div class="row">
         <!-- <img class="img-fluid" src="</?= base_url('assets/img/').$main_category[0]->parent_category_image; ?>" alt=""> -->
-        <!-- </div> -->
-      <!-- </div> -->
+        <img class="img-fluid" src="<?= base_url('assets/img/pin_12.jpg'); ?>" alt="">
+        </div>
+      </div>
     </div>
-    
+
     <?php
         //  echo "<pre/>"; 
         //  print_r(($main_category[0]->children));
      ?>
     <div class="custom-border-bottom text-dark py-3">
-        <div class="h1 ml-3"><?= $main_category[0]->parent_category_name; ?> Section</div>
+        <div class="h1 ml-3"><?= $main_category[0]->parent_category_name; ?>Section</div>
     <hr>
     <?php if(isset($main_category[0])){         
         for($i = 0; $i < count((array)$main_category[0]->children); $i++){

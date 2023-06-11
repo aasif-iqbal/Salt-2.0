@@ -24,23 +24,32 @@
           padding: 2px;
           cursor: pointer;
         }
-
         .add-border-red.selected {
           border-color: red;          
         }
-        
+        /* Star rating btn */
+        .btn-dark{
+          color: #212529 !important;
+          background-color: #fff !important;
+          border:none;          
+        }
+        .btn-light {
+          display: none !important;
+        }
+        #rateProduct{
+          border:1px solid black;
+        }
+        /* Star rating btn end */
         .square{
           width: 100%;
           height: 100%;
         }
-
         .btn_sqr{
             height:30px;
             width:30px;
             cursor:pointer;
             border:0px;
-        }
-        
+        }        
         .form-check {         
          padding-left: 0em!important;
         }
@@ -79,10 +88,10 @@
   /* width: 18rem; */
   height:auto;
   aspect-ratio: 4 / 6;
-  border-radius: 0.1rem;
+  /* border-radius: 0.1rem; */
   background: #fff;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
-  padding: 0.5rem;
+  /* padding: 0.5rem; */
   box-sizing: border-box;
 }
 .image-placeholder-only {
@@ -93,7 +102,7 @@
 }
 .placeholder {
 background: #eee;
-border-radius: 1rem;
+/* border-radius: 1rem; */
 position: relative;
 overflow: hidden;
 }
@@ -111,17 +120,6 @@ animation: gradient 1s infinite ease-in-out;
 aspect-ratio: 16 / 9;
 margin-bottom: 0rem;
 }
-
-.title-placeholder {
-aspect-ratio: 16 / 1.5;
-margin-bottom: 2rem;
-}
-.text-placeholder {
-aspect-ratio: 16 / 1;
-margin-top: 1rem;
-margin-bottom: 0;
-}
-
 @keyframes gradient {
 form {
 left: 0%;
@@ -155,7 +153,7 @@ left: 100%;
             <div class="col-md-8">
                 <div class="row">
                     <div id='image_color_id'>        
-                      <div id="product_detail_image_id">product_detail_image_id</div>
+                      <div id="product_detail_image_id"></div>
                         <div id="no_data_found"></div>
                           <div class='row' id='loader'>
                             <!-- loading placeholder  -->
@@ -603,7 +601,7 @@ $oneStarRatingPercent = !empty($oneStarRatingPercent) ? $oneStarRatingPercent . 
   if(isset($rating_reviews)){
     foreach($rating_reviews as $rr):
   ?>							
-							  <div class="col-sm-4 col-md-6 col-lg-6 mt-3">
+							  <div class="col-sm-4 col-md-4 col-lg-4 mt-3">
                   <div class='card h-100'>
                     <div class="row">
                       <div class="col-2">
@@ -696,7 +694,7 @@ let product_imgs = `<?php echo json_encode($product_imgs); ?>`;
                 var htmlTemp = "";
                 if(data_len != null){
                   htmlTemp += `<div class='row'>`;     
-                  for (var i = 0; i < data_len;; i++){ 
+                  for (var i = 0; i < data_len; i++){ 
                     // console.log(jsonData[i]['main_image_uuid']);
                     htmlTemp += `<div class="col-md-6 col-sm-12 mt-4">`;
                     htmlTemp += `<div class='card'>`;

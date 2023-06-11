@@ -54,7 +54,9 @@
     font-size: 0.9em;
   }
 }
-
+#return_available{
+    font-size:12px;
+}
     </style>
 </head>
 <body>    
@@ -173,8 +175,10 @@
                                                 <small class="text-muted">Item quantity: <?= $cartItem->item_count; ?>|
                                                 Color:<?= $cartItem->product_color_name; ?> | Size:<?= $cartItem->product_size_name; ?>
                                             </small></p>
+                                            <span id='return_available'>
+                                                <i class="fa fa-refresh"></i>&nbsp;14 days return available</span>
                                         </div>
-                                    </div>
+                                    </div>                                    
                                 </div>
                             </div>                            
                         </div>

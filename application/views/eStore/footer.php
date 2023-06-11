@@ -51,7 +51,7 @@
             <div class="block-5 mb-5">
               <h3 class="footer-heading mb-4">Contact Info</h3>
               <ul class="list-unstyled">
-                <li class="address">Jaishaa Creation Private Limited, T64, Khirki Extention Malviya Nagar, New Delhi ( 110017 )</li>
+                <li class="address">Jaishaa Creation Private Limited, T64, Khirki Extention Malviya Nagar, New Delhi (110017)</li>
                 <li class="phone"><a href="tel://23923929210">+91 95605 10644</a></li>
                 <li class="email">Customercare@fifthobject.com</li>
               </ul>
