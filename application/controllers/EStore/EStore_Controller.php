@@ -719,12 +719,15 @@ public function thankYouPage()
 public function customer_orders()
 {
 	$userLoginData = $this->session->userdata('userLoginData'); 
-	print_r($userLoginData);
+	
 	$user_uuid = $userLoginData['user_uuid'];
 
 	$data['nav_categories'] = $this->EStore_model->fetch_categories_for_parent();
 
+	//  Check Order datetime - and compare it with current datetime
+
 	$data['customer_orders_list'] = $this->EStore_model->fetch_order_list_for_Customer($user_uuid);
+	
 
 	$this->load->view('eStore/libs');
 	$this->load->view('eStore/nav', $data);

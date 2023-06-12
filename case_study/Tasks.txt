@@ -161,7 +161,7 @@ order_tbl
     a. if (product is in COD) then ______
     b. if he/she pays online then ______
 
-Solution : To avoid the above case, User(customer) can Cancel it only at doorsteps(ie. after reciveing it)
+Solution : To avoid the above case, User(customer) can Cancel it only at doorsteps(ie. after reciveing it) - Not good practice
 
 level: complex
 2. When User Buy Product and Want to exchange it with different COLOR or Size

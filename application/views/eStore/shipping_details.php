@@ -22,7 +22,7 @@
 }
 
 #card_id img {
-  max-width: 45%;
+  max-width: 35%;
   /* margin: auto; */
   padding: 0.2em;
   border-radius: 0.7em;
@@ -32,7 +32,7 @@
   justify-content: space-between;
 }
 #text-section-id {
-  max-width: 60%;
+  max-width: 100%;
 }
 .cta-section {
   max-width: 40%;
@@ -55,7 +55,10 @@
   }
 }
 #return_available{
-    font-size:12px;
+    font-size:12px;    
+}
+.product-attribute{
+    /* font-size:12px;  */
 }
     </style>
 </head>
@@ -102,7 +105,7 @@
                     </div>
                 </div>
                 
-                <div class="card mb-3">
+                <div class="card">
                     <div class="card-body">
                         <p>Your Product will delivered on 5-7 days.</p>
                     </div>
@@ -111,42 +114,7 @@
             <!-- PRODUCT CARD -->
                 <div class="row">
 
-                <!-- <div class="col-md-6">                             
-                <div class="card dark" id="card_id">
-    <img src="https://codingyaar.com/wp-content/uploads/chair-image.jpg" class="card-img-top" alt="...">
-    <div class="card-body" id="card-body-id">
-      <div class="text-section" id="text-section-id">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card's
-          content.</p>
-      </div>
-      <div class="cta-section">
-        <div>$129.00</div>
-        <a href="#" class="btn btn-light" id="btn-placeholder">Buy Now</a>
-      </div>
-    </div>
-  </div>
-  </div> -->
-
-  <!-- <div class="col-md-6">                             
-  <div class="card bg-light-subtle mt-4" id="card_id">
-    <img src="https://codingyaar.com/wp-content/uploads/chair-image.jpg" class="card-img-top" alt="...">
-    <div class="card-body" id="card-body-id">
-      <div class="text-section" id="text-section-id">
-        <h5 class="card-title fw-bold">LINEN CHECK REGULAR SHIRT REGULAR SHIRT</h5>
-        <p class="card-text">Color: Red</p>
-        <p class="card-text">Size: M</p>
-      </div>
-      <div class="cta-section">
-        <div>Rs.2599</div>
-        <p href="#" class="" id="btn-placeholder">Qty:1</p>
-      </div>
-    </div>
-  </div>
-    </div> -->
-
-
-                    <?php 
+                <?php 
                     $total_amount_to_pay = 0;
                     $total_quantity_inCart = 0;
                     $product_arr = [];
@@ -158,38 +126,39 @@
                     foreach($customerCartItems as $cartItem):
                         $product_arr = $cartItem->product_name;
                         // print_r($product_arr);
-                    ?>                    
-                        <div class="col-md-6">                             
-                            <div class="card h-100">
-                                <div class="row g-0">
-                                    <div class="col-md-4">
-                                    <img src="<?= base_url('uploads/'.$cartItem->product_image); ?>" class="img-fluid">
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="card-body">
-                                            <h5 class="card-title" id='product_name'>
-                                                <?= $cartItem->product_name; ?></h5>
-                                            <p class="card-text">
-                                                Price:<?= ($cartItem->product_selling_price * $cartItem->item_count); ?></p>
-                                            <p class="card-text" id='product_quantity'>
-                                                <small class="text-muted">Item quantity: <?= $cartItem->item_count; ?>|
-                                                Color:<?= $cartItem->product_color_name; ?> | Size:<?= $cartItem->product_size_name; ?>
-                                            </small></p>
-                                            <span id='return_available'>
-                                                <i class="fa fa-refresh"></i>&nbsp;14 days return available</span>
-                                        </div>
-                                    </div>                                    
-                                </div>
-                            </div>                            
-                        </div>
-                        <? 
-                        //total price in cart/bag
-                        $subtotal = (($cartItem->item_count)*($cartItem->product_selling_price));
-                        $total_amount_to_pay += $subtotal;
-                        $total_quantity_inCart += $cartItem->item_count;
-                    endforeach; } ?>                                                  
-                </div>
-            </div>
+                    ?>    
+
+  <div class="col-md-6">                             
+  <div class="card bg-light-subtle mt-4" id="card_id">
+    <img src="<?= base_url('uploads/'.$cartItem->product_image); ?>" class="card-img-top" alt="...">
+    <div class="card-body" id="card-body-id">
+      <div class="text-section" id="text-section-id">
+        <span class="h5 fw-bold"><?= $cartItem->product_name; ?></span><br/>
+        <span class="card-text product-attribute">Color: <?= $cartItem->product_color_name; ?></span>&nbsp;|&nbsp;
+        <span class="card-text product-attribute">Size: <?= $cartItem->product_size_name; ?></span><br/>
+        <span class="card-text product-attribute">Qty: <?= $cartItem->item_count; ?></span><br/>
+        <span class="card-text product-attribute">Rs. <?= ($cartItem->product_selling_price * $cartItem->item_count); ?></span><br/>
+         
+        <span id='return_available'>
+            <i class="fa fa-refresh"></i>&nbsp;14 days return available</span>
+      </div>
+      <!-- <div class="cta-section">
+        <div>Rs.2599</div> for new section after product-name
+        <p href="#" class="" id="btn-placeholder">Qty:1</p>
+      </div> -->
+    </div>    
+  </div>
+    </div>
+    <? 
+    //total price in cart/bag
+    $subtotal = (($cartItem->item_count)*($cartItem->product_selling_price));
+    $total_amount_to_pay += $subtotal;
+    $total_quantity_inCart += $cartItem->item_count;
+    endforeach; } 
+    ?>                                                                       
+    </div> <!--row ends--> 
+    <!-- Product - card - ends -->
+</div>
             
             <div class="col-4" style="margin-top:30%;">
                 <div class="card" style="">
@@ -201,7 +170,7 @@
                             value="<?= ($total_amount_to_pay); ?>">Total:Rs. <?= $total_amount_to_pay; ?></p>
                             <input type="hidden" name="" id='total_amount' value='<?= ($total_amount_to_pay); ?>'>
                             
-                            <button class='btn btn-dark mt-1' id="rzp-button1" value="pay" onclick="pay_now_online()">Online Payment</button>
+                            <button class='btn btn-dark btn-block btn-sm mt-1' id="rzp-button1" value="pay" onclick="pay_now_online()">Online Payment</button>
                             <!-- captcha code for cod -->
 
                             <!-- <div id='show_captcha'><div>
@@ -211,7 +180,7 @@
                             -->
 
                             <!-- end captcha code for cod -->
-                            <button class='btn btn-dark mt-1 float-right' id='cod' onclick="pay_now_cod()">Cash on delivery</button>
+                            <button class='btn btn-dark btn-block btn-sm mt-1' id='cod' onclick="pay_now_cod()">Cash on delivery</button>
                         </div>
                 </div>
             </div>

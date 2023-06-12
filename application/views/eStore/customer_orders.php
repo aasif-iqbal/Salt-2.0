@@ -5,82 +5,175 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>fifthobject</title>
+    <style>
+      #card_id {
+        max-width: 30em;
+        flex-direction: row;
+        /* background-color: #696969; */
+        border: 0;
+        box-shadow: 0 7px 7px rgba(0, 0, 0, 0.18);
+        margin: 3em auto;
+      }
+      #card_id.dark {
+        color: #fff;
+      }
+      #card_id#card_id.bg-light-subtle .card-title {
+        color: dimgrey;
+      }
+      #card_id img {
+        max-width: 35%;
+        /* margin: auto; */
+        padding: 0.2em;
+        border-radius: 0.7em;
+      }
+      #card-body-id {
+        display: flex;
+        justify-content: space-between;
+      }
+      #text-section-id {
+        max-width: 100%;
+      }
+      .cta-section {
+        max-width: 40%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: space-between;
+      }
+      .cta-section #btn-placeholder {
+        padding: 0.3em 0.5em;
+        /* color: #696969; */
+      }
+      #card_id.bg-light-subtle .cta-section #btn-placeholder {
+        /* background-color: #898989; */
+        /* border-color: #898989; */
+      }
+      @media screen and (max-width: 475px) {
+      #card_id {
+          font-size: 0.9em;
+        }
+      }
+      #return_available{
+          font-size:12px;    
+      }
+      .product-attribute{
+          /* font-size:12px;  */
+      }
+      .btn {
+        height: 30px!important;
+      }
+    </style>
 </head>
-<body>
-    
-    <?php 
-    // echo("<pre/>");
-    if (!is_null($customer_orders_list) && isset($customer_orders_list)) {
-      // Access the array element at the specified index
-      $value = $customer_orders_list;
-      // echo("<pre/>");
-      // print_r($value);
-      // Rest of your code...
-  } else {
-      // Handle the case when the array is null or the index is invalid
-      echo "The array is null or the index is invalid.";
-  }
+<body>    
+  <div class="container">
+    <div class="h4 text-dark my-3">Your Orders</div>
+    <!-- nav links start -->
+    <nav>
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Orders</button>
 
-    // var_dump($customer_orders_list[0]); 
-    // var_dump(isset($customer_orders_list));
-    // if(isset($customer_orders_list)){
-    if($customer_orders_list == NULL){
-        echo("<h2>NO Order Made By you,Yet!!</h2>");
-    }
-  // }
-    ?>
-
-    <div class="container">
-    <h4>Your Orders</h4>
-    <?php     
-    if(isset($customer_orders_list)){
-        $total_orders = count($customer_orders_list);
-        for($i=0; $i<$total_orders; $i++){
-    ?>
-    <div class="card" style="">
-  <div class="row g-0">
-    <div class="col-md-3">
-      <img src="<?= base_url('uploads/').$customer_orders_list[$i]['product_image'];?>" class=" rounded-start" height='250' width='250'>
-    </div>
-    <div class="col-md-4">
-      <div class="card-body">
-        <h5 class="card-title"><?= $customer_orders_list[$i]['product_name']; ?></h5>
-        <p class="card-text">SIZE :<?= $customer_orders_list[$i]['product_size_name']; ?></p>
-        <p class="card-text">COLOR :<?= $customer_orders_list[$i]['product_color_name']; ?></p>
-        <p class="card-text">Payment Mode :
-          <?= $customer_orders_list[$i]['payment_method']; ?>
-      </p>
-        <a class="btn btn-outline-danger btn-small" id="cancel_order" 
-        href="<?= base_url('order-cancellation/'.$customer_orders_list[$i]['order_uuid']); ?>" role="button">Cancel Order</a>
-        <p>Show only when order is delivered</p>
-        <a class="btn btn-outline-danger btn-small" id="cancel_order" href="<?= base_url('order-return-refund/'.$customer_orders_list[$i]['order_uuid']); ?>" role="button">Return/Refund Order</a>
-        <p>After 15 days</p>
-        <a class="btn btn-outline-danger btn-small" id="cancel_order" href="<?= base_url('/'); ?>" role="button">Buy Again</a>
+        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Buy Again</button>
         
+        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Cancelled Order</button>
       </div>
-    </div>
-    <div class="col-md-5">
-      <div class="card-body">
-        <h5 class="card-title">
-          <!-- conformation code: #</?= $customer_orders_list['conformation_code']; ?> -->
-        </h5>
-        <p class="card-text">
-          <!-- Shipping Id : #</?= $licustomer_orders_listst['shipping_uuid']; ?> -->
-        </p>
-        <p class="card-text">Order Id : #<?= $customer_orders_list[$i]['order_uuid']; ?></p>
-    <p class="card-text">Order date :<?= $customer_orders_list[$i]['createdAt']; ?></p>        
-      </div>
-    </div>
-  </div>
-  <p class="card-text"><small class="text-muted">Cancel this order under 15days</small></p>
+</nav>
+<!-- nav links ends -->
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+    <!-- Arriving Orders -->
+  <div class="row">
+  <?php     
+  // echo("<pre/>");
+  // print_r($customer_orders_list);
+  if(isset($customer_orders_list) && !is_null($customer_orders_list)){
+      $total_orders = count($customer_orders_list);
+      for($i=0; $i<$total_orders; $i++){
+    ?>    
+      
+      <div class="col-md-6 col-lg-6">                             
+        <!-- PRODUCT CARD -->
+        <div class="mt-3 ml-3">
+          <span class="fw-bold"><i class="fa fa-check" aria-hidden="true"></i>&nbsp;Confirmed</span><br/>
+          <span class="card-text product-attribute border-bottom">Arrived By 19 Jun, Mon</span><br/>
+          <p class="card-text">Order Id : #<?= $customer_orders_list[$i]['order_uuid']; ?></p>
+          <p class="card-text">Order date :<?= $customer_orders_list[$i]['createdAt']; ?></p>        
+        </div>
+
+        <div class="card bg-light-subtle mt-4" id="card_id">
+          <img src="<?= base_url('uploads/'.$customer_orders_list[$i]['product_image']); ?>" class="card-img-top">
+          <div class="card-body" id="card-body-id">
+          <div class="text-section" id="text-section-id">
+          <!-- Order status -->
+          <!-- <span class="fw-bold"><i class="fa fa-check" aria-hidden="true"></i>&nbsp;Confirmed</span><br/>
+          
+          <span class="fw-bold"><i class="fa fa-check" aria-hidden="true"></i>&nbsp;In Transit</span><br/>
+          
+          <span class="fw-bold"><i class="fa fa-check" aria-hidden="true"></i>&nbsp;Confirmed</span><br/>
+
+          <span class="card-text product-attribute border-bottom">Arrived By 19 Jun, Mon</span><br/>
+           -->
+            <span class="fw-bold"><?= $customer_orders_list[$i]['product_name']; ?>sdasdsd dassdadsasad sdadsasad</span><br/>
+            <span class="card-text product-attribute">Color: blue</span>&nbsp;|&nbsp;
+            <span class="card-text product-attribute">Size: M</span><br/>
+            <span class="card-text product-attribute">Qty: 2</span><br/>
+            <span class="card-text product-attribute">Rs. 2334</span><br/>
+            <!-- <span class="card-text product-attribute">Pay mode:cod</span><br/> -->
+            <!-- <p>Cancel Order before delivered</p> -->
+            <a class="btn btn-dark btn-sm" id="cancel_order" 
+                href="<?= base_url('order-cancellation/'.$customer_orders_list[$i]['order_uuid']); ?>" role="button">Cancel Order</a>
+
+            <!-- <p>Show only when order is delivered</p> -->
+            <!-- <a class="btn btn-outline-danger btn-small" id="cancel_order" href="<?= base_url('order-return-refund/'.$customer_orders_list[$i]['order_uuid']); ?>" role="button">Return/Refund Order</a>
+            <p>After 15 days</p> -->
+            <!-- <a class="btn btn-outline-danger btn-small" id="cancel_order" href="<?= base_url('/'); ?>" role="button">Buy Again</a> -->
+        
+          </div>
+          <!-- <div class="cta-section">
+          <div>Rs.2599</div> for new section after product-name
+          <p href="#" class="" id="btn-placeholder">Qty:1</p>
+          </div> -->
+        </div>    
+        </div>
+        <p class="card-text"><small class="text-muted">Cancel this order under 15days</small></p>
+      </div>                                                                    
+    
+    <!-- Product card ends -->
+
+<?php
+  } 
+?>
+    </div> <!--row ends-->
+<?}else {
+  // Handle the case when the array is null or the index is invalid
+  echo("<h2>NO Order Made By you,Yet!!</h2>");
+}
+?>
 </div>
-<?php }
-} ?>
-    </div>
-    <script>
+
+
+<!-- Orders ends -->
+  
+
+  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+  <div class="card" style="width: 18rem;">
+  
+  <div class="card-body">
+    <p class="card-text">
+  <h1>Buy Again</h1>    
+  </p>
+  </div>
+</div>
+  </div>
+<!-- cancel order -->
+
+  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">Cancel order</div>
+</div>
+</div>    
+<script>
       /*
       bug- it will work only when window is refresh or page reload.if user will remain active or page is open, is does not able to disabled cancel button
       */ 
+     
 //self-invoke function to check current date then after 5days it will disabled-cancel order.
 (function () {
   
@@ -93,11 +186,11 @@ const fiveDaysFromNow = new Date(now.getTime() + (1 * 1/12 * 60 * 60 * 1000)); /
 console.log(now);
 console.log(typeof(fiveDaysFromNow));
 // Disable button if current date and time is equal to or greater than 1 days from now
-if (now >= new Date('Tue May 30 2023 11:06:04')) {
+if (now >= new Date('Tue Jun 11 2023 11:06:04')) {
     console.log('true')
     document.getElementById("cancel_order").style.visibility = 'hidden';
 }else{
-  alert('show cancel btn');
+  // alert('show cancel btn');
 }
 
 // ================================ Method 2 ========================================

@@ -530,7 +530,7 @@ public function fetchTotalProductQuantity($product_uuid)
         }
 }
 
-private function currentItemCount($item_local_id=NULL, $productUUID, $userUUID, $variationUUID){
+private function currentItemCount($productUUID, $userUUID, $variationUUID, $item_local_id=NULL){
     
     $query = $this->db->select('item_count')->from('tbl_cart')->where('user_uuid',$userUUID)->where('product_uuid', $productUUID)->where('variation_uuid', $variationUUID)->get();
 
@@ -541,7 +541,7 @@ private function currentItemCount($item_local_id=NULL, $productUUID, $userUUID, 
         return $result;
 }
 
-public function removeItemFromCart($item_local_id=NULL, $productUUID, $userUUID, $variationUUID)
+public function removeItemFromCart($productUUID, $userUUID, $variationUUID, $item_local_id = NULL)
 {
     // var_dump($productUUID);
     // var_dump($userUUID);
@@ -569,7 +569,7 @@ public function removeItemFromCart($item_local_id=NULL, $productUUID, $userUUID,
     }   
 }
 
-public function incrementItemFromCart($item_local_id=NULL, $productUUID, $userUUID, $variationUUID)
+public function incrementItemFromCart($productUUID, $userUUID, $variationUUID, $item_local_id=NULL)
 {
     // var_dump($productUUID);
     // var_dump($userUUID);
@@ -582,7 +582,7 @@ public function incrementItemFromCart($item_local_id=NULL, $productUUID, $userUU
 
     $msg1 = 'limit exiced';
 
-    $value = $this->currentItemCount($item_local_id=NULL, $productUUID, $userUUID, $variationUUID);
+    $value = $this->currentItemCount($productUUID, $userUUID, $variationUUID,$item_local_id=NULL);
 
     $currentItemCount = (int)($value[0]['item_count']);
     // var_dump($currentItemCount);
