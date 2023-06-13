@@ -725,9 +725,34 @@ public function customer_orders()
 	$data['nav_categories'] = $this->EStore_model->fetch_categories_for_parent();
 
 	//  Check Order datetime - and compare it with current datetime
+	/*
+	There will be 3 order-status
+	case:1
+	- order_shipping_Status is is 1 show cancel btn and status [Pending]
+	- if order_shipping_Status is 2 show cancel btn and status [Confirm]
+	- if order_shipping_status is shipped(status==3) Then, user can't cancel the order - with Cancel btn (btn will blur and show notification u can cancel it at doorstep.)
+	and Status [Shipped]
+	- if status == 4 , Product is [delivered] and hide cancel btn and show Return btn
+	 - ALso,,, 5=Cancelled, 6 = On Hold, 7 = Refunded
+	
+	case:2
+	- if user recived order, and want to return order - with return btn (order_received_datetime + 15 days > current date time)
+	- if product is deliverd and user did not cancel it, then buy again will show
+	*/ 
+
+	/*
+	[button_status]
+	$today = new DateTime(); // Current date and time Today is 2023/06/12
+$interval = new DateInterval('P15D'); // 15 days interval
+$today->add($interval); // Add the interval to the current date
+
+echo $today->format('Y-m-d H:i:s'); // Output:2023-06-27 12:44:33
+
+*/
 
 	$data['customer_orders_list'] = $this->EStore_model->fetch_order_list_for_Customer($user_uuid);
-	
+	// echo("<pre/>");
+	// print_r($data['customer_orders_list']);die();
 
 	$this->load->view('eStore/libs');
 	$this->load->view('eStore/nav', $data);
@@ -744,23 +769,48 @@ public function customerOrderCancellation($order_uuid)
 	$data['nav_categories'] = $this->EStore_model->fetch_categories_for_parent();
 
 	$data['order_cancel'] = $this->EStore_model->fetch_order_cancellation_product_info($user_uuid,$order_uuid);
-	
+	// To check, how many orders are made by single user in single order transction.
+	$data['product_info_json'] =
+	 $this->EStore_model->fetch_json_info_for_order_cancellation($user_uuid,$order_uuid);
+
 	$product_uuid = $data['order_cancel'][0]['product_uuid'];
 	// $variation_uuid = must have variation uuid
-//	var_dump($product_uuid);
+	//	var_dump($product_uuid);
 	$data['cancel_order_info']	 = $this->EStore_model->fetch_cancel_order_info($product_uuid);
-		// var_dump($data['cancel_order_info']);
-
-	
+	// var_dump($data['cancel_order_info']);
 	$this->load->view('eStore/libs');
 	$this->load->view('eStore/nav', $data);
 	$this->load->view('eStore/customer_order_cancellation', $data);
 	$this->load->view('eStore/footer');	
 }
 
-public function submitCancelledOrder()
+public function submitCancelledOrder_ajax()
 {
-	$data['order_uuid'] = $this->input->post('order_uuid');
+	$data['order_cancellation_detials'] = $this->input->post('order_cancellation_detials');
+
+	$data['product_info_json'] = $this->input->post('product_info_json');
+
+	print_r($data['product_info_json']);die();
+
+	$order_cancelled_data = json_decode($data['order_cancellation_detials'], true);
+	
+	if ($order_cancelled_data !== null) {
+		// Access the values in the array
+		$product_name = $order_cancelled_data['product_name'];
+		$product_uuid = $order_cancelled_data['product_uuid'];
+		
+		// Print the values
+		echo "Product Name: " . $product_name . "<br>";
+		echo "Product UUID: " . $product_uuid . "<br>";
+	
+		// You can access other values similarly
+ 	} else {
+		// Handle JSON decoding error
+		echo "Error decoding JSON.";
+ 	}
+
+	die();
+
 	$data['product_uuid'] = $this->input->post('product_uuid');
 	$data['variation_uuid'] = $this->input->post('variation_uuid');
 	$data['shipping_uuid'] = $this->input->post('shipping_uuid');
@@ -791,12 +841,16 @@ public function submitCancelledOrder()
 		$data['refund_status'] = '1';	
 	}else{
 		$data['refund_status'] = '0';	
-	}
-	
+	}	
 	
 	$data['reason_for_cancel'] = $this->input->post('flexRadioDefault');
-		// var_dump($data);die();
+	// var_dump($data);die();
 	$cancelledOrderDetails = $this->EStore_model->saveCancelledOrderDetails($data);	
+	
+	// save order cancel details in tbl_order_cancellation
+	// update with json file same table ie tbl_order_cancellation
+	// update tbl_order with order_return_status
+	// update tbl_product_variation with product_quantity 
 	
 	if($cancelledOrderDetails){
 		redirect(base_url('/'));    

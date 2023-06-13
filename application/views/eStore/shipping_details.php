@@ -212,14 +212,11 @@
     -->
     
         <script>
-            var projectInfoJSON = `<?= json_encode($customerCartItems_Json) ?>`;
+            var productInfoJSON = `<?= json_encode($customerCartItems_Json) ?>`;
             // customerCartItems is from admin_model
             var customerCartItemsJSON = `<?= json_encode($customerCartItems); ?>`;
             var totalQuantityInCart = `<?= json_encode($total_quantity_inCart); ?>`;
             var totalAmountToPay = `<?= json_encode($total_amount_to_pay); ?>`;
-            // projectInfo_Json = JSON.parse(project_info);
-            // // console.log(typeof(projectInfo_Json));
-            // projectInfo_Json = (JSON.stringify(projectInfo_Json));            
             
             console.log('total_quantity_inCart',totalQuantityInCart);
             // console.log('==============');
@@ -299,7 +296,7 @@
             total_quantity_inCart : totalQuantityInCart,
             total_amount_to_pay : totalAmountToPay,
             customer_cart_items_json : customerCartItemsJSON,
-            product_info_json : projectInfoJSON
+            product_info_json : productInfoJSON
         };    
         // console.log('customer_order_item_list----',customer_order_item_list);
         $.ajax({

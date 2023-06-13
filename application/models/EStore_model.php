@@ -814,8 +814,7 @@ public function fetch_order_cancellation_product_info($user_uuid, $order_uuid)
                          transaction_id,
                          total_product_quantity,
                          payment_method,
-                         transaction_status,
-                         productInfo_json,
+                         transaction_status,                         
                          conformation_code,
                          createdAt,
                          order_received_datetime
@@ -825,6 +824,25 @@ public function fetch_order_cancellation_product_info($user_uuid, $order_uuid)
     // $query = "Select * FROM tbl_shipping_orders 
     //             WHERE user_uuid = '{$user_uuid}'";
 
+    $q = $this->db->query($query);        
+
+    if ($q->num_rows() > 0) {
+        return $q->result_array();       
+    }   
+    else {
+        return NULL;
+    }  
+}
+
+public function fetch_json_info_for_order_cancellation($user_uuid, $order_uuid)
+{
+    $query = "SELECT productInfo_json,
+                         product_uuid,                         
+                         createdAt,
+                         order_received_datetime
+    FROM tbl_orders        
+    WHERE user_uuid = '$user_uuid' AND order_uuid='$order_uuid'";     
+        
     $q = $this->db->query($query);        
 
     if ($q->num_rows() > 0) {

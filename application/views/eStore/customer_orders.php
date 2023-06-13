@@ -155,18 +155,18 @@
   
 
   <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-  <div class="card" style="width: 18rem;">
+   
   
-  <div class="card-body">
-    <p class="card-text">
-  <h1>Buy Again</h1>    
-  </p>
-  </div>
-</div>
+   
+  <p>Buy Again- if order_return_status == 4 and order_shipping_status == 4</p>    
+   
   </div>
 <!-- cancel order -->
 
-  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">Cancel order</div>
+  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+    Cancel order and cancel status
+    order_shipping_status == 5
+  </div>
 </div>
 </div>    
 <script>
@@ -187,8 +187,8 @@ console.log(now);
 console.log(typeof(fiveDaysFromNow));
 // Disable button if current date and time is equal to or greater than 1 days from now
 if (now >= new Date('Tue Jun 11 2023 11:06:04')) {
-    console.log('true')
-    document.getElementById("cancel_order").style.visibility = 'hidden';
+    // console.log('true')
+   // document.getElementById("cancel_order").style.visibility = 'hidden';
 }else{
   // alert('show cancel btn');
 }
@@ -199,8 +199,6 @@ if (now >= new Date('Tue Jun 11 2023 11:06:04')) {
 2. Get current_date using js.
 3. compare and disabled button if time expires
 */
-
-
 })();
 
 
