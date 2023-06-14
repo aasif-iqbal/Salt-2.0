@@ -768,10 +768,10 @@ public function customerOrderCancellation($order_uuid)
 
 	$data['nav_categories'] = $this->EStore_model->fetch_categories_for_parent();
 
-	$data['order_cancel'] = $this->EStore_model->fetch_order_cancellation_product_info($user_uuid,$order_uuid);
+	$data['order_cancel'] = $this->EStore_model->fetch_order_cancellation_product_info($user_uuid, $order_uuid);
 	// To check, how many orders are made by single user in single order transction.
 	$data['product_info_json'] =
-	 $this->EStore_model->fetch_json_info_for_order_cancellation($user_uuid,$order_uuid);
+	 $this->EStore_model->fetch_json_info_for_order_cancellation($user_uuid, $order_uuid);
 
 	$product_uuid = $data['order_cancel'][0]['product_uuid'];
 	// $variation_uuid = must have variation uuid
@@ -786,74 +786,108 @@ public function customerOrderCancellation($order_uuid)
 
 public function submitCancelledOrder_ajax()
 {
-	$data['order_cancellation_detials'] = $this->input->post('order_cancellation_detials');
-
+	// For tbl_order_cancellation
+	$data['order_cancellation_detials'] = $this->input->post('order_cancellation_detials');	
+	
+	$order_cancelled_data = $data['order_cancellation_detials'];
+	// For tbl_order_cancellation - update
 	$data['product_info_json'] = $this->input->post('product_info_json');
-
-	print_r($data['product_info_json']);die();
-
-	$order_cancelled_data = json_decode($data['order_cancellation_detials'], true);
+	  
+	// $data['order_cancel_datetime'] = date('Y/m/d H:i:s');
 	
-	if ($order_cancelled_data !== null) {
+	$reason_for_cancellation = $this->input->post('selectedValue')?$this->input->post('selectedValue'):'NULL';
+	
+	$other_reason_for_cancellation = $this->input->post('other_textarea')?
+	$this->input->post('other_textarea'): 'NULL';	 
+
+	if ($data['order_cancellation_detials'] !== null) {
+
+		// $tbl_data['product_name'] = $data['order_cancellation_detials']['product_name'];	
 		// Access the values in the array
-		$product_name = $order_cancelled_data['product_name'];
-		$product_uuid = $order_cancelled_data['product_uuid'];
+		$tbl_data['order_uuid'] 	= $order_cancelled_data['order_uuid'];
+		$tbl_data['product_uuid'] 	= $order_cancelled_data['product_uuid'];
+		$tbl_data['variation_uuid'] = $order_cancelled_data['variation_uuid'];
+		$tbl_data['user_uuid'] 		= $order_cancelled_data['user_uuid'];		 
+
+		$tbl_data['product_name'] 	= $order_cancelled_data['product_name'];
+		$tbl_data['product_image'] 	= $order_cancelled_data['product_image'];		
+		$tbl_data['product_size_name'] 	= $order_cancelled_data['product_size_name'];
+		$tbl_data['product_color_name'] = $order_cancelled_data['product_color_name'];
 		
-		// Print the values
-		echo "Product Name: " . $product_name . "<br>";
-		echo "Product UUID: " . $product_uuid . "<br>";
+		// Total no. of quantity user cancelled
+		$tbl_data['product_quantity']   = $order_cancelled_data['total_product_quantity'];
+
+		$tbl_data['product_mrp'] 	= $order_cancelled_data['product_mrp'];
+		$tbl_data['product_selling_price'] = $order_cancelled_data['product_selling_price'];
+		$tbl_data['product_discount'] = $order_cancelled_data['product_discount'];
+		
+		if($order_cancelled_data['payment_method'] == 'COD')
+		{
+			$tbl_data['payment_mode'] = 1; //COD
+		}else{
+			$tbl_data['payment_mode'] = 0; //Online
+		}
+
+		$tbl_data['payment_id'] = $order_cancelled_data['transaction_id'];
+		
+		if($reason_for_cancellation != NULL){
+			$tbl_data['reason_for_cancel'] = $reason_for_cancellation;
+		}
 	
-		// You can access other values similarly
+		if($other_reason_for_cancellation != NULL){
+			$tbl_data['reason_for_cancel'] = $other_reason_for_cancellation;
+		}
+		$tbl_data['order_datetime'] = $order_cancelled_data['createdAt'];
+		$tbl_data['order_cancel_datetime'] = date('Y-m-d H:i:s');
+		
+		$tbl_data['productInfo_json'] = trim($data['product_info_json'],'"');
+		
+		//If COD, NO Need to refund, ONLY FOR ONLINE PAYMENT-Refund enabled
+		if($order_cancelled_data['payment_method'] == 'COD')
+		{
+			$tbl_data['refund_status'] = 0;
+			$order_return_status = 0; //FOR  Return without shipping COD 
+		}else{
+			$tbl_data['refund_status'] = 1;
+			$order_return_status = 1; //FOR  Return without shipping Online Pay
+		}		 
+		$tbl_data['transaction_status'] = $order_cancelled_data['transaction_status'];
+		$tbl_data['status'] = 1;		
+		
  	} else {
 		// Handle JSON decoding error
 		echo "Error decoding JSON.";
  	}
-
-	die();
-
-	$data['product_uuid'] = $this->input->post('product_uuid');
-	$data['variation_uuid'] = $this->input->post('variation_uuid');
-	$data['shipping_uuid'] = $this->input->post('shipping_uuid');
-	$data['user_uuid'] = $this->input->post('user_uuid');
-
-	$data['product_name'] = $this->input->post('product_name');
-	$data['product_size_name'] = $this->input->post('product_size_name');
-	$data['product_color_name'] = $this->input->post('product_color_name');
-	$data['product_mrp'] = $this->input->post('product_mrp');
-	$data['product_selling_price'] = $this->input->post('product_selling_price');
-	$data['product_discount'] = $this->input->post('product_discount');
-
-	$data['payment_mode'] = $this->input->post('payment_mode');
 	
-	if($data['payment_mode'] == '0'){
-
-		$data['payment_id'] = $this->input->post('payment_id');
-	}else{
-		$data['payment_id'] = 'NONE';
-	}
-	
-	
-	$data['order_datetime'] = $this->input->post('order_datetime');
-	$data['order_cancel_datetime'] = date('Y/m/d H:i:s');
-	$data['productInfo_json'] = $this->input->post('product_json');
-	//online payment status
-	if($data['payment_mode']=='0'){
-		$data['refund_status'] = '1';	
-	}else{
-		$data['refund_status'] = '0';	
-	}	
-	
-	$data['reason_for_cancel'] = $this->input->post('flexRadioDefault');
-	// var_dump($data);die();
-	$cancelledOrderDetails = $this->EStore_model->saveCancelledOrderDetails($data);	
+	// var_dump($tbl_data);die();
 	
 	// save order cancel details in tbl_order_cancellation
 	// update with json file same table ie tbl_order_cancellation
 	// update tbl_order with order_return_status
 	// update tbl_product_variation with product_quantity 
-	
+	// Delete order_cancelled_data from tbl_order (soft_delete)
+
+	// $cancelledOrderDetails = $this->EStore_model->saveCancelledOrderDetails($tbl_data);	
+	$cancelledOrderDetails = 1;
 	if($cancelledOrderDetails){
-		redirect(base_url('/'));    
+
+		// update tbl_order with order_return_status
+		// $update_order_return_status = 
+		// $this->EStore_model->updateOrderReturnStatus(
+		// 	$order_return_status, 
+		// 	$tbl_data['order_uuid']
+		// );
+
+		// update tbl_product_variation with product_quantity 
+		$update_product_quantity = $this->EStore_model->updateProductQuantityAfterCancellation(
+			$tbl_data['variation_uuid'], 
+			$tbl_data['product_uuid'],
+			$tbl_data['product_quantity']
+		);
+
+		// Delete order_cancelled_data from tbl_order (soft_delete)
+
+		// redirect(base_url('/'));    
 	}
 }
 

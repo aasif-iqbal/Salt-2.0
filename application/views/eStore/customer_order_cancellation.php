@@ -63,12 +63,20 @@
       #return_form{
         display:none;
       }
+      #err_textarea{
+        font-size: 12px;
+        color:red;
+      }
+      #err_reason{
+        font-size: 12px;
+        color:red;
+      }
     </style>
 </head>
 <body>
 <?php 
 // echo("<pre/>");
-// var_dump($product_info_json[0]['productInfo_json']);
+// var_dump($order_cancel[0]);
 $createdAt = strtotime($order_cancel[0]['createdAt']);
 $createdAt = date("d F Y", $createdAt);
 ?>
@@ -131,10 +139,11 @@ $createdAt = date("d F Y", $createdAt);
 
 <div class=''>      
   <p> &#129300; &nbsp;Why are you returning this?</p>
+  <span id="err_reason"></span>
     <ul class="list-group list-group-flush">
         <li class="list-group-item">
           <div class="form-check">
-          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="Change_My_Mind">
+          <input class="form-check-input" type="radio" name="flexRadioDefault" id="Change_My_Mind" value="Change_My_Mind">
           <label class="form-check-label" for="flexRadioDefault1">
             Change My Mind
           </label>
@@ -142,7 +151,7 @@ $createdAt = date("d F Y", $createdAt);
         </li>
         <li class="list-group-item">
           <div class="form-check">
-          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="Order_By_mistake">
+          <input class="form-check-input" type="radio" name="flexRadioDefault" id="Order_By_mistake" value="Order_By_mistake">
           <label class="form-check-label" for="flexRadioDefault1">
               Order By mistake
           </label>
@@ -150,7 +159,7 @@ $createdAt = date("d F Y", $createdAt);
         </li>
         <li class="list-group-item">
             <div class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="Wrong_Size">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="Wrong_Size" value="Wrong_Size">
             <label class="form-check-label" for="flexRadioDefault1">
                 Wrong Size
             </label>
@@ -158,7 +167,7 @@ $createdAt = date("d F Y", $createdAt);
         </li>
         <li class="list-group-item">
             <div class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" value="other" id="other_reason">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" value="other_" id="other_reason">
             <label class="form-check-label" for="flexRadioDefault1">
                 Other
             </label>
@@ -166,6 +175,7 @@ $createdAt = date("d F Y", $createdAt);
             <div class="mb-3" id='return_form'>
             <label for="exampleFormControlTextarea1" class="form-label"></label>
             <textarea class="form-control" id="other_textarea" rows="3"></textarea>
+            <span id='err_textarea'></span>
             </div>
         </li>
     </ul>  
@@ -184,17 +194,48 @@ $createdAt = date("d F Y", $createdAt);
 <script>
   // Below code will Open textarea when 'other' radio btn clicked
     let other_reason = document.getElementById('other_reason');
+    let Wrong_Size = document.getElementById('Wrong_Size');
+    let Change_My_Mind = document.getElementById('Change_My_Mind');
+    let Order_By_mistake = document.getElementById('Order_By_mistake');
+
     other_reason.addEventListener('click', function(event){
         if (event.target && event.target.matches("input[type='radio']")) {
             document.getElementById('return_form').style.display = 'block';
+            document.getElementById('err_reason').style.display = 'none';            
         }
     });
+
+    Wrong_Size.addEventListener('click', function(event){
+        if (event.target && event.target.matches("input[type='radio']")) {
+            document.getElementById('return_form').style.display = 'none';
+            document.getElementById('other_textarea').value = '';
+            document.getElementById('err_reason').style.display = 'none';            
+        }
+    });
+
+    Change_My_Mind.addEventListener('click', function(event){
+        if (event.target && event.target.matches("input[type='radio']")) {
+            document.getElementById('return_form').style.display = 'none';
+            document.getElementById('other_textarea').value = '';
+            document.getElementById('err_reason').style.display = 'none';            
+        }
+    });
+
+    Order_By_mistake.addEventListener('click', function(event){
+        if (event.target && event.target.matches("input[type='radio']")) {
+            document.getElementById('return_form').style.display = 'none';
+            document.getElementById('other_textarea').value = '';
+            document.getElementById('err_reason').style.display = 'none';            
+        }
+    });
+
+
 
 function submit_cancellation_form()
 {  
   let order_cancellation_detials = `<?= json_encode($order_cancel[0]); ?>`;
   let product_info_json = `<?= json_encode($product_info_json[0]['productInfo_json']); ?>`;
-  console.log('product_info_json::',product_info_json);
+  // console.log('product_info_json::',product_info_json);
 
   let radioButtons = document.getElementsByName('flexRadioDefault');
   var selectedValue = "";
@@ -206,12 +247,43 @@ function submit_cancellation_form()
     }
   }
 
-  if(selectedValue == 'other'){
-    let other_textarea = document.getElementById('other_textarea');
-    // console.log("other_textarea::", other_textarea.value);  
+  //If selectedValue is Other and user didn't fill anything in textarea
+  if(selectedValue == ''){
+    let other_textarea = document.getElementById('other_textarea');    
+    
+    // When user check radio btn -other, then click submit without any text in textarea
+    if(other_textarea.value == ''){
+        document.getElementById('err_textarea').innerHTML = 'Please Enter valid reason for returning this order';
+        document.getElementById('err_reason').innerHTML = 'Please Enter valid reason for returning this order';        
+      }
+      // When user check radio btn -other, then click submit without any text in textarea but later user enter valid reason for return, error msg remain shows-Invalid Input,
+      // to solve this, we have to use addEventListener - keyup
+      document.getElementById('other_textarea').addEventListener("keypress", function(event){
+        const text = event.target.value;
+        console.log(text);
+        if(text == ''){
+          console.log('eeppp');
+        } 
+        
+        
+
+        // if(other_textarea.value == ''){
+        //   document.getElementById('err_textarea').innerHTML = 'Please Enter valid reason for returning this order';
+        // }
+        
+        // document.getElementById('err_reason').style.display = 'none';            
+        // document.getElementById('err_textarea').style.display = 'none';            
+        // document.getElementById('err_textarea').innerHTML = '';
+      });
+      
+    console.log("other_textarea::", other_textarea.value);  
   }
 
-  // console.log(selectedValue);
+  
+  if(selectedValue == '' || other_textarea.value == ''){
+    document.getElementById('err_textarea').innerHTML = 'Please Enter valid reason for returning this order';
+  }
+  console.log(selectedValue);
       
   let customer_order_cancellation = {
             selectedValue: selectedValue,
@@ -238,16 +310,3 @@ function submit_cancellation_form()
 </script>
 </body>
 </html>
-
-
-
-<!-- </input type="hidden" name="product_size_name" value="</?= $order_cancel[0]['product_size_name'];?>"> -->
-<!-- <input type="hidden" name="product_color_name" value="</?= $order_cancel[0]['product_color_name'];?>">
-<input type="hidden" name="product_mrp" value="</?= $order_cancel[0]['product_mrp'];?>">
-<input type="hidden" name="product_selling_price" value="</?= $order_cancel[0]['product_selling_price'];?>">
-<input type="hidden" name="product_discount" value="</?= $order_cancel[0]['discount_percentage'];?>">
-
-<input type="hidden" name="payment_mode" value="</?= $order_cancel[0]['payment_mode'];?>">
-<input type="hidden" name="payment_id" value="</?= $order_cancel[0]['payment_id'];?>">
-<input type="hidden" name="order_datetime" value="</?= $order_cancel[0]['ordered_datetime'];?>">
-<input type="hidden" name="product_json" value='</?= ($order_cancel[0]['product_json']);?>'> -->

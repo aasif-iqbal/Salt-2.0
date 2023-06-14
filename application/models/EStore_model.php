@@ -393,7 +393,7 @@ public function updateEditedAddress($data, $user_uuid)
     }        
 }
 
-//======================================= End Shipping details ============================
+//========================= End Shipping details ============================
 
 
 //================== Product cart details selected by User =======================
@@ -432,6 +432,15 @@ public function updateCartDetails($product_uuid, $user_uuid)
     $this->db->where('product_uuid', $product_uuid);
     $this->db->where('user_uuid', $user_uuid);
     $this->db->update('tbl_cart');
+
+    $afftectedRows = $this->db->affected_rows();
+    // var_dump($afftectedRows);
+     if ($afftectedRows == 1) {
+        return TRUE;
+    }else{
+        return FALSE;
+    }        
+
 }
 
 //.....@ $cartItems is locatstorage data
@@ -812,18 +821,21 @@ public function fetch_order_cancellation_product_info($user_uuid, $order_uuid)
                          user_uuid,
                          order_uuid,                         
                          transaction_id,
+                         product_size_id,
+                         product_size_name,
+                         product_color_id,
+                         product_color_name,                         
                          total_product_quantity,
                          payment_method,
                          transaction_status,                         
                          conformation_code,
                          createdAt,
-                         order_received_datetime
+                         order_received_datetime,
+                         order_shipping_status,
+                         order_return_status
     FROM tbl_orders        
     WHERE user_uuid = '$user_uuid' AND order_uuid='$order_uuid'";     
-
-    // $query = "Select * FROM tbl_shipping_orders 
-    //             WHERE user_uuid = '{$user_uuid}'";
-
+    
     $q = $this->db->query($query);        
 
     if ($q->num_rows() > 0) {
@@ -961,6 +973,53 @@ public function saveCancelledOrderDetails($data)
         $this->db->_error_message();
         return FALSE;
     }
+}
+
+public function updateOrderReturnStatus($order_return_status, $order_uuid)
+{
+    // also update - updatedAt
+    $this->db->set('order_return_status', $order_return_status, FALSE);
+    $this->db->where('order_uuid', $order_uuid);     
+    $this->db->update('tbl_orders');
+
+    $afftectedRows = $this->db->affected_rows();
+    // var_dump($afftectedRows);
+     if ($afftectedRows == 1) {
+        return TRUE;
+    }else{
+        return FALSE;
+    }        
+}
+
+private function getTotalProductQuantity($variationUUID, $productUUID)
+{
+    $query = $this->db->select('product_quantity')->from('tbl_product_variation')->where('product_uuid', $productUUID)->where('variation_uuid', $variationUUID)->get();
+
+    if ($query->num_rows() > 0) {
+        $result = $query->result_array();       
+        
+    }
+    return $result;
+}
+
+public function updateProductQuantityAfterCancellation($variationUUID, $productUUID, $product_quantity)
+{
+    $total_product_quantity = $this->getTotalProductQuantity($variationUUID, $productUUID);
+    
+    $total_product_inStock = $total_product_quantity[0]['product_quantity'];    
+
+    $this->db->set('product_quantity', ($total_product_inStock)-($product_quantity), FALSE);
+    $this->db->where('variation_uuid', $variationUUID);     
+    $this->db->where('product_uuid', $productUUID);     
+    $this->db->update('tbl_product_variation');
+
+    $afftectedRows = $this->db->affected_rows();
+    // var_dump($afftectedRows);
+     if ($afftectedRows == 1) {
+        return TRUE;
+    }else{
+        return FALSE;
+    }        
 }
 
 public function saveCustomerOderReturnRefundDetails($data)

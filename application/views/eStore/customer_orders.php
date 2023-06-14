@@ -74,7 +74,10 @@
 
         <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Buy Again</button>
         
-        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Cancelled Order</button>
+        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Cancellation</button>
+
+        <button class="nav-link" id="nav-refund-tab" data-bs-toggle="tab" data-bs-target="#nav-refund" type="button" role="tab" aria-controls="nav-refund" aria-selected="false">Refund</button>
+
       </div>
 </nav>
 <!-- nav links ends -->
@@ -167,6 +170,12 @@
     Cancel order and cancel status
     order_shipping_status == 5
   </div>
+
+  <!-- refund & return -->
+  <div class="tab-pane fade" id="nav-refund" role="tabpanel" aria-labelledby="nav-refund-tab">
+    Refund status    
+  </div>
+
 </div>
 </div>    
 <script>
