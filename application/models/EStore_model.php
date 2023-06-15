@@ -795,7 +795,7 @@ public function fetch_order_list_for_Customer($user_uuid)
                      order_return_status,
                      order_received_datetime
                 FROM tbl_orders
-                WHERE user_uuid = '$user_uuid'";
+                WHERE user_uuid = '$user_uuid' AND soft_delete='0' ";
 
     $q = $this->db->query($query);        
 
@@ -975,10 +975,69 @@ public function saveCancelledOrderDetails($data)
     }
 }
 
+public function softDeleteCanceledOrder($order_uuid)
+{
+    // $data = [
+    //     'soft_delete' => 1,
+    //     'cancelledAt' => date('Y-m-d H:i:s')
+    // ]
+
+    $this->db->set('soft_delete', 1, FALSE);
+    $this->db->where('order_uuid', $order_uuid);     
+    $this->db->update('tbl_orders');
+
+    $afftectedRows = $this->db->affected_rows();
+    // var_dump($afftectedRows);
+     if ($afftectedRows == 1) {
+        return TRUE;
+    }else{
+        return FALSE;
+    }         
+}
+
+public function fetch_all_cancelled_order($user_uuid)
+{
+    $query = "SELECT product_uuid,
+                     product_name,
+                     product_image,
+                     product_size_id,
+                     product_size_name,
+                     product_color_id,
+                     product_color_name,
+                     product_mrp,
+                     product_selling_price,
+                     product_discount,
+                     product_quantity,
+                     transaction_status,
+                     payment_method,
+                     order_shipping_status,
+                     order_return_status,
+                     soft_delete,
+                     cancelledAt
+            FROM tbl_orders 
+            WHERE soft_delete = '0' 
+            AND user_uuid='{$user_uuid}'";
+
+    $q = $this->db->query($query);        
+
+    if ($q->num_rows() > 0) {
+        return $q->result_array();       
+    }   
+    else {
+        return NULL;
+    }    
+}
+
 public function updateOrderReturnStatus($order_return_status, $order_uuid)
 {
-    // also update - updatedAt
-    $this->db->set('order_return_status', $order_return_status, FALSE);
+    $data = array(
+        'order_return_status' => $order_return_status,
+        'order_shipping_status' => '5',
+        'cancelledAt' => date('Y-m-d H:i:s')
+    );
+
+    // also update - updatedAt - also update order_shipping_status=5
+    $this->db->set($data);
     $this->db->where('order_uuid', $order_uuid);     
     $this->db->update('tbl_orders');
 

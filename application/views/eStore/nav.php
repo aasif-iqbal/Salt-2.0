@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>FifthObject</title>
+    <title>Demo</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -98,7 +98,8 @@
           <div class="logo">
             <!-- <div class="site-logo"> -->
               <a href="<?= base_url('/');?>" class="js-logo-clone">
-              <img src="<?= base_url('assets/logo/logo_red.ico');?>" id="logo" alt="">
+              <!-- <img src="</?= base_url('assets/logo/logo_red.ico');?>" id="logo" alt=""> -->
+              <h6>Demo Logo</h6>
               </a>
             <!-- </div> -->
           </div>

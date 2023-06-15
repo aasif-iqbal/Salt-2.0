@@ -716,11 +716,11 @@ public function thankYouPage()
 	return $this->load->view('eStore/thankyou');
 }
 
-public function customer_orders()
+public function my_orders()
 {
 	$userLoginData = $this->session->userdata('userLoginData'); 
 	
-	$user_uuid = $userLoginData['user_uuid'];
+	$data['user_uuid'] = $userLoginData['user_uuid'];
 
 	$data['nav_categories'] = $this->EStore_model->fetch_categories_for_parent();
 
@@ -750,19 +750,54 @@ echo $today->format('Y-m-d H:i:s'); // Output:2023-06-27 12:44:33
 
 */
 
-	$data['customer_orders_list'] = $this->EStore_model->fetch_order_list_for_Customer($user_uuid);
+	
+	 
+
 	// echo("<pre/>");
 	// print_r($data['customer_orders_list']);die();
 
 	$this->load->view('eStore/libs');
 	$this->load->view('eStore/nav', $data);
-	$this->load->view('eStore/customer_orders',$data);
+	// $this->load->view('eStore/customer_orders',$data);
+	$this->load->view('eStore/my_orders',$data);
 	$this->load->view('eStore/footer');	
 }
 
+public function customer_orders()
+{
+	$userLoginData = $this->session->userdata('userLoginData'); 
+	
+	$user_uuid = $userLoginData['user_uuid'];
+
+	$data['nav_categories'] = $this->EStore_model->fetch_categories_for_parent();
+
+	$data['customer_orders_list'] = $this->EStore_model->fetch_order_list_for_Customer($user_uuid);
+
+	
+
+	$this->load->view('eStore/libs');
+	$this->load->view('eStore/nav', $data);
+	$this->load->view('eStore/customer_orders',$data);
+	// $this->load->view('eStore/my_orders',$data);
+	$this->load->view('eStore/footer');
+}
+
+public function cancellationHistory($user_uuid)
+{
+	$data['nav_categories'] = $this->EStore_model->fetch_categories_for_parent();
+	
+	$data['all_cancelled_orders'] = $this->EStore_model->fetch_all_cancelled_order($user_uuid);
+
+	$this->load->view('eStore/libs');
+	$this->load->view('eStore/nav', $data);
+	$this->load->view('eStore/cancellation_history', $data);	
+	$this->load->view('eStore/footer');
+}
+
+//this function is call(invoke) when user want to cancel order using cancel btn
 public function customerOrderCancellation($order_uuid)
 {
-
+	
 	$userLoginData = $this->session->userdata('userLoginData'); 
 	$user_uuid = $userLoginData['user_uuid'];
 
@@ -814,8 +849,10 @@ public function submitCancelledOrder_ajax()
 		$tbl_data['product_size_name'] 	= $order_cancelled_data['product_size_name'];
 		$tbl_data['product_color_name'] = $order_cancelled_data['product_color_name'];
 		
+		// product_quantity
+		$tbl_data['product_quantity']   = $order_cancelled_data['product_quantity'];
 		// Total no. of quantity user cancelled
-		$tbl_data['product_quantity']   = $order_cancelled_data['total_product_quantity'];
+		// $tbl_data['product_quantity']   = $order_cancelled_data['total_product_quantity'];
 
 		$tbl_data['product_mrp'] 	= $order_cancelled_data['product_mrp'];
 		$tbl_data['product_selling_price'] = $order_cancelled_data['product_selling_price'];
@@ -864,7 +901,9 @@ public function submitCancelledOrder_ajax()
 	// save order cancel details in tbl_order_cancellation
 	// update with json file same table ie tbl_order_cancellation
 	// update tbl_order with order_return_status
+	// update tbl_order with order_shipping_status = 5
 	// update tbl_product_variation with product_quantity 
+	
 	// Delete order_cancelled_data from tbl_order (soft_delete)
 
 	// $cancelledOrderDetails = $this->EStore_model->saveCancelledOrderDetails($tbl_data);	
@@ -885,8 +924,10 @@ public function submitCancelledOrder_ajax()
 			$tbl_data['product_quantity']
 		);
 
-		// Delete order_cancelled_data from tbl_order (soft_delete)
-
+		// Delete order_cancelled_data from tbl_order (soft_delete{update status with 1})
+		$delete_cancelled_order = $this->EStore_model->softDeleteCanceledOrder(			
+			$tbl_data['order_uuid']			
+		);
 		// redirect(base_url('/'));    
 	}
 }

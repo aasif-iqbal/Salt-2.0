@@ -89,7 +89,11 @@ $route['submit-edited-addr'] = 'EStore/EStore_Controller/submitEditedAddress';
 $route['product/(:any)'] = 'EStore/EStore_Controller/showProductDetails/$1';
 
 //Customer Orders view page
-$route['my-orders'] = 'EStore/EStore_Controller/customer_orders';
+$route['my-orders'] = 'EStore/EStore_Controller/my_orders';
+$route['customer-orders'] = 'EStore/EStore_Controller/customer_orders';
+
+// cancellation History
+$route['cancellation-history/(:any)'] = 'EStore/EStore_Controller/cancellationHistory/$1';
 
 //Customer order cancellation without (before) shipping
 $route['order-cancellation/(:any)'] = 'EStore/EStore_Controller/customerOrderCancellation/$1';

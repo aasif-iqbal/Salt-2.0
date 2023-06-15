@@ -42,9 +42,21 @@
               <span class="d-block text-danger h6 text-uppercase">JHARKHAND</span>
               <p class="mb-0">203 Fake St. Mountain View, San Francisco, Hazaribagh, Jharkhand</p>
             </div>
-            <div class="p-4 border mb-3">
-              <span class="d-block text-danger h6 text-uppercase">JHARKHAND</span>
-              <p class="mb-0">203 Fake St. Mountain View, San Francisco, Ranchi, Jharkhand</p>
+
+            <div class="p-4 mb-3">
+              <span class="d-block text-danger h6 text-uppercase">PHONE:</span>
+              <p class="mb-0">+1 212 244 2681</p>
+            </div>
+
+            <div class="p-4 mb-3">
+              <span class="d-block text-danger h6 text-uppercase">E-MAIL:</span>
+              <p class="mb-0">office@example.org</p>
+            </div>
+             
+            <div class="p-4  mb-3">
+              <span class="d-block text-danger h4 text-uppercase">Store Hours</span>
+              <p class="mb-0">Sun: Closed</p>
+              <p class="mb-0">Mon to Sat: 10 AM – 8:30 PM</p>
             </div>
 
           </div>
