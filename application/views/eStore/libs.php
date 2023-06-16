@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-
+    <script src="<?= base_url('assets/vendor/jquery/jquery.min.js'); ?>"></script>
     <!-- Custom styles for this template-->
     <link href="<?= base_url('assets/css/sb-admin-2.min.css'); ?>" rel="stylesheet">
     <link href="<?= base_url('assets/B-v5.1.3/css/bootstrap.min.css'); ?>" rel="stylesheet">
@@ -15,7 +15,7 @@
     <body>
     
     <!-- Bootstrap core JavaScript-->    
-    <script src="<?= base_url('assets/vendor/jquery/jquery.min.js'); ?>"></script>
+    
     <!-- <script src="<//?= base_url('assets/vendor/bootstrap/js/bootstrap.bundle.min.js'); ?>"></script> -->
     
     <!-- B-v5.1.3 -->

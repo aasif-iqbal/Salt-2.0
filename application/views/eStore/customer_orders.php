@@ -66,20 +66,7 @@
 </head>
 <body>    
   <div class="container">
-    <div class="h4 text-dark my-3">Your Orders</div>
-    <!-- nav links start -->
-    <nav>
-      <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Orders</button>
-
-        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Buy Again</button>
-        
-        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Cancellation</button>      
-      </div>
-</nav>
-<!-- nav links ends -->
-<div class="tab-content" id="nav-tabContent">
-  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+    <div class="h4 text-dark my-3">Your Orders</div>      
     <!-- Arriving Orders -->
   <div class="row">
   <?php     
@@ -123,8 +110,8 @@
                 href="<?= base_url('order-cancellation/'.$customer_orders_list[$i]['order_uuid']); ?>" role="button">Cancel Order</a>
 
             <!-- <p>Show only when order is delivered</p> -->
-            <!-- <a class="btn btn-outline-danger btn-small" id="cancel_order" href="<?= base_url('order-return-refund/'.$customer_orders_list[$i]['order_uuid']); ?>" role="button">Return/Refund Order</a>
-            <p>After 15 days</p> -->
+            <a class="btn btn-outline-danger btn-small" id="cancel_order" href="<?= base_url('order-return-refund/'.$customer_orders_list[$i]['order_uuid']); ?>" role="button">Return/Refund Order</a>
+            <!-- <p>After 15 days</p>    -->
             <!-- <a class="btn btn-outline-danger btn-small" id="cancel_order" href="<?= base_url('/'); ?>" role="button">Buy Again</a> -->
         
           </div>
@@ -147,76 +134,7 @@
 }
 ?>
 </div>
-<!-- Orders ends -->
-<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">   
-  <p>Buy Again- if order_return_status == 4 and order_shipping_status == 4</p>     
-</div>
-    <!-- cancel order will be show below -->
-
-<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-    Cancel order and cancel status
-    order_shipping_status == 5
-    <!-- </?php echo('<pre/>'); ?> -->
-    <!-- </?php print_r($all_cancelled_orders); ?> -->
-    <div class="row">
-  <?php     
-  
-  if(isset($all_cancelled_orders) && !is_null($all_cancelled_orders)){
-      $total_orders = count($all_cancelled_orders);
-      for($i=0; $i<$total_orders; $i++){
-    ?>    
-      
-      <div class="col-md-6 col-lg-6">                             
-        <!-- PRODUCT CARD -->
-        <div class="mt-3 ml-3">          
-          <span class="card-text product-attribute border-bottom">Arrived By 19 Jun, Mon</span><br/>
-          
-          <p class="card-text">Order date :<?= $all_cancelled_orders[$i]['createdAt']; ?></p>        
-        </div>
-
-        <div class="card bg-light-subtle mt-4" id="card_id">
-          <img src="<?= base_url('uploads/'.$all_cancelled_orders[$i]['product_image']); ?>" class="card-img-top">
-          <div class="card-body" id="card-body-id">
-          <div class="text-section" id="text-section-id">          
-            <span class="fw-bold"><?= $all_cancelled_orders[$i]['product_name']; ?>sdasdsd dassdadsasad sdadsasad</span><br/>
-            <span class="card-text product-attribute">Color: blue</span>&nbsp;|&nbsp;
-            <span class="card-text product-attribute">Size: M</span><br/>
-            <span class="card-text product-attribute">Qty: <?= $all_cancelled_orders[$i]['product_quantity']; ?></span><br/>
-            <span class="card-text product-attribute">Rs. 2334</span><br/>
-            <span class="card-text product-attribute">Pay mode:cod</span><br/>
-            <!-- <p>Cancel Order before delivered</p> -->
-            <a class="btn btn-dark btn-sm" id="cancel_order" 
-                href="<?= base_url('order-cancellation/'.$all_cancelled_orders[$i]['order_uuid']); ?>" role="button">Cancel Order</a>                    
-          </div>
-          <!-- <div class="cta-section">
-          <div>Rs.2599</div> for new section after product-name
-          <p href="#" class="" id="btn-placeholder">Qty:1</p>
-          </div> -->
-        </div>    
-        </div>
-        <p class="card-text"><small class="text-muted">Cancel this order under 15days</small></p>
-      </div>                                                                     
-    <!-- Product card ends -->
-<?php
-  } 
-?>
-</div> <!--row ends-->
-<?}else {
-  // Handle the case when the array is null or the index is invalid
-  echo("<h2>NO Cancellation Made By you, Yet!!</h2>");
-}
-?>
-
-
-  </div>
-
-  <!-- refund & return -->
-  <div class="tab-pane fade" id="nav-refund" role="tabpanel" aria-labelledby="nav-refund-tab">
-    Refund status    
-  </div>
-
-</div>
-</div>    
+<!-- Orders ends -->  
 <script>
       /*
       bug- it will work only when window is refresh or page reload.if user will remain active or page is open, is does not able to disabled cancel button
@@ -248,8 +166,6 @@ if (now >= new Date('Tue Jun 11 2023 11:06:04')) {
 3. compare and disabled button if time expires
 */
 })();
-
-
 </script>
 </body>
 </html>

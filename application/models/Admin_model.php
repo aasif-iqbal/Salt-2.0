@@ -1364,6 +1364,11 @@
         }
     }
 
+    public function order_cancellation_before_shipped()
+    {
+        return true;
+    }
+
     /*
     public function update_color_variation_img1($data)
     {

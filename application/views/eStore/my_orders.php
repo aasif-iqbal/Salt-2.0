@@ -12,7 +12,7 @@
 
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">My Orders</h1>     
+    <h1 class="h3 mb-0 text-gray-800">Orders</h1>     
 </div>
 <!-- <div class="alert alert-danger alert-dismissible fade show" role="alert">
 <strong>Hi Admin!</strong> This application will expire on <strong><span id="demo"></span></strong>
@@ -30,9 +30,10 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
-                        Orders</div>
+                        <!-- Orders -->
+                        </div>
                             <div class="h6 mb-0 font-weight-bold text-success text-gray-500">
-                        <a href="<?= base_url('customer-orders');?>" class="text-danger stretched-link">Your Orders
+                        <a href="<?= base_url('customer-orders');?>" class="text-danger stretched-link">MY ORDERS
                         </a></div>
                     </div>
                     <div class="col-auto">
@@ -70,7 +71,7 @@
                         <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
                         </div>
                             <div class="h6 mb-0 font-weight-bold text-success text-gray-500">
-                        <a href="<?= base_url('cancellation-history/'.$user_uuid);?>" class="text-danger stretched-link">Cancellation
+                        <a href="<?= base_url('cancellation-history/'.$user_uuid);?>" class="text-danger stretched-link">CANCELLATION
                         </a></div>
                     </div>
                     <div class="col-auto">

@@ -55,34 +55,29 @@
       }
       #return_available{
           font-size:12px;    
-      }          
+      }                
     </style>
 </head>
 <body>
-    <?php print_r($all_cancelled_orders); ?>
-
-
-    Cancel order and cancel status
-    order_shipping_status == 5
+    <!-- </?php print_r($all_cancelled_orders); ?>      -->
+    <!-- order_shipping_status == 5 -->
     <!-- </?php echo('<pre/>'); ?> -->
     <!-- </?php print_r($all_cancelled_orders); ?> -->
+    <div class="h3" id="">Cancellation</div>
 <div class="row">
-  <?php     
-  
+  <?php       
   if(isset($all_cancelled_orders) && !is_null($all_cancelled_orders)){
       $total_orders = count($all_cancelled_orders);
       for($i=0; $i<$total_orders; $i++){
-    ?>    
+  ?>    
       
       <div class="col-md-6 col-lg-6">                             
         <!-- PRODUCT CARD -->
-        <div class="mt-3 ml-3">          
-          <span class="card-text product-attribute border-bottom">Arrived By 19 Jun, Mon</span><br/>
-          
-          <p class="card-text">Order date :<?= $all_cancelled_orders[$i]['createdAt']; ?></p>        
+        <div class="mt-3 ml-3">                               
+          <!-- <p class="card-text">Order date :</?= $all_cancelled_orders[$i]['createdAt']; ?></p>         -->
         </div>
 
-        <div class="card bg-light-subtle mt-4" id="card_id">
+        <div class="card bg-light-subtle mt-4 border border-danger" id="card_id">
           <img src="<?= base_url('uploads/'.$all_cancelled_orders[$i]['product_image']); ?>" class="card-img-top">
           <div class="card-body" id="card-body-id">
           <div class="text-section" id="text-section-id">          
@@ -92,17 +87,13 @@
             <span class="card-text product-attribute">Qty: <?= $all_cancelled_orders[$i]['product_quantity']; ?></span><br/>
             <span class="card-text product-attribute">Rs. 2334</span><br/>
             <span class="card-text product-attribute">Pay mode:cod</span><br/>
-            <!-- <p>Cancel Order before delivered</p> -->
-            <a class="btn btn-dark btn-sm" id="cancel_order" 
-                href="<?= base_url('order-cancellation/'.$all_cancelled_orders[$i]['order_uuid']); ?>" role="button">Cancel Order</a>                    
+            <span class="card-text product-attribute">Order At:10-03-23</span><br/>
           </div>
-          <!-- <div class="cta-section">
-          <div>Rs.2599</div> for new section after product-name
+          <div class="cta-section">            
           <p href="#" class="" id="btn-placeholder">Qty:1</p>
-          </div> -->
+          </div> 
         </div>    
-        </div>
-        <p class="card-text"><small class="text-muted">Cancel this order under 15days</small></p>
+        </div>        
       </div>                                                                     
     <!-- Product card ends -->
 <?php

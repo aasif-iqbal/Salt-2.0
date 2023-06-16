@@ -906,7 +906,7 @@ class Admin_Controller extends CI_Controller {
 	}
 */
 
-// ========================= End Add Colored Images For Product ==========================	
+// ================== End Add Colored Images For Product ==========================	
 
 	public function article_no($length) {
 		$characters = '0123456789@#$&$ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -1045,6 +1045,18 @@ class Admin_Controller extends CI_Controller {
 		
 	}
 	
+	public function show_cancellation()
+	{		 
+		$data['order_cancellation_before_shipped'] = $this->Admin_model->order_cancellation_before_shipped();
+
+		$this->load->view('admin/header');	
+		$this->load->view('admin/side_nav');	
+		$this->load->view('admin/top_nav');		
+		// main-contain
+		$this->load->view('admin/show_order_cancellation', $data);
+		$this->load->view('admin/footer');	
+	}
+
 	public function show_total_stocks(){
 		
 		$data['total_stocks'] = $this->Admin_model->total_stocks();

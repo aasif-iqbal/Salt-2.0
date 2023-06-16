@@ -935,13 +935,17 @@ public function submitCancelledOrder_ajax()
 public function customerOrderReturnRefund($order_uuid)
 {
 	$userLoginData = $this->session->userdata('userLoginData'); 
+	
+	if(!$userLoginData){
+		redirect(base_url('login'));    
+	}else{
 	$user_uuid = $userLoginData['user_uuid'];
 
 	$data['nav_categories'] = $this->EStore_model->fetch_categories_for_parent();
 
-	$data['order_cancel'] = $this->EStore_model->fetch_order_cancellation_product_info($user_uuid, $order_uuid);
+	$data['cancelled_order'] = $this->EStore_model->fetch_order_cancellation_product_info($user_uuid, $order_uuid);
 	
-	$product_uuid = $data['order_cancel'][0]['product_uuid'];
+	$product_uuid = $data['cancelled_order'][0]['product_uuid'];
 	// $variation_uuid = must have variation uuid
 	//	var_dump($product_uuid);
 	$data['cancel_order_info'] = $this->EStore_model->fetch_cancel_order_info($product_uuid);
@@ -980,6 +984,7 @@ public function customerOrderReturnRefund($order_uuid)
 	$this->load->view('eStore/nav', $data);
 	$this->load->view('eStore/customer_order_return_refund', $data);
 	$this->load->view('eStore/footer');	
+	}
 }
 
 public function submitOrderReturnRefund()

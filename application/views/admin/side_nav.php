@@ -130,7 +130,7 @@
             </li>
             <!-- Order Cancel -->
             <li class="nav-item">
-                <a class="nav-link" href="<?= base_url('show-shipping'); ?>">
+                <a class="nav-link" href="<?= base_url('show-cancellation'); ?>">
                 <i class="fas fa-regular fa-truck"></i>
                     <span>Order Cancelled</span>
                 </a>

@@ -70,3 +70,15 @@ Order is cancel after receiving order(Package) and payment.
 
 ============== Product Filter ==================
 https://codyhouse.co/ds/components/info/filter
+
+OTP service
+https://api.msg91.com/apidoc/sendotp/send-otp.php
+
+---------------------------------------------------------------------------------
+
+Bank Account verification
+- Bank name.
+- Acct no.
+- IFSC code.
+---------------------------------------------------------------------------------
+https://www.cashfree.com/bank-account-verification/?utm_campaign=cf_searchads_vs_highintent_bav&utm_source=googleads&utm_medium=cpc&utm_content=657741291763&utm_term=bank%20account%20number%20verification%20api&utm_adgroup=cf_searchads_vs_highintent_bav_bankaccountverification_e&device=c&utm_matchtype=e&gad=1&gclid=CjwKCAjwkLCkBhA9EiwAka9QRtyuuetOTiRjB2LiENRniM39AyP1qqYy4uEKjqNsIUvMaE10sZfusxoCxqYQAvD_BwE/
