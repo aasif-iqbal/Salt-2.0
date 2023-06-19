@@ -415,7 +415,7 @@ public function add_to_cart_ajax()
 		$userUUID 	  	  = $this->input->post('userUUID');
 		$variationUUID 	  = $this->input->post('variationUUID');
 
-		$status = $this->EStore_model->removeItemFromCart($item_local_id=NULL, $productUUID,$userUUID, $variationUUID);
+		$status = $this->EStore_model->removeItemFromCart($productUUID, $userUUID, $variationUUID, $item_local_id=NULL);
 				
 		echo json_encode($status);
 	}
@@ -431,8 +431,8 @@ public function add_to_cart_ajax()
 		$userUUID 	  	  = $this->input->post('userUUID');
 		$variationUUID 	  = $this->input->post('variationUUID');
 						
-		$status = $this->EStore_model->incrementItemFromCart($item_local_id=NULL, $productUUID,$userUUID, $variationUUID);
-		
+		$status = $this->EStore_model->incrementItemFromCart($productUUID, $userUUID, $variationUUID, $item_local_id=NULL);
+		// var_dump($status);die();
 		echo json_encode($status);
 	}
 
@@ -448,7 +448,7 @@ public function add_to_cart_ajax()
 		$userUUID 	  	  = $this->input->post('userUUID');
 		$variationUUID 	  = $this->input->post('variationUUID');
 		
-		$status = $this->EStore_model->decrementItemFromCart($item_local_id=NULL, $productUUID, $userUUID, $variationUUID);
+		$status = $this->EStore_model->decrementItemFromCart($productUUID, $userUUID, $variationUUID, $item_local_id=NULL);
 		
 		echo json_encode($status);
 	}

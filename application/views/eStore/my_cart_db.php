@@ -29,7 +29,7 @@
 
                 if(isset($cart_items)){
                     foreach($cart_items as $item):
-                        // print_r($item);
+                        // echo("<pre/>");print_r($item);
                 ?>
                 <div class="card mb-3 text-dark" style="">
                     <div class="row">
@@ -40,9 +40,7 @@
                             <div class="card-body">
                                 <!-- hidden tags -->
                                 <input type="hidden" id="user_uuid" value="<?= isset($item->user_uuid)?($item->user_uuid):'None'; ?>" />
-                                
-                                <input type="hidden" id="product_uuid" value="<?= $item->product_uuid; ?>" name="<?= $item->product_uuid; ?>" />
-                                
+                                                                                    
                                 <input type="hidden" id="product_count" value="<?= isset($item->item_count)?($item->item_count):'0'; ?>" />
 
                                 <!-- hidden tags ends -->
@@ -56,16 +54,16 @@
                                 <small class="text-muted">
                             
                                     <div class="d-inline">
-                                        <button class='cart-btn' id='decrement_item' value='<?= $item->variation_uuid; ?>'
+                                        <button class='cart-btn' id='decrement_item' value='<?= $item->product_uuid.'_'.$item->variation_uuid; ?>'
                                         onclick='decrement_item(this.value)'>-</button>
                                     </div>
                                     <span class="d-inline card-text">
                                         <?= $item->item_count; ?>
                                     </span>
                                     <div class="d-inline">
-                                        <button class='cart-btn' id='increment_item' value='<?= $item->variation_uuid; ?>' onclick='increment_item(this.value)'>+</button>
+                                        <button class='cart-btn' id='increment_item' value='<?= $item->product_uuid.'_'.$item->variation_uuid; ?>' onclick='increment_item(this.value)'>+</button>
                                     </div>
-                                    <button class='cart-btn' id='remove_item' value='<?= $item->variation_uuid; ?>' onclick='remove_item(this.value)'>
+                                    <button class='cart-btn' id='remove_item' value='<?= $item->product_uuid.'_'.$item->variation_uuid; ?>' onclick='remove_item(this.value)'>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16"      height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
                                             <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
@@ -176,20 +174,22 @@
     // var user_uuid        = document.getElementById('user_uuid');
     // var product_count    = document.getElementById('product_count');
     
-function increment_item(variation_uuid){
-    // alert(variation_uuid);
+function increment_item(product_uuid_variation_uuid){
     
-    let product_uuid = document.getElementById('product_uuid');
+    // let alert(product_uuid_variation_uuid);
     let user_uuid = document.getElementById('user_uuid');
-    
-    console.log('user_uuid:',user_uuid.value);
+    let value_uuid =   product_uuid_variation_uuid.split("_");
+    const product_uuid = value_uuid[0];
+    const variation_uuid = value_uuid[1];
 
     let product_info_to_increment = {
         // item_local_id:item_local_id,
-        productUUID : product_uuid.value,
+        productUUID : product_uuid,
         userUUID : user_uuid.value,
         variationUUID : variation_uuid
     }
+
+    // console.log('product_inc',product_info_to_increment);
 
     $.ajax({
         url:'<?= base_url('EStore/EStore_Controller/increment_item_from_cart_ajax');  ?>',
@@ -198,6 +198,7 @@ function increment_item(variation_uuid){
             success:function(data, textStatus, jqXHR){              
               var jsonData = JSON.parse(data);              
               
+              console.log('data_value::',jsonData);
               
               if(jsonData === 'Product not in db'){
                 document.getElementById('msg').innerHTML = jsonData;
@@ -211,20 +212,20 @@ function increment_item(variation_uuid){
         });        
 }
 
-function decrement_item(variation_uuid){
-    
-    let product_uuid = document.getElementById('product_uuid');
+function decrement_item(product_uuid_variation_uuid){
+    // alert(product_uuid_variation_uuid);     
     let user_uuid = document.getElementById('user_uuid');
-    
-    // console.log('user_uuid:',user_uuid.value);
+    let value_uuid =   product_uuid_variation_uuid.split("_");
+    const product_uuid = value_uuid[0];
+    const variation_uuid = value_uuid[1];
 
     let product_info_to_decrement = {
         // item_local_id:item_local_id,
-        productUUID : product_uuid.value,
+        productUUID : product_uuid,
         userUUID : user_uuid.value,
         variationUUID : variation_uuid
-    }
-
+    }        
+    // console.log('product_dec',product_info_to_decrement);
     $.ajax({
         url:'<?= base_url('EStore/EStore_Controller/decrement_item_from_cart_ajax'); ?>',
             type:'POST',
@@ -240,19 +241,20 @@ function decrement_item(variation_uuid){
         });
 }
 
-function remove_item(variation_uuid){
-    
-    let product_uuid = document.getElementById('product_uuid');
+function remove_item(product_uuid_variation_uuid){
+
     let user_uuid = document.getElementById('user_uuid');
-    
-    // console.log('user_uuid:',user_uuid.value);
+    let value_uuid =   product_uuid_variation_uuid.split("_");
+    const product_uuid = value_uuid[0];
+    const variation_uuid = value_uuid[1];
 
     let product_info_to_delete = {
         // item_local_id:item_local_id,
-        productUUID : product_uuid.value,
+        productUUID : product_uuid,
         userUUID : user_uuid.value,
         variationUUID : variation_uuid
-    }
+    }        
+
     
     $.ajax({
             url:'<?= base_url('EStore/EStore_Controller/remove_item_from_cart_ajax');  ?>',

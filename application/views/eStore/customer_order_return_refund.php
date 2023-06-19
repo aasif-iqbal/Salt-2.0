@@ -74,11 +74,38 @@
       }
       .btn {
         /* height: 30px!important; */
+      }   
+      
+      /* Desktop */
+    @media screen and (min-width: 1200px) {
+    /* CSS rules for desktop devices */
+    #viewframe{
+        /* border:5px solid red; */
+        margin:0 20% 0 20%;
       }
-  
+    }
+
+    /* Laptop */
+    @media screen and (max-width: 1199px) and (min-width: 992px) {
+    /* CSS rules for laptop devices */
+    #viewframe{
+        /* border:5px solid red; */
+        margin:0 20% 0 20%;
+      }
+    }
+
+    /* Tablet */
+    @media screen and (max-width: 991px) and (min-width: 768px) {
+    /* CSS rules for tablet devices */
+    #viewframe{
+        /* border:5px solid red;/ */
+        /* margin:0 20% 0 20%; */
+      }
+    }
     </style>
 </head>
 <body>
+  <div id="viewframe">
     <div class="h3 p-3">Customer Order Cancellation</div>
     <div class="h4 p-3">Return And Refund Order(Product)</div>
     <div class="container">
@@ -86,8 +113,8 @@
      
     <div class="row">
   <?php     
-//   echo("<pre/>");
-//   print_r($cancelled_order);
+    //   echo("<pre/>");
+    //   print_r($cancelled_order);
   if(isset($cancelled_order) && !is_null($cancelled_order)){     
   ?>          
     <div class="col-md-6 col-lg-6">                             
@@ -117,11 +144,7 @@
             <span class="card-text product-attribute">Size: <?= $cancelled_order[0]['product_size_name']; ?></span><br/>
             <span class="card-text product-attribute">Qty: <?= $cancelled_order[0]['total_product_quantity']; ?></span><br/>
             <span class="card-text product-attribute">Rs. <?= $cancelled_order[0]['product_selling_price']; ?></span><br/>
-            <span class="card-text product-attribute">Pay mode: <?= $cancelled_order[0]['payment_method']; ?></span><br/>
-             
-             
-
-             
+            <span class="card-text product-attribute">Pay mode: <?= $cancelled_order[0]['payment_method']; ?></span><br/>                              
           </div>
           <!-- <div class="cta-section">
           <div>Rs.2599</div> for new section after product-name
@@ -131,7 +154,6 @@
         </div>         
       </div>                                                                        
     <!-- Product card ends -->
- 
     </div> <!--row ends-->
 <?}else {
   // Handle the case when the array is null or the index is invalid
@@ -164,14 +186,36 @@
 
 Ends hidden inputs -->
 
- 
+ <!-- 
+1 – Public Sector Bank
+State Bank Of India (SBI)
+Punjab National Bank (PNB)
+Indian Bank (IB)
+Bank Of India (BOI)
+UCO Bank
+Union Bank Of India
+Central Bank Of India
+Bank Of Baroda
+Bank Of Maharashtra
+Canara Bank
+Punjab And Sind Bank
+Indian Overseas Bank
+2 – Private Sector Bank
+ICICI Bank
+HDFC Bank
+Axis Bank
+IDBI Bank
+Dhanlaxmi Bank
+Kotak Mahindra Bank
+Federal Bank
+-->
 <div class="h6 mt-2">Reason for cancellation</div>
     <div class='my-4'>        
         <p>Why are you returning this?</p>
         <ul class="list-group list-group-flush">
         <li class="list-group-item">
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="reasonForReturn" id="" value="Received_different_Product">
+            <input class="form-check-input" type="radio" name="reasonForReturn" id="Received_different_Product" value="Received_different_Product">
             <label class="form-check-label" for="reasonForReturn1">
                 Received different Product
             </label>
@@ -179,14 +223,14 @@ Ends hidden inputs -->
             </li>
             <li class="list-group-item">
             <div class="form-check">
-            <input class="form-check-input" type="radio" name="reasonForReturn" id="" value="Size_Issue">
+            <input class="form-check-input" type="radio" name="reasonForReturn" id="Size_Issue" value="Size_Issue">
             <label class="form-check-label" for="reasonForReturn1">
                 Size Issue
             </label>
             </div></li>
             <li class="list-group-item">
             <div class="form-check">
-            <input class="form-check-input" type="radio" name="reasonForReturn" id="" value="Color_Issue">
+            <input class="form-check-input" type="radio" name="reasonForReturn" id="Color_Issue" value="Color_Issue">
             <label class="form-check-label" for="reasonForReturn1">
                 Color Issue
             </label>
@@ -200,7 +244,7 @@ Ends hidden inputs -->
             </div>
             <div class="mb-3" id='return_form'>
             <label for="exampleFormControlTextarea1" class="form-label"></label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <textarea class="form-control" id="other_textarea" rows="3"></textarea>
             </div></li>
         </ul>  
     </div>
@@ -242,7 +286,7 @@ Ends hidden inputs -->
             </label>
             <br>
             <p class="card-text"><small class="text-muted">Estimated refund timing: 3-5 bussiness days of receiving your return.</small></p>
-            </div>
+        </div>
         <div id="refund_bank_acct">
             <div>
                 <select class="form-select mt-2" name="refund_bank_name" aria-label="Default select example">
@@ -279,7 +323,8 @@ Ends hidden inputs -->
     <h6>Pickup</h6>
     </div><!--form check-->
     <!-- </?php var_dump($pickup_db_datetime);?>  -->
-    <div class='my-4' >  
+
+    <div class='my-4 mx-4' >  
           
         <p>Your package will be picked up by a courier service. Please return the item and packaging in its original condition to avoid pickup cancellation by courier service. More details..</p>
         <p>Printer not required - the carrier will bring your label.
@@ -395,8 +440,9 @@ If you facing any problem while return order, please, dont hasitate to call / em
 </form>
 <!-- form ends -->
     </div>
+  </div>      
     <script>
-        let other_reason = document.getElementById('other_reason'); 
+        
         
         let refund_to_same_mode = document.getElementById('refund_to_same_mode');  
           
@@ -406,12 +452,40 @@ If you facing any problem while return order, please, dont hasitate to call / em
         let pickup_addr_status1 = document.getElementById('pickup_addr_status1');
         let pickup_addr_status2 = document.getElementById('pickup_addr_status2');
         
+        // -------------- Reason for return product ----------------------------
+        let other_reason = document.getElementById('other_reason'); 
+        let Received_different_Product = document.getElementById('Received_different_Product');        
+        let Size_Issue = document.getElementById('Size_Issue');
+        let Color_Issue = document.getElementById('Color_Issue');
+                                
         other_reason.addEventListener('click', function(event){
             if (event.target && event.target.matches("input[type='radio']")) {
                 document.getElementById('return_form').style.display = 'block';
+                document.getElementById('other_textarea').value = '';                
             }
         });
 
+        Received_different_Product.addEventListener('click', function(event){
+            if (event.target && event.target.matches("input[type='radio']")) {
+                document.getElementById('return_form').style.display = 'none';
+                document.getElementById('other_textarea').value = '';                
+            }
+        });
+
+        Size_Issue.addEventListener('click', function(event){
+            if (event.target && event.target.matches("input[type='radio']")) {
+                document.getElementById('return_form').style.display = 'none';
+                document.getElementById('other_textarea').value = '';
+            }
+        });
+
+        Color_Issue.addEventListener('click', function(event){
+            if (event.target && event.target.matches("input[type='radio']")) {
+                document.getElementById('return_form').style.display = 'none';
+                document.getElementById('other_textarea').value = '';
+            }
+        });
+//  ===============================================================================
         if(refund_to_same_mode != null){
         refund_to_same_mode.addEventListener('click', function(event){
             if (event.target && event.target.matches("input[type='radio']")) {

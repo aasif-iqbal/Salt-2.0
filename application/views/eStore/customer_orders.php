@@ -75,6 +75,7 @@
   if(isset($customer_orders_list) && !is_null($customer_orders_list)){
     
     $total_orders = count($customer_orders_list);
+    
     for($i=0; $i<$total_orders; $i++){
   ?>          
     <div class="col-md-6 col-lg-6">                             

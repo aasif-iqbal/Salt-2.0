@@ -539,18 +539,35 @@ public function fetchTotalProductQuantity($product_uuid)
         }
 }
 
-private function currentItemCount($productUUID, $userUUID, $variationUUID, $item_local_id=NULL){
+public function currentItemCount($productUUID, $userUUID, $variationUUID, 
+$item_local_id=NULL){
     
+    // echo("<<<-------");
+    // echo("%%%%%");
+    // print_r($productUUID);
+    // echo("***");
+    // print_r($userUUID);
+    // echo("###");
+    // print_r($variationUUID);
+    // echo("@@@");
+    // print_r($item_local_id);
+    // echo("-->>>");    
+
     $query = $this->db->select('item_count')->from('tbl_cart')->where('user_uuid',$userUUID)->where('product_uuid', $productUUID)->where('variation_uuid', $variationUUID)->get();
+    
+    // $lastQuery = $this->db->last_query();
+    // echo $lastQuery;
+    // print_r($query->num_rows()); die();
 
         if ($query->num_rows() > 0) {
-            $result = $query->result_array();       
-            
-        }
-        return $result;
+           return $result = $query->result_array();                   
+        }else{
+            //if $query->num_rows() return = 0
+            return NULL;
+        }                
 }
 
-public function removeItemFromCart($productUUID, $userUUID, $variationUUID, $item_local_id = NULL)
+public function removeItemFromCart($productUUID, $userUUID, $variationUUID, $item_local_id=NULL)
 {
     // var_dump($productUUID);
     // var_dump($userUUID);
@@ -569,7 +586,7 @@ public function removeItemFromCart($productUUID, $userUUID, $variationUUID, $ite
     }else{
         
         if($productUUID && $userUUID && $variationUUID){            
-            $this->db->delete('tbl_cart', array('user_uuid' => $userUUID,               'product_uuid'=>$productUUID, 'variation_uuid' =>$variationUUID));
+            $this->db->delete('tbl_cart', array('user_uuid' => $userUUID,               'product_uuid'=>$productUUID, 'variation_uuid' => $variationUUID));
             return TRUE;
         }else{
             echo "Error: " . $this->db->_error_message();
@@ -581,7 +598,9 @@ public function removeItemFromCart($productUUID, $userUUID, $variationUUID, $ite
 public function incrementItemFromCart($productUUID, $userUUID, $variationUUID, $item_local_id=NULL)
 {
     // var_dump($productUUID);
+    // echo("----------");
     // var_dump($userUUID);
+    // echo("****=========");
     // var_dump($variationUUID);
     
     /*
@@ -592,9 +611,14 @@ public function incrementItemFromCart($productUUID, $userUUID, $variationUUID, $
     $msg1 = 'limit exiced';
 
     $value = $this->currentItemCount($productUUID, $userUUID, $variationUUID,$item_local_id=NULL);
+    
+    // echo("===val==");
+    // print_r($value);
+    if($value != NULL){
 
     $currentItemCount = (int)($value[0]['item_count']);
-    // var_dump($currentItemCount);
+    // echo("==cic===");
+    // print_r($currentItemCount);
     // die();
         
         if($item_local_id != NULL){
@@ -625,7 +649,7 @@ public function incrementItemFromCart($productUUID, $userUUID, $variationUUID, $
                 $this->db->where('product_uuid', $productUUID);        
                 $this->db->where('variation_uuid', $variationUUID);        
                 $this->db->update('tbl_cart');
-            return TRUE;
+                return TRUE;
             }else{
                 echo "Error: " .  $this->db->_error_message();
                 return FALSE;
@@ -634,14 +658,17 @@ public function incrementItemFromCart($productUUID, $userUUID, $variationUUID, $
     // }else{ 
     //     return 'Product not in db';
     // }
+        }
     }
 }
 
-public function decrementItemFromCart($item_local_id=NULL, $productUUID, $userUUID, $variationUUID)
+public function decrementItemFromCart($productUUID, $userUUID, $variationUUID, $item_local_id=NULL)
 {        
     $msg1 = 'limit exiced';
 
-    $value = $this->currentItemCount($item_local_id=NULL,$productUUID, $userUUID, $variationUUID);
+    $value = $this->currentItemCount($productUUID, $userUUID, $variationUUID, $item_local_id=NULL);
+
+    if($value != NULL){
 
     $currentItemCount = (int)($value[0]['item_count']);
     // var_dump($currentItemCount);
@@ -693,6 +720,7 @@ public function decrementItemFromCart($item_local_id=NULL, $productUUID, $userUU
     // }else{
     //     return 'Product not in db';
     // }
+    }
 }
 
 //======================== my cart page =========================================
