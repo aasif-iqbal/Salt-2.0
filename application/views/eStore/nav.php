@@ -140,6 +140,8 @@
 
             <!-- <a href="#" class="icons-btn d-inline-block"><span class="icon-heart-o"></span></a> -->
             
+            <a href="<?= base_url('search');?>" class=""><span class="icon-search"></span></a>
+                          &nbsp;
             <div class="dropdown">
               <button class="dropbtn"><span class="icon-user-o"></span></button>
               <div class="dropdown-content">

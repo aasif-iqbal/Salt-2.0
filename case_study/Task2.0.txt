@@ -75,7 +75,6 @@ OTP service
 https://api.msg91.com/apidoc/sendotp/send-otp.php
 
 ---------------------------------------------------------------------------------
-
 Bank Account verification
 - Bank name.
 - Acct no.

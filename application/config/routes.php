@@ -80,6 +80,7 @@ $route['logout'] = 'EStore/EStore_Controller/logout';
 // end-login
 
 $route['cart'] = 'EStore/EStore_Controller/myCart';
+$route['search'] = 'EStore/EStore_Controller/search';
 
 //Shipping_details
 $route['shipping'] = 'EStore/EStore_Controller/shippingDetails';
@@ -105,7 +106,7 @@ $route['submit-order-cancel'] = 'EStore/EStore_Controller/submitCancelledOrder';
 $route['order-return-refund/(:any)'] = 'EStore/EStore_Controller/customerOrderReturnRefund/$1';
 
 //Submit Customer order cancellation After shipping
-$route['submit-order-return-refund'] = 'EStore/EStore_Controller/submitOrderReturnRefund';
+// $route['submit-order-return-refund'] = 'EStore/EStore_Controller/submitOrderReturnRefund'; using this submitOrderReturnRefund_ajax
 
 $route['thanks']= 'EStore/EStore_Controller/thankYouPage';
 

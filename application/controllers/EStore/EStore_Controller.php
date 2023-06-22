@@ -163,6 +163,12 @@ class EStore_Controller extends CI_Controller {
 
 	}
 
+	public function search()
+	{	
+		$this->load->view('eStore/libs');	
+		$this->load->view('eStore/search');
+	}
+
 	public function submitRegistration(){
 		
 		$data['user_name'] 			= $this->input->post('user_name');
@@ -987,12 +993,19 @@ public function customerOrderReturnRefund($order_uuid)
 	}
 }
 
-public function submitOrderReturnRefund()
-{
-	$data['order_uuid'] 		= $this->input->post('order_uuid');
-	$data['product_uuid'] 		= $this->input->post('product_uuid');
-	$data['variation_uuid'] 	= $this->input->post('variation_uuid');
-	$data['shipping_uuid']     	= $this->input->post('shipping_uuid');
+public function submitOrderReturnRefund_ajax()
+{	
+	$data['product_cancellation_details'] = $this->input->post('product_cancellation_details');	
+	$data['reasonForCancellation'] = $this->input->post('reasonForCancellation');	
+	$data['refundingModeOfPayment'] = $this->input->post('refundingModeOfPayment');	
+	$data['pickUpAddress'] = $this->input->post('pickUpAddress');	
+	
+	print_r($data);
+	die();
+
+	$data['order_uuid'] 		= $data['product_cancellation_details'][0]['order_uuid'];
+	$data['product_uuid'] 		= $data['product_cancellation_details'][0]['product_uuid'];
+	$data['variation_uuid'] 	= $data['product_cancellation_details'][0]['variation_uuid'];
 	$data['user_uuid'] 		   	= $this->input->post('user_uuid');
 	$data['product_name'] 	   	= trim($this->input->post('product_name'));
 	$data['product_size_name'] 	= $this->input->post('product_size_name');
@@ -1011,13 +1024,13 @@ public function submitOrderReturnRefund()
 	$data['order_received_datetime'] 	= '03-04-2023';
 
 	
-	$data['refunding_mode_of_payment'] 	= $this->input->post('refunding_mode_of_payment');
-	$data['refund_payment_upi'] 		= $this->input->post('refund_payment_upi');
+	$data['refunding_mode_of_payment'] = $this->input->post('refunding_mode_of_payment');
+	$data['refund_payment_upi'] 	= $this->input->post('refund_payment_upi');
 	$data['refund_bank_name'] 		= $this->input->post('refund_bank_name');
-	$data['refund_acct_holder_name'] 		= $this->input->post('refund_acct_holder_name');
+	$data['refund_acct_holder_name'] = $this->input->post('refund_acct_holder_name');
 	$data['refund_acct_num'] 		= $this->input->post('reasonForReturn');
 	$data['refund_IFSC_code'] 		= $this->input->post('refund_IFSC_code');
-	$data['refund_branch_name'] 		= $this->input->post('refund_branch_name');
+	$data['refund_branch_name'] 	= $this->input->post('refund_branch_name');
 	$data['pickup_datetime'] 		= $this->input->post('pickup_datetime');
 
 	$pickup_addr_status		= $this->input->post('pickup_addr_status');

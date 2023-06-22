@@ -64,7 +64,7 @@
     
     let id = item.id;
 
-    // console.log("items",id);
+    //  console.log("items",id);
         output.innerHTML += `<div class="card mb-3" style="">
                 <div class="row g-0">
                     <div class="col-md-2">

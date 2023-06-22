@@ -75,7 +75,9 @@
       .btn {
         /* height: 30px!important; */
       }   
-      
+      #addr_lable1{
+        /* padding: 0px 0px 10px 0px; */
+      }
       /* Desktop */
     @media screen and (min-width: 1200px) {
     /* CSS rules for desktop devices */
@@ -113,8 +115,10 @@
      
     <div class="row">
   <?php     
-    //   echo("<pre/>");
-    //   print_r($cancelled_order);
+	 
+
+      echo("<pre/>");
+      print_r($return_pickup_address);
   if(isset($cancelled_order) && !is_null($cancelled_order)){     
   ?>          
     <div class="col-md-6 col-lg-6">                             
@@ -155,13 +159,13 @@
       </div>                                                                        
     <!-- Product card ends -->
     </div> <!--row ends-->
-<?}else {
+<? }else {
   // Handle the case when the array is null or the index is invalid
   echo("<h2>NO Order Made By you,Yet!!</h2>");
 }
 ?>
 
-    <form action="<?= base_url('submit-order-return-refund');?>" method="POST">
+    <!-- <form action="</?= base_url('submit-order-return-refund');?>" method="POST"> -->
 
     <!-- hidden inputs 
     <input type="hidden" name="order_uuid" value="</?= $order_cancel[0]['order_uuid'];?>">
@@ -201,13 +205,7 @@ Canara Bank
 Punjab And Sind Bank
 Indian Overseas Bank
 2 – Private Sector Bank
-ICICI Bank
-HDFC Bank
-Axis Bank
-IDBI Bank
-Dhanlaxmi Bank
-Kotak Mahindra Bank
-Federal Bank
+
 -->
 <div class="h6 mt-2">Reason for cancellation</div>
     <div class='my-4'>        
@@ -237,11 +235,12 @@ Federal Bank
             </div></li>
             <li class="list-group-item">
             <div class="form-check">
-            <input class="form-check-input" type="radio" name="reasonForReturn" id="other_reason">
+            <input class="form-check-input" type="radio" name="reasonForReturn" id="other_reason" value="other">
             <label class="form-check-label" for="reasonForReturn1">
                 Other
             </label>
             </div>
+            
             <div class="mb-3" id='return_form'>
             <label for="exampleFormControlTextarea1" class="form-label"></label>
             <textarea class="form-control" id="other_textarea" rows="3"></textarea>
@@ -257,7 +256,7 @@ Federal Bank
     <ul class="list-group list-group-flush">
         <li class="list-group-item">
         <label for="">Payment method of this Product is COD</label>
-        <label for="">Choose, how to what to recive money</label>
+        <label for="">Choose, how you what to received money</label>
         <!-- IF PAYMENT MODE IS COD THEN HIDE BELOW CODE -->
         <?php if($cancelled_order[0]['payment_method'] != 'COD') {?>
         <div class="form-check">
@@ -275,7 +274,7 @@ Federal Bank
             </label><span class='float-right bg-success bg-gradient text-white pr-3 pl-3'>Faster</span>
             </div>
             <div class="mt-3 mb-3" id='refund_upi_id'>
-                <input type="text" class="form-control" name="refund_payment_upi" id="" placeholder="johndeo@paytm">
+                <input type="text" class="form-control" name="refund_payment_upi" id="refund_payment_upi" placeholder="johndeo@paytm">
             </div>
             </li>
             <li class="list-group-item">
@@ -289,32 +288,49 @@ Federal Bank
         </div>
         <div id="refund_bank_acct">
             <div>
-                <select class="form-select mt-2" name="refund_bank_name" aria-label="Default select example">
+                <select class="form-select mt-2" name="refund_bank_name" aria-label="Default select example" id="refund_bank_name_id">
                     <option selected>Choose Bank</option>
-                    <option value="1">SBI</option>
-                    <option value="2">BANK OF INDIA</option>
-                    <option value="3">ICICI</option>
+                    <option value="State_Bank_Of_India">State Bank Of India (SBI)</option>
+                    <option value="Punjab_National_Bank">Punjab National Bank (PNB)</option>
+                    <option value="Indian_Bank">Indian Bank (IB)</option>
+                    <option value="Bank_Of_India">Bank Of India (BOI)</option>
+                    <option value="UCO_Bank">UCO Bank</option>
+                    <option value="Union_Bank_Of_India">Union Bank Of India</option>
+                    <option value="Central_Bank_Of_India">Central Bank Of India</option>
+                    <option value="Bank_Of_Baroda">Bank Of Baroda</option>
+                    <option value="Bank_Of_Maharashtra">Bank Of Maharashtra</option>
+                    <option value="Canara_Bank">Canara Bank</option>
+                    <option value="Punjab_And_Sind_Bank">Punjab And Sind Bank</option>
+                    <option value="Indian_Overseas_Bank">Indian Overseas Bank</option>
+                    <!-- private bank  -->
+                    <option value="ICICI_Bank">ICICI Bank</option>
+                    <option value="HDFC_Bank">HDFC Bank</option>
+                    <option value="Axis_Bank">Axis Bank</option>
+                    <option value="IDBI_Bank">IDBI Bank</option>
+                    <option value="Dhanlaxmi_Bank">Dhanlaxmi Bank</option>
+                    <option value="Kotak_Mahindra_Bank">Kotak Mahindra Bank</option>
+                    <option value="Federal_Bank">Federal Bank</option>                     
                 </select>            
             </div>
             <div class="mt-3 mb-3">
                 <label for="formGroupExampleInput" class="form-label">Account Holder Name</label>
-                <input type="text" class="form-control" name="refund_acct_holder_name" id="formGroupExampleInput" placeholder="eg. Ramesh Kumar">
+                <input type="text" class="form-control" name="refund_acct_holder_name" id="refund_acct_holder_name" placeholder="eg. Ramesh Kumar">
             </div>
             <div class="mt-3 mb-3">
                 <label for="formGroupExampleInput" class="form-label">Account no.</label>
-                <input type="text" class="form-control" name="refund_acct_num" id="refund_acct_num2" placeholder="">
+                <input type="text" class="form-control" name="refund_acct_num" id="refund_acct_num" placeholder="">
             </div>
             <div class="mt-3 mb-3">
                 <label for="formGroupExampleInput2" class="form-label">Account no.</label>
-                <input type="text" class="form-control" id="refund_acct_num3" placeholder="Re-Enter Account no.">
+                <input type="text" class="form-control" id="refund_acct_num2" placeholder="Re-Enter Account no.">
             </div>
             <div class="mt-3 mb-3">
                 <label for="formGroupExampleInput2" class="form-label">IFSC Code</label>
-                <input type="text" class="form-control" name="refund_IFSC_code" id="formGroupExampleInput2" placeholder="">
+                <input type="text" class="form-control" name="refund_IFSC_code" id="refund_IFSC_code" placeholder="">
             </div>
             <div class="mt-3 mb-3">
                 <label for="formGroupExampleInput2" class="form-label">Branch Name</label>
-                <input type="text" class="form-control" name="refund_branch_name" id="formGroupExampleInput2" placeholder="">
+                <input type="text" class="form-control" name="refund_branch_name" id="refund_branch_name" placeholder="">
             </div>
             </li>
     </ul>
@@ -333,7 +349,7 @@ Federal Bank
         <div class="h5">Pickup Date & Time</div>
 
         <!-- <p>Sunday, 25 Mar, 2023</p> -->
-        <p><?= $future_day; ?>, <?php echo $pickup_datetime;?></p>
+        <p><?= $future_day; ?>, <?php echo $pickup_datetime;?> - Sunday, 25 Jun,2023</p>
         
         <p>11:00 - 19:00</p>
         <input type="hidden" name="pickup_datetime" value="<?php echo($pickup_db_datetime);?>">
@@ -342,22 +358,8 @@ Federal Bank
         <p>Jack & Jill school, Hazaribagh , Hazaribagh, Delhi - 825301</p>
         <p>Address type: Home</p>
         <p>Phone No: +91-9090908888</p>
-        <!-- </ ?php var_dump($return_pickup_address[0]); ?> -->
-
-                <!-- hidden field -->
-<input type="hidden" name="return_addr_house_no_1" value="<?= $return_pickup_address[0]['addr_house_no'];?>">
-<input type="hidden" name="return_addr_locality_1" value="<?= $return_pickup_address[0]['addr_locality'];?>">
-<input type="hidden" name="return_addr_city_1" value="<?= $return_pickup_address[0]['addr_city'];?>">
-<input type="hidden" name="return_addr_pin_code_1" value="<?= $return_pickup_address[0]['addr_pin_code'];?>">
-<input type="hidden" name="return_addr_state_1" value='<?= $return_pickup_address[0]['addr_state'];?>'>
-<input type="hidden" name="return_addr_country_1" value='<?= $return_pickup_address[0]['addr_country'];?>'>
-<input type="hidden" name="return_addr_type_1" value='<?= $return_pickup_address[0]['addr_type'];?>'>
-<input type="hidden" name="receivers_phone_no_1" value='<?= $return_pickup_address[0]['receivers_phone_no'];?>'>
-        <!-- end hidden field -->
+        <!-- </ ?php var_dump($return_pickup_address[0]); ?> -->                
         <!-- change_address end -->
-
-
-        
         <div class="form-check">
             <input class="form-check-input" type="radio" name="pickup_addr_status" id="pickup_addr_status1" value="1" checked>
             <label class="form-check-label" for="">
@@ -379,43 +381,42 @@ Federal Bank
     <div id='change_address'>
         <div class="mt-3 mb-3">
                 <label for="formGroupExampleInput" class="form-label">Address (House no,Street)</label>
-                <input type="text" class="form-control" name="return_addr_house_no" id="" placeholder="">
+                <input type="text" class="form-control" name="return_addr_house_no" id="return_addr_house_no" placeholder="" required>
             </div>
             <div class="mt-3 mb-3">
                 <label for="formGroupExampleInput2" class="form-label">Locality / Town</label>
-                <input type="text" class="form-control" name="return_addr_locality" id="" placeholder="">
+                <input type="text" class="form-control" name="return_addr_locality" id="return_addr_locality" placeholder="" required>
             </div>
             <div class="mt-3 mb-3">
                 <label for="formGroupExampleInput2" class="form-label">City / District</label>
-                <input type="text" class="form-control" id="" name="return_addr_city" placeholder="">
+                <input type="text" class="form-control" id="return_addr_city" name="return_addr_city" placeholder="" required>
             </div>
             <div class="row mb-4">
                 <div class="col">
                     <label for="formGroupExampleInput2" class="form-label">Pin Code</label>
-                    <input type="text" class="form-control" id="" name="return_addr_pin_code" placeholder="">
+                    <input type="text" class="form-control" id="return_addr_pin_code" name="return_addr_pin_code" placeholder="" required>
                 </div>
                 <div class="col">
                     <label for="formGroupExampleInput2" class="form-label">State</label>
-                    <input type="text" class="form-control" id="" name="return_addr_state" placeholder="">
+                    <input type="text" class="form-control" id="return_addr_state" name="return_addr_state" placeholder="" required>
                 </div>
                 <div class="col">
                     <label for="formGroupExampleInput2" class="form-label">Country</label>
-                    <input type="text" class="form-control" id="" name="return_addr_country" placeholder="">
+                    <input type="text" class="form-control" id="return_addr_country" name="return_addr_country" placeholder="" required>
                 </div>
-            </div> 
-            
-         
+            </div>             
+        
             
   <div class="form-group row">
     <label for="staticEmail" class="col-sm-3  pb-1">Address Type</label>
     <div class="col-sm-9">
          <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="return_addr_type" id="inlineRadio1" value="1">
-                <label class="form-check-label" for="">Home</label>
+                <input class="form-check-input" type="radio" name="return_addr_type" id="addr_type_1" value="1">
+                <label class="form-check-label" id='addr_lable1' for="">Home</label>
         </div>
         <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="return_addr_type" id="inlineRadio2" value="2">
-                <label class="form-check-label" for="">Work</label>
+                <input class="form-check-input" type="radio" name="return_addr_type" id="addr_type_2" value="2">
+                <label class="form-check-label"  id='addr_lable2' for="">Work</label>
         </div>
     </div>
   </div>
@@ -423,21 +424,22 @@ Federal Bank
   <div class="form-group row">
     <label for="inputPassword" class="col-sm-2 col-form-label">Phone no</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="" name="receivers_phone_no">
+      <input type="text" class="form-control" id="receivers_phone_no" name="receivers_phone_no" require>
     </div>
   </div>
 
+  <hr>
 </div>
-<hr>
+
 If you facing any problem while return order, please, dont hasitate to call / email to our customer support team, we will reach you shortly.
-        <div class="d-grid gap-2 col-6 mx-auto">
-   
-    <button type="submit" class="btn btn-outline-primary">CONFIRM YOUR RETURN</button>
+<div class="d-grid gap-2 col-6 mx-auto">   
+    <button type="button" class="btn btn-outline-primary" 
+    onclick="submitOrderReturnRefund()">CONFIRM YOUR RETURN</button>
 </div>
     </div>
     </div>
     
-</form>
+<!-- </form> -->
 <!-- form ends -->
     </div>
   </div>      
@@ -452,16 +454,21 @@ If you facing any problem while return order, please, dont hasitate to call / em
         let pickup_addr_status1 = document.getElementById('pickup_addr_status1');
         let pickup_addr_status2 = document.getElementById('pickup_addr_status2');
         
+        
         // -------------- Reason for return product ----------------------------
+        // var reason_for_cancellation = '';
+
         let other_reason = document.getElementById('other_reason'); 
         let Received_different_Product = document.getElementById('Received_different_Product');        
         let Size_Issue = document.getElementById('Size_Issue');
         let Color_Issue = document.getElementById('Color_Issue');
-                                
+        let textarea_reason = document.getElementById('other_textarea').value;
+                        
         other_reason.addEventListener('click', function(event){
             if (event.target && event.target.matches("input[type='radio']")) {
                 document.getElementById('return_form').style.display = 'block';
-                document.getElementById('other_textarea').value = '';                
+                document.getElementById('other_textarea').value = '';  
+                
             }
         });
 
@@ -536,8 +543,193 @@ If you facing any problem while return order, please, dont hasitate to call / em
         // });
 // Send product-details to database using ajax
 
-product_cancellation_details = `<?= json_encode($cancelled_order); ?>`;
-console.log(product_cancellation_details);
+
+
+
+
+function submitOrderReturnRefund(){
+    
+    product_cancellation_details = `<?= json_encode($cancelled_order); ?>`;
+    console.log(product_cancellation_details);
+
+    //============= Reason for cancellation ================     
+    var selectedRadioButton = document.querySelector('input[name="reasonForReturn"]:checked');
+
+    let reasonForCancellation = '';
+
+    if (selectedRadioButton) {
+    var selectedValue = selectedRadioButton.value;
+    reasonForCancellation = selectedValue;
+    console.log(selectedValue);
+        if(selectedValue == 'other'){
+            let other_textarea = document.getElementById('other_textarea');    
+            // console.log(other_textarea.value); 
+            reasonForCancellation = other_textarea.value;
+        }
+    } else {
+    console.log("No radio button selected.");
+    } 
+    
+    //===================== Refunding Mode of payment =========================
+    
+    var refunding_mode_of_payment = document.querySelector('input[name="refunding_mode_of_payment"]:checked');
+
+    let refundingModeOfPayment = '';
+
+    if (refunding_mode_of_payment) {
+    var selectedValueForPaymentRefund = refunding_mode_of_payment.value;
+    // console.log(selectedValueForPaymentRefund);
+        
+        if(selectedValueForPaymentRefund == '0'){
+            let other_textarea = document.getElementById('other_textarea');    
+            console.log(other_textarea.value);  
+            refundingModeOfPayment = other_textarea.value;
+        }
+
+        if(selectedValueForPaymentRefund == '1'){
+            let refund_payment_upi = document.getElementById('refund_payment_upi');    
+            console.log('refund_payment_upi:',refund_payment_upi.value);   
+            refundingModeOfPayment = refund_payment_upi.value;   
+        }
+
+        if(selectedValueForPaymentRefund == '2'){
+            let refund_bank_name_id = document.getElementById('refund_bank_name_id').value;    
+            let refund_acct_holder_name = document.getElementById('refund_acct_holder_name').value;    
+            let refund_acct_num = document.getElementById('refund_acct_num').value;    
+            let refund_acct_num2 = document.getElementById('refund_acct_num2').value;    
+            let refund_IFSC_code = document.getElementById('refund_IFSC_code').value;    
+            let refund_branch_name = document.getElementById('refund_branch_name').value;    
+            
+            refundingModeOfPayment = {
+                refund_bank_name_id : refund_bank_name_id,
+                refund_acct_holder_name : refund_acct_holder_name,
+                refund_acct_num:refund_acct_num,
+                refund_acct_num2:refund_acct_num2,
+                refund_IFSC_code:refund_IFSC_code,
+                refund_branch_name:refund_branch_name
+            }
+            console.log(refundingModeOfPayment);
+           
+            /*
+            console.log(refund_bank_name_id);      
+            console.log(refund_acct_holder_name);
+            console.log(refund_acct_num);
+            console.log(refund_acct_num2);
+            console.log(refund_IFSC_code);
+            console.log(refund_branch_name);
+            */
+        }
+    } else {
+        console.log("No radio button selected.");
+    } 
+
+    //======================== pickup address ==========================
+    
+    var pickup_addr_status = document.querySelector('input[name="pickup_addr_status"]:checked');
+    
+    let pickUpAddress = {};
+
+    if (pickup_addr_status) {
+    var selectedValueForPickUpAddr = pickup_addr_status.value;
+    console.log(selectedValueForPickUpAddr);
+        
+        if(selectedValueForPickUpAddr == '1'){
+           let ReturnpickUpAddress = `<?= json_encode($return_pickup_address); ?>`;
+        
+           //Convert to array for json string
+           ReturnpickUpAddress = JSON.parse(ReturnpickUpAddress);                
+                
+                pickUpAddress = {
+                    receivers_phone_no: ReturnpickUpAddress[0].receivers_phone_no,
+                    addr_house_no: ReturnpickUpAddress[0].addr_house_no,
+                    addr_locality: ReturnpickUpAddress[0].addr_locality,
+                    addr_city: ReturnpickUpAddress[0].addr_city,
+                    addr_pin_code: ReturnpickUpAddress[0].addr_pin_code,
+                    addr_state: ReturnpickUpAddress[0].addr_state,                    
+                    addr_country: ReturnpickUpAddress[0].addr_country,
+                    addr_type: ReturnpickUpAddress[0].addr_type
+                }
+
+            
+        } else {
+            console.log("No radio button selected.");
+        }    
+
+        if(selectedValueForPickUpAddr == '2'){
+            let return_addr_house_no = document.getElementById('return_addr_house_no').value;    
+            let return_addr_locality = document.getElementById('return_addr_locality').value;    
+            let return_addr_city = document.getElementById('return_addr_city').value;    
+            let return_addr_pin_code = document.getElementById('return_addr_pin_code').value;    
+            let return_addr_state = document.getElementById('return_addr_state').value;    
+            let return_addr_country = document.getElementById('return_addr_country').value;    
+            // For radio button
+            var return_addr_type = document.querySelector('input[name="return_addr_type"]:checked');
+            // console.log(return_addr_type.value);
+            if(return_addr_type.value == '1'){
+                let addr_type_1 = document.getElementById('addr_type_1').value;   
+                // console.log('adr',addr_type_1);       
+            }
+            if(return_addr_type.value == '2'){
+                let addr_type_2 = document.getElementById('addr_type_2').value;  
+                // console.log('adr',addr_type_2);    
+            }            
+             
+            let receivers_phone_no = document.getElementById('receivers_phone_no').value;    
+
+            pickUpAddress = {                                       
+                addr_house_no: return_addr_house_no,
+                addr_locality: return_addr_locality,
+                addr_city: return_addr_city,
+                addr_pin_code: return_addr_pin_code,
+                addr_state: return_addr_state,
+                addr_country: return_addr_country,
+                addr_type: return_addr_type.value=='1'?addr_type_1.value:addr_type_2.value,
+                receivers_phone_no: receivers_phone_no
+            }
+
+            /*
+            console.log(return_addr_house_no);      
+            console.log(return_addr_locality);      
+            console.log(return_addr_city);      
+            console.log(return_addr_state);      
+            console.log(return_addr_pin_code);      
+            console.log(return_addr_country);                                  
+            console.log(receivers_phone_no);  
+            console.log('adr',addr_type_1);   
+            console.log('adr',addr_type_2);            
+            */      
+        } else {
+            console.log("No radio button selected.");
+        }
+
+        console.log('pickUpAddress:',pickUpAddress);
+    }
+        //  submit all details to controller
+
+        let customer_order_return_refund = {
+            product_cancellation_details: JSON.parse(product_cancellation_details),            
+            reasonForCancellation:reasonForCancellation,    
+            refundingModeOfPayment: refundingModeOfPayment,
+            pickUpAddress: pickUpAddress
+        };   
+
+        // console.log('customer_order_item_list----',customer_order_item_list);
+        
+    $.ajax({
+        url:'<?= base_url('eStore/EStore_Controller/submitOrderReturnRefund_ajax'); ?>',
+            method: 'POST',
+            data: customer_order_return_refund,
+            success:function(data){
+                    console.log('data-:', data);
+                    //refresh                        
+                },
+            error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                    console.log(XMLHttpRequest);
+                    console.log(errorThrown);
+              }
+        });            
+    
+}
     </script>
 </body>
 </html>
