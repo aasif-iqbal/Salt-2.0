@@ -1003,20 +1003,20 @@ public function submitOrderReturnRefund_ajax()
 	print_r($data);
 	die();
 
-	$data['order_uuid'] 		= $data['product_cancellation_details'][0]['order_uuid'];
-	$data['product_uuid'] 		= $data['product_cancellation_details'][0]['product_uuid'];
-	$data['variation_uuid'] 	= $data['product_cancellation_details'][0]['variation_uuid'];
-	$data['user_uuid'] 		   	= $this->input->post('user_uuid');
-	$data['product_name'] 	   	= trim($this->input->post('product_name'));
-	$data['product_size_name'] 	= $this->input->post('product_size_name');
-	$data['product_color_name'] 	= $this->input->post('product_color_name');
-	$data['product_selling_price']  = $this->input->post('product_selling_price');
-	$data['product_discount'] 		= $this->input->post('product_discount');
-	$data['payment_mode'] 		= $this->input->post('payment_mode');
-	$data['payment_id'] 		= $this->input->post('payment_id');
-	$data['payment_mode'] 		= $this->input->post('payment_mode');
-	$data['order_datetime'] 	= $this->input->post('order_datetime');
-	$data['product_json'] 		= $this->input->post('product_json');
+	$data['order_uuid']= $data['product_cancellation_details'][0]['order_uuid'];
+	$data['product_uuid']= $data['product_cancellation_details'][0]['product_uuid'];
+	$data['variation_uuid']= $data['product_cancellation_details'][0]['variation_uuid'];
+	$data['user_uuid'] = $data['product_cancellation_details'][0]['user_uuid'];
+	$data['product_name'] = trim($this->input->post('product_name'));
+	$data['product_size_name'] = $this->input->post('product_size_name');
+	$data['product_color_name'] = $this->input->post('product_color_name');
+	$data['product_selling_price'] = $this->input->post('product_selling_price');
+	$data['product_discount'] = $this->input->post('product_discount');
+	$data['payment_mode'] = $this->input->post('payment_mode');
+	$data['payment_id'] = $this->input->post('payment_id');
+	$data['payment_mode'] = $this->input->post('payment_mode');
+	$data['order_datetime'] = $this->input->post('order_datetime');
+	$data['product_json'] = $this->input->post('product_json');
 	// $data['total_quantity'] 		= $this->input->post('total_quantity');
 
 	$data['reason_for_cancel'] 		= $this->input->post('reasonForReturn');

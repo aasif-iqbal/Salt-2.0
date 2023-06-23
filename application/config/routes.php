@@ -68,8 +68,6 @@ $route['store'] = 'EStore/EStore_Controller/store';
 
 $route['my-account'] = 'EStore/EStore_Controller/my_account';
 
-
-
 // login
 $route['login'] = 'EStore/EStore_Controller/showUserLogin';
 $route['registration'] = 'EStore/EStore_Controller/showUserRegistration';
@@ -232,9 +230,25 @@ $route['submit-order-status'] = 'Admin/Admin_Controller/updateOrderStatus';
 
 //RETURN ORDER BY CUSTOMER
 $route['edit-return-status/(:any)'] = 'Admin/Admin_Controller/editReturnStatus/$1';
+
 /* 
     AJAX - Routes (indirect call)
     
     pay_now_cod() | eStore/EStore_Controller/onlinePayment_ajax - shipping_details(page)
 */ 
 
+
+
+// Work to-do
+/* 
+    Estore
+    - [Module- Return & Refund] Save return refund data to database with updated date-time value of pickup-time(+3 days)
+    - [Forgot Password]- with email
+    - [Search]
+    - [Wishlist]
+    - [Offline - Add to cart]
+
+    Admin
+    - Fetch all details of Cancellation order
+    - Fetch all details of Return and Refund order
+ */

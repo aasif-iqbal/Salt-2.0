@@ -117,8 +117,8 @@
   <?php     
 	 
 
-      echo("<pre/>");
-      print_r($return_pickup_address);
+    //   echo("<pre/>");
+    //   print_r($return_pickup_address);
   if(isset($cancelled_order) && !is_null($cancelled_order)){     
   ?>          
     <div class="col-md-6 col-lg-6">                             
