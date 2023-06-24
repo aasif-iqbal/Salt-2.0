@@ -597,6 +597,7 @@ public function removeItemFromCart($productUUID, $userUUID, $variationUUID, $ite
 
 public function incrementItemFromCart($productUUID, $userUUID, $variationUUID, $item_local_id=NULL)
 {
+     $responce = [];
     // var_dump($productUUID);
     // echo("----------");
     // var_dump($userUUID);
@@ -628,10 +629,16 @@ public function incrementItemFromCart($productUUID, $userUUID, $variationUUID, $
                     $this->db->where('localstorage_id', $item_local_id);        
                     $this->db->where('product_uuid', $productUUID);        
                     $this->db->update('tbl_cart');
-                    return TRUE;
+                
+                    $responce['item_count']=$item_count;
+                    $responce['status']=TRUE;
+                    return $responce;
+                 
             }else{
                         echo "Error: " .  $this->db->_error_message();
-                return FALSE;
+                        $responce['item_count']=NULL;
+                        $responce['status']=FALSE;
+                        return $responce;
             }
         }else{
             // After Login,Product added in Cart
@@ -649,10 +656,17 @@ public function incrementItemFromCart($productUUID, $userUUID, $variationUUID, $
                 $this->db->where('product_uuid', $productUUID);        
                 $this->db->where('variation_uuid', $variationUUID);        
                 $this->db->update('tbl_cart');
-                return TRUE;
+                    
+                $responce['item_count']=$newItemCount;
+                    $responce['status']=TRUE;
+                    return $responce;
+                // return TRUE;
             }else{
                 echo "Error: " .  $this->db->_error_message();
-                return FALSE;
+                $responce['item_count']=NULL;
+                        $responce['status']=FALSE;
+                        return $responce;
+                // return FALSE;
             }
         }
     // }else{ 
