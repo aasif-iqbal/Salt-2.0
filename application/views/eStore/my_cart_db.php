@@ -57,7 +57,7 @@
                                         <button class='cart-btn' id='decrement_item' value='<?= $item->product_uuid.'_'.$item->variation_uuid; ?>'
                                         onclick='decrement_item(this.value)'>-</button>
                                     </div>
-                                    <span class="d-inline card-text" id="total_item_count">
+                                    <span class="d-inline card-text">
                                         <?= $item->item_count; ?>
                                     </span>
                                     <div class="d-inline">
@@ -200,20 +200,10 @@ function increment_item(product_uuid_variation_uuid){
               
               console.log('data_value::',jsonData);
               
-              if(jsonData.status){
-
-                const updateItemCountElmnt = document.getElementById('updateItemCount');
-                const totalItemCountElmnt = document.getElementById('total_item_count');
-                
-                if(updateItemCountElmnt && totalItemCountElmnt){
-                    updateItemCountElmnt.innerHTML = totalItemCountElmnt.innerHTML = jsonData.item_count;
-                }                                
-            }
-
               if(jsonData === 'Product not in db'){
                 document.getElementById('msg').innerHTML = jsonData;
               }else{
-                // location.reload();              
+                location.reload();              
               }              
             },
             error:function(XMLHttpRequest, textStatus, errorThrown){
